@@ -12,7 +12,6 @@ interface Contracts {
     }
 
     interface FavoriteScreenRepo<T> {
-        fun getAllBooksFromDB(): T
         fun deleteBookFromFavoriteDB(book: T)
     }
 
