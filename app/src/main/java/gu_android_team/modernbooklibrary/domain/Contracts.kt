@@ -23,7 +23,19 @@ interface Contracts {
         fun getSeasonalBooks()
     }
 
-    interface DescriptionScreenViewModel {
+    interface DescriptionScreenViewModel<T> {
         fun getInfoAboutBooks()
+        fun addBook(book: T)
+        fun deleteBook(book: T)
+    }
+
+    interface SearchScreenViewModel {
+        fun showSearchResult()
+    }
+
+    interface FavoriteScreenViewModel<T> {
+        fun showFavoriteBooks()
+        fun addBook(book: T)
+        fun deleteBook(book: T)
     }
 }
