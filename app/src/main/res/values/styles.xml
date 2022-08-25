@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="main_screen_first_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_label_margin_bottom</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="main_screen_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/main_screen_label_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_label_margin_bottom</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="main_screen_lists_item_card_view_style">
+        <item name="android:layout_width">@dimen/main_screen_lists_item_card_view_width</item>
+        <item name="android:layout_height">@dimen/main_screen_lists_item_card_view_height</item>
+        <item name="cardElevation">@dimen/main_screen_lists_item_card_view_elevation</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/main_screen_lists_item_card_view_corner_radius</item>
+    </style>
+
+    <style name="main_screen_lists_item_image_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="main_screen_lists_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/main_screen_lists_item_title_margin_start
+        </item>
+        <item name="android:layout_marginTop">@dimen/main_screen_lists_item_title_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_lists_item_title_margin_bottom
+        </item>
+    </style>
+
+    <style name="main_screen_lists_item_grade_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/main_screen_lists_item_grade_text_margin_end
+        </item>
+    </style>
+
+    <style name="main_screen_lists_item_grade_star_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
+        <item name="android:layout_marginEnd">@dimen/main_screen_lists_item_grade_star_margin_end
+        </item>
+        <item name="android:layout_marginBottom">
+            @dimen/main_screen_lists_item_grade_star_margin_bottom
+        </item>
+    </style>
+</resources>
