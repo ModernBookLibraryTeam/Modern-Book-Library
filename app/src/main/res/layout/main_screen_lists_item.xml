@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemGradeStarImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemImageImageView"
-            tools:text="Star Wars" />
+            tools:text="The Lord of the Rings" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainScreenListsItemGradeTextView"
