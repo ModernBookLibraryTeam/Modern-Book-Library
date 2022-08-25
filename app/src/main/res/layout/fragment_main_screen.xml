@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainScreenContainerNestedScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.mainscreen.MainScreenFragment">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainScreenListsContainerConstraintLayout"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/mainScreenProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/main_screen_list_container_padding">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainScreenListTrendsTextView"
-            style="@style/main_screen_first_label_style"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListTrendsRecyclerView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="trending books" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScreenContainerNestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mainscreen.MainScreenFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainScreenListTrendsRecyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainScreenListsContainerConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListBooksWeLoveTextView"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListTrendsTextView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListTrendsTextView" />
+            android:padding="@dimen/main_screen_list_container_padding">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainScreenListBooksWeLoveTextView"
-            style="@style/main_screen_label_style"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListBooksWeLoveRecyclerView"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListTrendsRecyclerView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListTrendsRecyclerView"
-            tools:text="books we love" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainScreenListBooksWeLoveRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListReadRecentlyTextView"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListBooksWeLoveTextView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListBooksWeLoveTextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainScreenListTrendsTextView"
+                style="@style/main_screen_first_label_style"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListTrendsRecyclerView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="trending books" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainScreenListReadRecentlyTextView"
-            style="@style/main_screen_label_style"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListBooksWeLoveRecyclerView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListBooksWeLoveRecyclerView"
-            tools:text="read recently" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainScreenListTrendsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListBooksWeLoveTextView"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListTrendsTextView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListTrendsTextView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainScreenListReadRecentlyRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListSeasonalBooksTextView"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListReadRecentlyTextView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListReadRecentlyTextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainScreenListBooksWeLoveTextView"
+                style="@style/main_screen_label_style"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListBooksWeLoveRecyclerView"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListTrendsRecyclerView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListTrendsRecyclerView"
+                tools:text="books we love" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainScreenListSeasonalBooksTextView"
-            style="@style/main_screen_label_style"
-            app:layout_constraintBottom_toTopOf="@+id/mainScreenListSeasonalBooksRecyclerView"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListReadRecentlyRecyclerView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListReadRecentlyRecyclerView"
-            tools:text="seasonal books: fall" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainScreenListBooksWeLoveRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListReadRecentlyTextView"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListBooksWeLoveTextView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListBooksWeLoveTextView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainScreenListSeasonalBooksRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/mainScreenListSeasonalBooksTextView"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListSeasonalBooksTextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainScreenListReadRecentlyTextView"
+                style="@style/main_screen_label_style"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListBooksWeLoveRecyclerView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListBooksWeLoveRecyclerView"
+                tools:text="read recently" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainScreenListReadRecentlyRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListSeasonalBooksTextView"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListReadRecentlyTextView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListReadRecentlyTextView" />
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainScreenListSeasonalBooksTextView"
+                style="@style/main_screen_label_style"
+                app:layout_constraintBottom_toTopOf="@+id/mainScreenListSeasonalBooksRecyclerView"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListReadRecentlyRecyclerView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListReadRecentlyRecyclerView"
+                tools:text="seasonal books: fall" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainScreenListSeasonalBooksRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/mainScreenListSeasonalBooksTextView"
+                app:layout_constraintTop_toBottomOf="@id/mainScreenListSeasonalBooksTextView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

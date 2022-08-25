@@ -2,46 +2,46 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_screen_lists_item_container_card_view"
+    android:id="@+id/mainScreenListsItemContainerCardView"
     style="@style/main_screen_lists_item_card_view_style">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_screen_lists_item_container_constraint_layout"
+        android:id="@+id/mainScreenListsItemContainerConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_screen_lists_item_image_imageview"
+            android:id="@+id/mainScreenListsItemImageImageView"
             style="@style/main_screen_lists_item_image_style"
-            app:layout_constraintBottom_toTopOf="@id/main_screen_lists_item_title"
+            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_launcher_background" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/main_screen_lists_item_title"
+            android:id="@+id/mainScreenListsItemTitle"
             style="@style/main_screen_lists_item_title_style"
-            app:layout_constraintBottom_toBottomOf="@id/main_screen_lists_item_grade_textview"
-            app:layout_constraintBottom_toTopOf="@id/main_screen_lists_item_grade_star_imageview"
+            app:layout_constraintBottom_toBottomOf="@id/mainScreenListsItemGradeTextView"
+            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemGradeStarImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_screen_lists_item_image_imageview"
+            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemImageImageView"
             tools:text="Star Wars" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/main_screen_lists_item_grade_textview"
+            android:id="@+id/mainScreenListsItemGradeTextView"
             style="@style/main_screen_lists_item_grade_text_style"
-            app:layout_constraintBottom_toBottomOf="@id/main_screen_lists_item_grade_star_imageview"
-            app:layout_constraintEnd_toStartOf="@id/main_screen_lists_item_grade_star_imageview"
-            app:layout_constraintTop_toTopOf="@id/main_screen_lists_item_grade_star_imageview"
+            app:layout_constraintBottom_toBottomOf="@id/mainScreenListsItemGradeStarImageView"
+            app:layout_constraintEnd_toStartOf="@id/mainScreenListsItemGradeStarImageView"
+            app:layout_constraintTop_toTopOf="@id/mainScreenListsItemGradeStarImageView"
             tools:text="5.0" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_screen_lists_item_grade_star_imageview"
+            android:id="@+id/mainScreenListsItemGradeStarImageView"
             style="@style/main_screen_lists_item_grade_star_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_screen_lists_item_title" />
+            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
