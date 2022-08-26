@@ -11,22 +11,28 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/mainScreenListsItemImageImageView"
+            android:id="@+id/mainScreenListsItemImageView"
             style="@style/main_screen_lists_item_image_style"
-            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemTitle"
+            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemTitleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_launcher_background" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainScreenListsItemTitle"
+            android:id="@+id/mainScreenListsItemTitleTextView"
             style="@style/main_screen_lists_item_title_style"
-            app:layout_constraintBottom_toBottomOf="@id/mainScreenListsItemGradeTextView"
-            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemGradeStarImageView"
+            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemAuthorTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemImageImageView"
+            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemImageView"
             tools:text="The Lord of the Rings" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mainScreenListsItemAuthorTextView"
+            style="@style/main_screen_lists_item_author_style"
+            app:layout_constraintBottom_toTopOf="@id/mainScreenListsItemGradeTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="J. R. R. Tolkien" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainScreenListsItemGradeTextView"
@@ -41,7 +47,7 @@
             style="@style/main_screen_lists_item_grade_star_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemTitle" />
+            app:layout_constraintTop_toBottomOf="@id/mainScreenListsItemAuthorTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
