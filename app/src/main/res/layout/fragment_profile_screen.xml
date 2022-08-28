@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileMainContainerConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profilescreen.ProfileScreenFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileUserImageView"
+        style="@style/profile_user_image_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/profileUserNameLabel"
+        style="@style/profile_user_name_label_style"
+        app:layout_constraintEnd_toEndOf="@id/profileUserImageView"
+        app:layout_constraintStart_toStartOf="@id/profileUserImageView"
+        app:layout_constraintTop_toBottomOf="@id/profileUserImageView"
+        tools:text="John Smith" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profileAuthorisationButton"
+        style="@style/profile_authorisation_button_style"
+        android:text="@string/profile_authorisation_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileUserNameLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

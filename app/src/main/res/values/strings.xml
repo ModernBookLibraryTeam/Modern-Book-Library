@@ -8,4 +8,9 @@
     <string name="bottom_menu_profile_button_label">Profile</string>
     <string name="search_text_input_hint">Type here a title of the book or author\'s name</string>
     <string name="favorites_filter_fab_label">Filters</string>
+    <string name="book_publication_date_label_text">Publication date:</string>
+    <string name="book_number_of_reads_label_text">Number of reads:</string>
+    <string name="book_rating_label_text">Rating:</string>
+    <string name="book_genres_label_text">Genres:</string>
+    <string name="profile_authorisation_button_text">Authorisation/Registration</string>
 </resources>

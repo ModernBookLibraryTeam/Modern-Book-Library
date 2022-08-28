@@ -1,14 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bookdescriptionscreen.BookDescriptionFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bookMainContainerConstraintLayout"
+        style="@style/book_main_container_style">
 
-</FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookTitleTextview"
+            style="@style/book_title_style"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Нищенка в Королевской Академии магии. Зимняя практика 2" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/bookAddToFavoritesImageView"
+            style="@style/book_add_to_favorites_image_style"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="book_title_textview" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookAuthorTextview"
+            style="@style/book_author_style"
+            app:layout_constraintStart_toStartOf="@id/bookTitleTextview"
+            app:layout_constraintTop_toBottomOf="@id/bookTitleTextview"
+            tools:text="Кристина Майер" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/bookCoverImageView"
+            style="@style/book_cover_image_style"
+            app:layout_constraintStart_toStartOf="@id/bookAuthorTextview"
+            app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview"
+            tools:src="@drawable/book_cover_example" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookPublicationDateLabelTextView"
+            style="@style/book_publication_date_label_style"
+            android:text="@string/book_publication_date_label_text"
+            app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
+            app:layout_constraintTop_toTopOf="@id/bookCoverImageView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookPublicationDateTextView"
+            style="@style/book_publication_date_style"
+            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookPublicationDateLabelTextView"
+            tools:text="12.05.2021 — 30.09.2021" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookNumberOfReadsLabelTextView"
+            style="@style/book_secondary_label_style"
+            android:text="@string/book_number_of_reads_label_text"
+            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookPublicationDateTextView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookNumberOfReadsTextView"
+            style="@style/book_number_of_reads_style"
+            app:layout_constraintStart_toStartOf="@id/bookNumberOfReadsLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookNumberOfReadsLabelTextView"
+            tools:text="129678" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookRatingLabelTextView"
+            style="@style/book_secondary_label_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_secondary_label_margin_top"
+            android:text="@string/book_rating_label_text"
+            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookNumberOfReadsTextView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookRatingTextView"
+            style="@style/book_rating_style"
+            app:layout_constraintStart_toStartOf="@id/bookRatingLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookRatingLabelTextView"
+            tools:text="129678" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/bookRatingStarImageView"
+            style="@style/book_item_rating_star_image_style"
+            app:layout_constraintBottom_toBottomOf="@id/bookRatingTextView"
+            app:layout_constraintStart_toEndOf="@+id/bookRatingTextView"
+            app:layout_constraintTop_toTopOf="@id/bookRatingTextView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookGenresLabelTextView"
+            style="@style/book_secondary_label_style"
+            android:text="@string/book_genres_label_text"
+            app:layout_constraintStart_toStartOf="@id/bookRatingTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookRatingTextView" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookGenresTextView"
+            style="@style/book_genres_style"
+            app:layout_constraintStart_toStartOf="@id/bookGenresLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/bookGenresLabelTextView"
+            tools:text="Любовное фэнтези,\nПриключенческое фэнтези" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookDescriptionTextView"
+            style="@style/book_description_style"
+            app:layout_constraintStart_toStartOf="@id/bookCoverImageView"
+            app:layout_constraintTop_toBottomOf="@id/bookCoverImageView"
+            tools:text="Он – будущий герцог и глава рода. Она – девушка без прошлого, нищенка с уникальными способностями. Он – расчетлив и холоден. Она – нежна, ранима и смотрит на мир широко распахнутыми глазами. Они из разных миров, но волей случая Лариана попадает в Королевскую Академию, где узнает, что она не только владеет магией, но и является потомком древней расы, которую истребили маги. Рэю придется не только защитить девушку от врагов, но и сделать все невозможное, чтобы она забыла о его грубости, приняла и полюбила…" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

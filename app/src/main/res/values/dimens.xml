@@ -46,4 +46,22 @@
     <dimen name="favorites_item_grade_label_padding_start">5dp</dimen>
     <dimen name="favorites_item_grade_label_padding_end">5dp</dimen>
     <dimen name="favorites_item_grade_star_margin_bottom">5dp</dimen>
+    <dimen name="book_main_container_padding">16dp</dimen>
+    <dimen name="book_title_text_size">24sp</dimen>
+    <dimen name="book_author_margin_top">5dp</dimen>
+    <dimen name="book_author_margin_bottom">5dp</dimen>
+    <dimen name="book_author_text_size">18sp</dimen>
+    <dimen name="book_cover_image_width">180dp</dimen>
+    <dimen name="book_cover_image_margin_top">8dp</dimen>
+    <dimen name="book_publication_date_label_margin_start">8dp</dimen>
+    <dimen name="book_secondary_label_margin_top">12dp</dimen>
+    <dimen name="book_description_margin_top">16dp</dimen>
+    <dimen name="book_description_margin_end">8dp</dimen>
+    <dimen name="profile_user_image_width">100dp</dimen>
+    <dimen name="profile_user_image_height">100dp</dimen>
+    <dimen name="profile_user_image_margin_top">16dp</dimen>
+    <dimen name="profile_user_name_label_margin_top">8dp</dimen>
+    <dimen name="profile_user_name_label_text_size">36sp</dimen>
+    <dimen name="profile_authorisation_button_margin_top">16dp</dimen>
+    <item name="profile_user_image_alpha" type="dimen" format="float">0.5</item>
 </resources>

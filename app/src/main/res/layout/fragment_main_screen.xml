@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.mainscreen.MainScreenFragment">
 
     <ProgressBar
         android:id="@+id/mainProgressBar"
@@ -19,13 +20,14 @@
         android:id="@+id/mainContainerNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.mainscreen.MainScreenFragment">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainListsContainerConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/main_container_padding">
+            android:padding="@dimen/main_container_padding"
+            android:scrollbars="vertical">
 
 
             <com.google.android.material.textview.MaterialTextView

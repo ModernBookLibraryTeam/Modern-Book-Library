@@ -191,4 +191,106 @@
         </item>
         <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
     </style>
+
+    <style name="book_main_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">@dimen/book_main_container_padding</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="book_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/book_title_text_size</item>
+    </style>
+
+    <style name="book_add_to_favorites_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_baseline_favorite_border_24</item>
+    </style>
+
+    <style name="book_author_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_author_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/book_author_margin_bottom</item>
+        <item name="android:textSize">@dimen/book_author_text_size</item>
+    </style>
+
+    <style name="book_cover_image_style">
+        <item name="android:layout_width">@dimen/book_cover_image_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_cover_image_margin_top</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="book_publication_date_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/book_publication_date_label_margin_start
+        </item>
+    </style>
+
+    <style name="book_publication_date_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_secondary_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
+    </style>
+
+    <style name="book_number_of_reads_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_rating_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_item_rating_star_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
+    </style>
+
+    <style name="book_genres_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_description_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_description_margin_top</item>
+        <item name="android:layout_marginEnd">@dimen/book_description_margin_end</item>
+    </style>
+
+    <style name="profile_user_image_style">
+        <item name="android:layout_width">@dimen/profile_user_image_width</item>
+        <item name="android:layout_height">@dimen/profile_user_image_height</item>
+        <item name="android:layout_marginTop">@dimen/profile_user_image_margin_top</item>
+        <item name="android:alpha">@dimen/profile_user_image_alpha</item>
+        <item name="android:src">@drawable/ic_baseline_person_128</item>
+    </style>
+
+    <style name="profile_user_name_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/profile_user_name_label_margin_top</item>
+        <item name="android:textSize">@dimen/profile_user_name_label_text_size</item>
+    </style>
+
+    <style name="profile_authorisation_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/profile_authorisation_button_margin_top</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>
