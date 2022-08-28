@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="main_screen_first_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_label_margin_bottom</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="main_screen_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/main_screen_label_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_label_margin_bottom</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="main_screen_lists_item_card_view_style">
+        <item name="android:layout_width">@dimen/main_screen_lists_item_card_view_width</item>
+        <item name="android:layout_height">@dimen/main_screen_lists_item_card_view_height</item>
+        <item name="cardElevation">@dimen/main_screen_lists_item_card_view_elevation</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/main_screen_lists_item_card_view_corner_radius</item>
+    </style>
+
+    <style name="main_screen_lists_item_image_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="main_screen_lists_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/main_screen_lists_item_title_padding_start
+        </item>
+        <item name="android:paddingEnd">@dimen/main_screen_lists_item_title_padding_end
+        </item>
+        <item name="android:layout_marginTop">@dimen/main_screen_lists_item_title_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_lists_item_title_margin_bottom
+        </item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="main_screen_lists_item_author_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/main_screen_lists_item_title_padding_start
+        </item>
+        <item name="android:paddingEnd">@dimen/main_screen_lists_item_title_padding_end
+        </item>
+        <item name="android:layout_marginTop">@dimen/main_screen_lists_item_title_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/main_screen_lists_item_title_margin_bottom
+        </item>
+    </style>
+
+    <style name="main_screen_lists_item_grade_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/main_screen_lists_item_grade_text_margin_end
+        </item>
+    </style>
+
+    <style name="main_screen_lists_item_grade_star_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
+        <item name="android:layout_marginEnd">@dimen/main_screen_lists_item_grade_star_margin_end
+        </item>
+
+    </style>
+
+    <style name="search_screen_list_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/search_screen_list_item_title_padding_start
+        </item>
+        <item name="android:paddingEnd">@dimen/search_screen_list_item_title_padding_end
+        </item>
+        <item name="android:layout_marginTop">@dimen/search_screen_list_item_title_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/search_screen_list_item_title_margin_bottom
+        </item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="search_screen_list_item_image_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="search_screen_list_item_card_view_style">
+        <item name="android:layout_width">@dimen/search_screen_list_item_card_view_width</item>
+        <item name="android:layout_height">@dimen/search_screen_list_item_card_view_height</item>
+        <item name="cardElevation">@dimen/search_screen_lists_item_card_view_elevation</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/search_screen_list_item_card_view_corner_radius</item>
+    </style>
+
+    <style name="search_empty_screen_image_style">
+        <item name="android:layout_width">@dimen/search_screen_background_image_width</item>
+        <item name="android:layout_height">@dimen/search_screen_background_image_height</item>
+        <item name="android:alpha">@dimen/search_screen_background_image_opacity</item>
+        <item name="android:src">@drawable/search_background_image</item>
+    </style>
+
+    <style name="search_screen_text_input_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">
+            @dimen/search_screen_text_input_layout_margin_start
+        </item>
+        <item name="android:layout_marginEnd">@dimen/search_screen_text_input_layout_margin_end
+        </item>
+        <item name="android:layout_marginBottom">
+            @dimen/search_screen_text_input_layout_margin_bottom
+        </item>
+        <item name="android:hint">@string/search_screen_text_input_hint</item>
+        <item name="counterMaxLength">@dimen/search_screen_text_input_layout_counter_max_length
+        </item>
+        <item name="counterEnabled">true</item>
+
+    </style>
+
+    <style name="search_screen_list_item_author_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/search_screen_list_item_title_padding_start
+        </item>
+        <item name="android:paddingEnd">@dimen/search_screen_list_item_title_padding_end
+        </item>
+        <item name="android:layout_marginTop">@dimen/search_screen_list_item_title_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/search_screen_list_item_title_margin_bottom
+        </item>
+    </style>
+
+    <style name="favorites_screen_list_item_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/favorites_screen_container_height</item>
+        <item name="android:layout_margin">@dimen/favorites_screen_container_margin</item>
+        <item name="cardCornerRadius">@dimen/favorites_screen_container_corner_radius</item>
+        <item name="cardElevation">@dimen/favorites_screen_container_elevation</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="favorites_screen_list_item_image">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">@dimen/favorites_screen_list_item_image_padding_top</item>
+        <item name="android:paddingBottom">@dimen/favorites_screen_list_item_image_padding_bottom
+        </item>
+    </style>
+
+    <style name="favorites_screen_list_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/favorites_screen_list_item_title_padding</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="favorites_screen_list_item_author_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/favorites_screen_list_item_author_padding</item>
+    </style>
+
+    <style name="favorites_screen_list_item_remove_style">
+        <item name="android:layout_width">@dimen/favorites_screen_list_item_remove_width</item>
+        <item name="android:layout_height">@dimen/favorites_screen_list_item_remove_height</item>
+        <item name="android:src">@drawable/ic_baseline_delete_forever_24</item>
+        <item name="tint">@color/royal_blue</item>
+    </style>
+
+    <style name="favorites_screen_list_item_grade_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">
+            @dimen/favorites_screen_list_item_grade_label_padding_start
+        </item>
+        <item name="android:paddingEnd">@dimen/favorites_screen_list_item_grade_label_padding_end
+        </item>
+    </style>
+
+    <style name="favorites_screen_list_item_grade_star_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">
+            @dimen/favorites_screen_list_item_grade_star_margin_bottom
+        </item>
+        <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
+    </style>
+</resources>
