@@ -13,7 +13,7 @@ data class LocalBook(
     @ColumnInfo(name = "author")
     val author: String,
     @ColumnInfo(name = "year")
-    val year: String,
+    val publishDate: String,
     @ColumnInfo(name = "book_jacket")
     val bookJacket: String
 )
