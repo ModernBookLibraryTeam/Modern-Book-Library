@@ -2,21 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/searchScreenMainContainer"
+    android:id="@+id/searchMainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.searchscreen.SearchScreenFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/searchEmptyScreenImageView"
-        style="@style/search_empty_screen_image_style"
+        android:id="@+id/searchEmptyImageView"
+        style="@style/search_empty_image_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/searchScreenProgressBar"
+        android:id="@+id/searchProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -26,28 +26,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchScreenListRecyclerView"
+        android:id="@+id/searchListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_0dp"
-        app:layout_constraintBottom_toTopOf="@id/searchScreenInputTextLayout"
+        app:layout_constraintBottom_toTopOf="@id/searchInputTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchScreenInputTextLayout"
-        style="@style/search_screen_text_input_layout_style"
+        android:id="@+id/searchInputTextLayout"
+        style="@style/search_text_input_layout_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchScreenListRecyclerView">
+        app:layout_constraintTop_toBottomOf="@id/searchListRecyclerView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchScreenTextInputEditText"
+            android:id="@+id/searchTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="@dimen/search_screen_edit_text_max_length"
-            android:maxLines="@dimen/search_screen_edit_text_max_lines" />
+            android:maxLength="@dimen/search_edit_text_max_length"
+            android:maxLines="@dimen/search_edit_text_max_lines" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
