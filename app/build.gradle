@@ -52,4 +52,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    //Koin
+    implementation "io.insert-koin:koin-android:3.2.0"
+    implementation 'org.koin:koin-android-viewmodel:2.0.1'
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
 }
