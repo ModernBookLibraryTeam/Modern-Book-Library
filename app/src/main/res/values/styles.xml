@@ -104,6 +104,7 @@
         <item name="android:layout_width">@dimen/search_background_image_width</item>
         <item name="android:layout_height">@dimen/search_background_image_height</item>
         <item name="android:alpha">@dimen/search_background_image_opacity</item>
+        <item name="tint">?emptyBackgroundColor</item>
         <item name="android:src">@drawable/search_background_image</item>
     </style>
 
@@ -152,6 +153,7 @@
         <item name="android:paddingTop">@dimen/favorites_item_image_padding_top</item>
         <item name="android:paddingBottom">@dimen/favorites_item_image_padding_bottom
         </item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="favorites_item_title_style">
@@ -171,7 +173,7 @@
         <item name="android:layout_width">@dimen/favorites_item_remove_width</item>
         <item name="android:layout_height">@dimen/favorites_item_remove_height</item>
         <item name="android:src">@drawable/ic_baseline_delete_forever_24</item>
-        <item name="tint">@color/royal_blue</item>
+        <item name="tint">?colorPrimary</item>
     </style>
 
     <style name="favorites_item_grade_style">
@@ -278,6 +280,7 @@
         <item name="android:layout_marginTop">@dimen/profile_user_image_margin_top</item>
         <item name="android:alpha">@dimen/profile_user_image_alpha</item>
         <item name="android:src">@drawable/ic_baseline_person_128</item>
+        <item name="tint">?emptyProfileImageColor</item>
     </style>
 
     <style name="profile_user_name_label_style">
