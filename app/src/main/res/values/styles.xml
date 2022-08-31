@@ -57,22 +57,6 @@
         </item>
     </style>
 
-    <style name="main_item_grade_text_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">@dimen/main_item_grade_text_margin_end
-        </item>
-    </style>
-
-    <style name="main_item_grade_star_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
-        <item name="android:layout_marginEnd">@dimen/main_item_grade_star_margin_end
-        </item>
-
-    </style>
-
     <style name="search_item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -148,11 +132,8 @@
     </style>
 
     <style name="favorites_item_image">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingTop">@dimen/favorites_item_image_padding_top</item>
-        <item name="android:paddingBottom">@dimen/favorites_item_image_padding_bottom
-        </item>
+        <item name="android:layout_width">@dimen/favorites_item_image_width</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
@@ -207,18 +188,30 @@
         <item name="android:textSize">@dimen/book_title_text_size</item>
     </style>
 
+    <style name="book_subtitle_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_subtitle_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/book_subtitle_margin_bottom</item>
+        <item name="android:textSize">@dimen/book_subtitle_text_size</item>
+    </style>
+
     <style name="book_add_to_favorites_image_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_baseline_favorite_border_24</item>
     </style>
 
+    <style name="book_author_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/book_author_label_margin_start
+        </item>
+    </style>
+
     <style name="book_author_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/book_author_margin_top</item>
-        <item name="android:layout_marginBottom">@dimen/book_author_margin_bottom</item>
-        <item name="android:textSize">@dimen/book_author_text_size</item>
     </style>
 
     <style name="book_cover_image_style">
@@ -226,13 +219,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/book_cover_image_margin_top</item>
         <item name="android:scaleType">centerCrop</item>
-    </style>
+        <item name="strokeWidth">@dimen/book_cover_image_stroke_width</item>
+        <item name="strokeColor">@color/gray_700</item>
 
-    <style name="book_publication_date_label_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/book_publication_date_label_margin_start
-        </item>
+        app:=""
+        app:=""
     </style>
 
     <style name="book_publication_date_style">
@@ -246,7 +237,7 @@
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
     </style>
 
-    <style name="book_number_of_reads_style">
+    <style name="book_number_of_pages_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -262,7 +253,17 @@
         <item name="android:src">@drawable/ic_baseline_star_24_yellow</item>
     </style>
 
-    <style name="book_genres_style">
+    <style name="book_isbn_10_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_isbn_13_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="book_publisher_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

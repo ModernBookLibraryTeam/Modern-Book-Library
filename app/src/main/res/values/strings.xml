@@ -9,8 +9,11 @@
     <string name="search_text_input_hint">Type here a title of the book or author\'s name</string>
     <string name="favorites_filter_fab_label">Filters</string>
     <string name="book_publication_date_label_text">Publication date:</string>
-    <string name="book_number_of_reads_label_text">Number of reads:</string>
+    <string name="book_number_of_pages_label_text">Number of pages:</string>
     <string name="book_rating_label_text">Rating:</string>
-    <string name="book_genres_label_text">Genres:</string>
+    <string name="book_isbn_10_label_text">ISBN-10:</string>
+    <string name="book_isbn_13_label_text">ISBN-13:</string>
     <string name="profile_authorisation_button_text">Authorisation/Registration</string>
+    <string name="book_author_label_text">Authors:</string>
+    <string name="book_publisher_label_text">Publisher:</string>
 </resources>

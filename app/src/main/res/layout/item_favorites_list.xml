@@ -15,21 +15,21 @@
             style="@style/favorites_item_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:src="@drawable/cover_example" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/favoritesItemTitleTextView"
             style="@style/favorites_item_title_style"
             app:layout_constraintStart_toEndOf="@id/favoritesItemImageView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="The Lord of the Rings" />
+            tools:text="Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/favoritesItemAuthorTextView"
             style="@style/favorites_item_author_style"
             app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
             app:layout_constraintTop_toBottomOf="@id/favoritesItemTitleTextView"
-            tools:text="J. R. R. Tolkien" />
+            tools:text="Julien Vehent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/favoritesItemRemoveImageView"

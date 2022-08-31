@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:src="@drawable/cover_example" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainItemTitleTextView"
@@ -25,29 +25,14 @@
             app:layout_constraintBottom_toTopOf="@id/mainItemAuthorTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainItemImageView"
-            tools:text="The Lord of the Rings" />
+            tools:text="Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainItemAuthorTextView"
             style="@style/main_item_author_style"
-            app:layout_constraintBottom_toTopOf="@id/mainItemGradeTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="J. R. R. Tolkien" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainItemGradeTextView"
-            style="@style/main_item_grade_text_style"
-            app:layout_constraintBottom_toBottomOf="@id/mainItemGradeStarImageView"
-            app:layout_constraintEnd_toStartOf="@id/mainItemGradeStarImageView"
-            app:layout_constraintTop_toTopOf="@id/mainItemGradeStarImageView"
-            tools:text="5.0" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/mainItemGradeStarImageView"
-            style="@style/main_item_grade_star_style"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainItemAuthorTextView" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Julien Vehent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
