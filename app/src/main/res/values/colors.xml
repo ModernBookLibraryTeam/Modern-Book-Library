@@ -13,8 +13,8 @@
     <color name="cobalt_blue_600">#0189ef</color>
     <color name="orange">#a05000</color>
     <color name="orange_500">#ba8714</color>
-    <color name="denim_500">#0f</color>
     <color name="royal_blue">#002366</color>
     <color name="red">#ba150f</color>
     <color name="gray_700">#6b6b6b</color>
+    <color name="ic_launcher_mbl_background">#FFFFFF</color>
 </resources>
