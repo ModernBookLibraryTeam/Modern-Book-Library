@@ -7,5 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="royal_blue">#0047ab</color>
+    <color name="cobalt_blue">#0047ab</color>
+    <color name="cobalt_blue_800">#0266ca</color>
+    <color name="cobalt_blue_500">#0098fe</color>
+    <color name="cobalt_blue_600">#0189ef</color>
+    <color name="orange">#a05000</color>
+    <color name="orange_500">#ba8714</color>
+    <color name="denim_500">#0f</color>
+    <color name="royal_blue">#002366</color>
+    <color name="red">#ba150f</color>
+    <color name="gray_700">#6b6b6b</color>
 </resources>

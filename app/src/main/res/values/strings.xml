@@ -6,6 +6,14 @@
     <string name="bottom_menu_search_button_label">Search</string>
     <string name="bottom_menu_favorites_button_label">Favorites</string>
     <string name="bottom_menu_profile_button_label">Profile</string>
-    <string name="search_screen_text_input_hint">Type here a title of the book or author\'s name</string>
-    <string name="favorites_screen_filter_fab_label">Filters</string>
+    <string name="search_text_input_hint">Type here a title of the book or author\'s name</string>
+    <string name="favorites_filter_fab_label">Filters</string>
+    <string name="book_publication_date_label_text">Publication date:</string>
+    <string name="book_number_of_pages_label_text">Number of pages:</string>
+    <string name="book_rating_label_text">Rating:</string>
+    <string name="book_isbn_10_label_text">ISBN-10:</string>
+    <string name="book_isbn_13_label_text">ISBN-13:</string>
+    <string name="profile_authorisation_button_text">Authorisation/Registration</string>
+    <string name="book_author_label_text">Authors:</string>
+    <string name="book_publisher_label_text">Publisher:</string>
 </resources>
