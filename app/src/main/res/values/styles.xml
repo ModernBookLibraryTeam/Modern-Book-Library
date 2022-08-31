@@ -92,19 +92,21 @@
         <item name="android:src">@drawable/search_background_image</item>
     </style>
 
-    <style name="search_text_input_layout_style">
+    <style name="search_text_input_layout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">
             @dimen/search_text_input_layout_margin_start
         </item>
-        <item name="android:layout_marginEnd">@dimen/search_text_input_layout_margin_end
+        <item name="android:layout_marginEnd">
+            @dimen/search_text_input_layout_margin_end
         </item>
         <item name="android:layout_marginBottom">
             @dimen/search_text_input_layout_margin_bottom
         </item>
         <item name="android:hint">@string/search_text_input_hint</item>
-        <item name="counterMaxLength">@dimen/search_text_input_layout_counter_max_length
+        <item name="counterMaxLength">
+            @dimen/search_text_input_layout_counter_max_length
         </item>
         <item name="counterEnabled">true</item>
 
@@ -221,9 +223,6 @@
         <item name="android:scaleType">centerCrop</item>
         <item name="strokeWidth">@dimen/book_cover_image_stroke_width</item>
         <item name="strokeColor">@color/gray_700</item>
-
-        app:=""
-        app:=""
     </style>
 
     <style name="book_publication_date_style">

@@ -37,6 +37,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchInputTextLayout"
         style="@style/search_text_input_layout_style"
+        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
