@@ -6,6 +6,7 @@ import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
+import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSource
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,7 +44,7 @@ val localModule = module {
 
     single(qualifier = named("RetrofitInit")) {
         Retrofit.Builder()
-            .baseUrl("https://api.itbook.store/1.0")
+            .baseUrl("https://api.itbook.store/")
             .client(get(named("OkHttpClient")))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -54,6 +55,12 @@ val localModule = module {
         get<Retrofit>(named("RetrofitInit")).create(
             RetrofitInt::class.java
         )
+    }
+
+
+
+    single(qualifier = named("RemoteDataSource")) {
+        RemoteDataSource(get(named("RetrofitInt")), "", "")
     }
 
 }
