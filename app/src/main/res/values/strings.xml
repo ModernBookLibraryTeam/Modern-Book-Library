@@ -5,7 +5,7 @@
     <string name="bottom_menu_search_button_label">Search</string>
     <string name="bottom_menu_favorites_button_label">Favorites</string>
     <string name="bottom_menu_profile_button_label">Profile</string>
-    <string name="search_text_input_hint">Type here a title of the book or author\'s name</string>
+    <string name="search_text_input_hint">Type here a title, an author or a keyword</string>
     <string name="favorites_filter_fab_label">Filters</string>
     <string name="book_publication_date_label_text">Publication date:</string>
     <string name="book_number_of_pages_label_text">Number of pages:</string>
