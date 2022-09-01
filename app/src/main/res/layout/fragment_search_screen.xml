@@ -36,8 +36,15 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchInputTextLayout"
-        style="@style/search_text_input_layout_style"
-        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/search_text_input_layout_margin_start"
+        android:layout_marginEnd="@dimen/search_text_input_layout_margin_end"
+        android:layout_marginBottom="@dimen/search_text_input_layout_margin_bottom"
+        android:hint="@string/search_text_input_hint"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +54,8 @@
             android:id="@+id/searchTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="@dimen/search_edit_text_max_length"
-            android:maxLines="@dimen/search_edit_text_max_lines" />
+            android:maxLength="30"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
