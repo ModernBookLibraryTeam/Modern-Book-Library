@@ -6,8 +6,16 @@ import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
+import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.qualifier.named
+import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 val localModule = module {
     fun provideDatabase(application: Application): BookDatabase {
@@ -24,5 +32,28 @@ val localModule = module {
     single { provideBookDao(get()) }
     single { LocalMapperImpl() }
     single { LocalDataSourceImpl(get(), get()) }
+
+    single(qualifier = named("OkHttpClient")) {
+        OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
+    }
+
+    single(qualifier = named("RetrofitInit")) {
+        Retrofit.Builder()
+            .baseUrl("https://api.itbook.store/1.0")
+            .client(get(named("OkHttpClient")))
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    single<RetrofitInt>(qualifier = named("RetrofitInt")) {
+        get<Retrofit>(named("RetrofitInit")).create(
+            RetrofitInt::class.java
+        )
+    }
 
 }
