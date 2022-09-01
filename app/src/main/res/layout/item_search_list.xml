@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/searchItemContainerCardView"
+    style="@style/search_item_card_view_style">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchItemContainerConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/searchItemImageView"
+            style="@style/search_item_image_style"
+            app:layout_constraintBottom_toTopOf="@id/searchItemTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/cover_example" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/searchItemTitleTextView"
+            style="@style/search_item_title_style"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchItemImageView"
+            tools:text="Securing DevOps" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/searchItemAuthorTextView"
+            style="@style/search_item_author_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchItemTitleTextView"
+            tools:text="Julien Vehent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

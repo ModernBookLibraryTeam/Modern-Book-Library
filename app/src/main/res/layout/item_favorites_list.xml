@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favoritesListItemContainerCardView"
+    style="@style/favorites_item_container_style">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favoritesItemContainerConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/favoritesItemImageView"
+            style="@style/favorites_item_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/cover_example" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/favoritesItemTitleTextView"
+            style="@style/favorites_item_title_style"
+            app:layout_constraintStart_toEndOf="@id/favoritesItemImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Securing DevOps" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/favoritesItemAuthorTextView"
+            style="@style/favorites_item_author_style"
+            app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/favoritesItemTitleTextView"
+            tools:text="Julien Vehent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/favoritesItemRemoveImageView"
+            style="@style/favorites_item_remove_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/favoritesItemGradeTextView"
+            style="@style/favorites_item_grade_style"
+            app:layout_constraintBottom_toBottomOf="@id/favoritesItemGradeStarImageView"
+            app:layout_constraintEnd_toStartOf="@id/favoritesItemGradeStarImageView"
+            app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
+            app:layout_constraintTop_toTopOf="@id/favoritesItemGradeStarImageView"
+            tools:text="5.0" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/favoritesItemGradeStarImageView"
+            style="@style/favorites_item_grade_star_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/favoritesItemGradeTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
