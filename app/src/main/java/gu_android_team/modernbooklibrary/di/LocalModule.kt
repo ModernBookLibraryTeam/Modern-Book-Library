@@ -6,13 +6,12 @@ import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
-import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSource
+import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
-import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -60,7 +59,7 @@ val localModule = module {
 
 
     single(qualifier = named("RemoteDataSource")) {
-        RemoteDataSource(get(named("RetrofitInt")), "", "")
+        RemoteDataSourceImpl(get(named("RetrofitInt")), "", "")
     }
 
 }
