@@ -8,6 +8,7 @@ import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
+import gu_android_team.modernbooklibrary.data.repository.RepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -56,10 +57,11 @@ val localModule = module {
         )
     }
 
-
-
     single(qualifier = named("RemoteDataSource")) {
         RemoteDataSourceImpl(get(named("RetrofitInt")), "", "")
     }
 
+    single(qualifier = named("RepositoryImpl")) {
+        RepositoryImpl(get(named("RemoteDataSource")), get())
+    }
 }

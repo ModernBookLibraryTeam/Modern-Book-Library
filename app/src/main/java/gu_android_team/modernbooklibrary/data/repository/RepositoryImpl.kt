@@ -1,19 +1,49 @@
 package gu_android_team.modernbooklibrary.data.repository
 
 import android.util.Log
+import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBooksDTO
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
+import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RepositoryImpl(private val remoteDataSourceImpl: RemoteDataSourceImpl) : Repository {
+class RepositoryImpl(
+    private val remoteDataSourceImpl: RemoteDataSourceImpl,
+    private val localDataSourceImpl: LocalDataSourceImpl
+) : Repository {
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    override fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit) {
+        scope.launch {
+            withContext(Dispatchers.Main) {
+                callback(localDataSourceImpl.getData())
+            }
+        }
+    }
+
+    override fun insertBookToDB(book: Book) {
+        scope.launch {
+            withContext(Dispatchers.Main) {
+                localDataSourceImpl.insert(book)
+            }
+        }
+    }
+
+    override fun deleteBookFromDB(book: Book) {
+        scope.launch {
+            withContext(Dispatchers.Main) {
+                localDataSourceImpl.delete(book)
+            }
+        }
+    }
 
     override fun getNewBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
         scope.launch {
