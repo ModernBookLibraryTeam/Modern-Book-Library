@@ -1,60 +1,81 @@
 package gu_android_team.modernbooklibrary.ui.bookdescriptionscreen
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import gu_android_team.modernbooklibrary.R
+import gu_android_team.modernbooklibrary.databinding.FragmentBookDescriptionBinding
+import gu_android_team.modernbooklibrary.domain.Screen
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Screen {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookDescriptionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BookDescriptionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    companion object {
+        @JvmStatic
+        fun newInstance() = BookDescriptionFragment()
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val binding: FragmentBookDescriptionBinding by viewBinding(
+        FragmentBookDescriptionBinding::bind
+    )
+
+    override fun showProgress() {
+        with(binding) {
+            bookProgressBar.visibility = View.VISIBLE
+            bookTitleTextview.visibility = View.GONE
+            bookSubtitleTextview.visibility = View.GONE
+            bookAuthorLabelTextview.visibility = View.GONE
+            bookAuthorTextview.visibility = View.GONE
+            bookAddToFavoritesImageView.visibility = View.GONE
+            bookCoverImageView.visibility = View.GONE
+            bookNumberOfPagesLabelTextView.visibility = View.GONE
+            bookNumberOfPagesTextView.visibility = View.GONE
+            bookRatingLabelTextView.visibility = View.GONE
+            bookRatingTextView.visibility = View.GONE
+            bookRatingStarImageView.visibility = View.GONE
+            bookIsbn10LabelTextView.visibility = View.GONE
+            bookIsbn10TextView.visibility = View.GONE
+            bookIsbn13LabelTextView.visibility = View.GONE
+            bookIsbn13TextView.visibility = View.GONE
+            bookPublisherLabelTextView.visibility = View.GONE
+            bookPublisherTextView.visibility = View.GONE
+            bookDescriptionTextView.visibility = View.GONE
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_description, container, false)
+    override fun showStandardScreen() {
+        with(binding) {
+            bookProgressBar.visibility = View.GONE
+            bookTitleTextview.visibility = View.VISIBLE
+            bookSubtitleTextview.visibility = View.VISIBLE
+            bookAuthorLabelTextview.visibility = View.VISIBLE
+            bookAuthorTextview.visibility = View.VISIBLE
+            bookAddToFavoritesImageView.visibility = View.VISIBLE
+            bookCoverImageView.visibility = View.VISIBLE
+            bookNumberOfPagesLabelTextView.visibility = View.VISIBLE
+            bookNumberOfPagesTextView.visibility = View.VISIBLE
+            bookRatingLabelTextView.visibility = View.VISIBLE
+            bookRatingTextView.visibility = View.VISIBLE
+            bookRatingStarImageView.visibility = View.VISIBLE
+            bookIsbn10LabelTextView.visibility = View.VISIBLE
+            bookIsbn10TextView.visibility = View.VISIBLE
+            bookIsbn13LabelTextView.visibility = View.VISIBLE
+            bookIsbn13TextView.visibility = View.VISIBLE
+            bookPublisherLabelTextView.visibility = View.VISIBLE
+            bookPublisherTextView.visibility = View.VISIBLE
+            bookDescriptionTextView.visibility = View.VISIBLE
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BookDescriptionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BookDescriptionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun showError(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.retry_string) {
+                updateData()
             }
+            .show()
+    }
+
+    private fun updateData() {
+        TODO("Not yet implemented")
     }
 }

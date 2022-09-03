@@ -19,12 +19,7 @@ class RemoteDataSourceImpl(
         }
     override val searchedBooks: Flow<Call<NewAndSearchBooksDTO>>
         get() = flow {
-            emit(api.getBooksBySearching(request))
-        }
-
-    override val nextPageOfSearchedBooks: Flow<Call<NewAndSearchBooksDTO>>
-        get() = flow {
-            emit(api.getNextPageOfSearchedBooks(request, page))
+            emit(api.getBooksBySearching(request, page))
         }
 
     override val bookInfo: Flow<Call<SpecificBookDTO>>

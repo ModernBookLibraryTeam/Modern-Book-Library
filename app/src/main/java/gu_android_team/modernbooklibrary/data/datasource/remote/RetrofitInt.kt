@@ -9,13 +9,8 @@ interface RetrofitInt {
     @GET("1.0/new")
     fun getNewBooks(): Call<NewAndSearchBooksDTO>
 
-    @GET("1.0/search/{query}")
-    fun getBooksBySearching(
-        @Path("query") request: String
-    ): Call<NewAndSearchBooksDTO>
-
     @GET("1.0/search/{query}/{page}")
-    fun getNextPageOfSearchedBooks(
+    fun getBooksBySearching(
         @Path("query") request: String,
         @Path("page") page: String
     ): Call<NewAndSearchBooksDTO>
