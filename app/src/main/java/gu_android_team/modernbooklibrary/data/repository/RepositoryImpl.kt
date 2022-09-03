@@ -90,28 +90,6 @@ class RepositoryImpl(
         }
     }
 
-    override fun getNextPageSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
-        scope.launch {
-            remoteDataSourceImpl.nextPageOfSearchedBooks.collect {
-                it.enqueue(object : Callback<NewAndSearchBooksDTO> {
-                    override fun onResponse(
-                        call: Call<NewAndSearchBooksDTO>,
-                        response: Response<NewAndSearchBooksDTO>
-                    ) {
-                        if (response.isSuccessful) {
-                            callback(response)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<NewAndSearchBooksDTO>, t: Throwable) {
-                        Log.d("TAG", t.message.toString())
-                    }
-
-                })
-            }
-        }
-    }
-
     override fun getBookInfoFromRemoteDataSource(callback: (Response<SpecificBookDTO>) -> Unit) {
         scope.launch {
             remoteDataSourceImpl.bookInfo.collect {

@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SpecificBookDTO(
     @SerializedName("title") val title: String?,
+    @SerializedName("subtitle") val subtitle: String?,
     @SerializedName("authors") val authors: String?,
     @SerializedName("pages") val pages: String?,
     @SerializedName("year") val year: String?,
