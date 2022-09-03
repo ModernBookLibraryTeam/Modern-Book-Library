@@ -22,17 +22,16 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainItemTitleTextView"
             style="@style/main_item_title_style"
-            app:layout_constraintBottom_toTopOf="@id/mainItemAuthorTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainItemImageView"
             tools:text="Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mainItemAuthorTextView"
-            style="@style/main_item_author_style"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/mainItemSubtitleTextView"
+            style="@style/main_item_subtitle_style"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Julien Vehent" />
+            app:layout_constraintTop_toBottomOf="@+id/mainItemTitleTextView"
+            tools:text="Architecting, Developing, and Administering MongoDB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
