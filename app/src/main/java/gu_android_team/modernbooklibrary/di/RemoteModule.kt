@@ -2,10 +2,9 @@ package gu_android_team.modernbooklibrary.di
 
 import android.app.Application
 import androidx.room.Room
-import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
+import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
-import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
 import gu_android_team.modernbooklibrary.data.repository.RepositoryImpl

@@ -1,11 +1,10 @@
-package gu_android_team.modernbooklibrary.data.datasource
+package gu_android_team.modernbooklibrary.data.datasource.local
 
 import gu_android_team.modernbooklibrary.domain.Book
-import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
-import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapper
+import gu_android_team.modernbooklibrary.domain.mapper.Mapper
 import gu_android_team.modernbooklibrary.domain.LocalDataSource
 
-class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper: LocalMapper) : LocalDataSource<Book> {
+class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper: Mapper) : LocalDataSource<Book> {
     override suspend fun getData(): List<Book> {
         return mapper.mapData(localProvider.getAllBooks())
     }

@@ -1,8 +1,10 @@
-package gu_android_team.modernbooklibrary.data.datasource.local
+package gu_android_team.modernbooklibrary.data.mapper
 
+import gu_android_team.modernbooklibrary.data.datasource.local.LocalBook
 import gu_android_team.modernbooklibrary.domain.Book
+import gu_android_team.modernbooklibrary.domain.mapper.Mapper
 
-class LocalMapperImpl : LocalMapper {
+class Mapper: Mapper {
     override fun mapData(books: List<LocalBook>): List<Book> {
         return books.map {
             Book(
