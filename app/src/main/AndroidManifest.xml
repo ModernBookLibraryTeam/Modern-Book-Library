@@ -4,6 +4,7 @@
     package="gu_android_team.modernbooklibrary">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"

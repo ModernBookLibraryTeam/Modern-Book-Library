@@ -27,8 +27,8 @@
     </style>
 
     <style name="main_item_image_style">
-        <item name="android:layout_width">@dimen/_0dp</item>
-        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/item_main_image_height</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
@@ -45,7 +45,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="main_item_author_style">
+    <style name="main_item_subtitle_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
