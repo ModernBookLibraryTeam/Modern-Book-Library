@@ -1,11 +1,13 @@
 package gu_android_team.modernbooklibrary.data.datasource.remote
 
+import com.google.gson.annotations.SerializedName
+
 data class NewAndSearchBooksDTO(
-    val books: List<BooksInfo>
+    @SerializedName("books") val books: List<BooksInfo>
 )
 
 data class BooksInfo(
-    val title: String?,
-    val isbn13: String?,
-    val image: String?
+    @SerializedName("title") val title: String?,
+    @SerializedName("isbn13") val isbn13: String?,
+    @SerializedName("image") val image: String?
 )

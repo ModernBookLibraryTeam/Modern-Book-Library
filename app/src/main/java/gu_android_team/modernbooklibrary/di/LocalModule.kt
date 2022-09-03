@@ -33,35 +33,4 @@ val localModule = module {
     single { provideBookDao(get()) }
     single { LocalMapperImpl() }
     single { LocalDataSourceImpl(get(), get()) }
-
-    single(qualifier = named("OkHttpClient")) {
-        OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .build()
-    }
-
-    single(qualifier = named("RetrofitInit")) {
-        Retrofit.Builder()
-            .baseUrl("https://api.itbook.store/")
-            .client(get(named("OkHttpClient")))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    single<RetrofitInt>(qualifier = named("RetrofitInt")) {
-        get<Retrofit>(named("RetrofitInit")).create(
-            RetrofitInt::class.java
-        )
-    }
-
-    single(qualifier = named("RemoteDataSource")) {
-        RemoteDataSourceImpl(get(named("RetrofitInt")), "", "")
-    }
-
-    single(qualifier = named("RepositoryImpl")) {
-        RepositoryImpl(get(named("RemoteDataSource")), get())
-    }
 }

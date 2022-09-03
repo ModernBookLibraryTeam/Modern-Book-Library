@@ -14,6 +14,12 @@ interface RetrofitInt {
         @Path("query") request: String
     ): Call<NewAndSearchBooksDTO>
 
+    @GET("1.0/search/{query}/{page}")
+    fun getNextPageOfSearchedBooks(
+        @Path("query") request: String,
+        @Path("page") page: String
+    ): Call<NewAndSearchBooksDTO>
+
     @GET("1.0/books/{isbn13}")
     fun getBookInfo(
         @Path("isbn13") bookId: String

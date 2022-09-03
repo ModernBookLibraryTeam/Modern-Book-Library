@@ -5,7 +5,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Call
 
-class RemoteDataSourceImpl(private val api: RetrofitInt, var request: String, var bookId: String) :
+class RemoteDataSourceImpl(
+    private val api: RetrofitInt,
+    var request: String,
+    var bookId: String,
+    var page: String,
+) :
     RemoteDataSource {
 
     override val newBooks: Flow<Call<NewAndSearchBooksDTO>>
@@ -16,6 +21,12 @@ class RemoteDataSourceImpl(private val api: RetrofitInt, var request: String, va
         get() = flow {
             emit(api.getBooksBySearching(request))
         }
+
+    override val nextPageOfSearchedBooks: Flow<Call<NewAndSearchBooksDTO>>
+        get() = flow {
+            emit(api.getNextPageOfSearchedBooks(request, page))
+        }
+
     override val bookInfo: Flow<Call<SpecificBookDTO>>
         get() = flow {
             emit(api.getBookInfo(bookId))
