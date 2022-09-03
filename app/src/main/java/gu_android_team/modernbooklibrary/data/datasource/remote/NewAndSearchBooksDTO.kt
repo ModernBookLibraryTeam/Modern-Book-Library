@@ -8,6 +8,7 @@ data class NewAndSearchBooksDTO(
 
 data class BooksInfo(
     @SerializedName("title") val title: String?,
+    @SerializedName("subtitle") val subtitle: String?,
     @SerializedName("isbn13") val isbn13: String?,
     @SerializedName("image") val image: String?
 )

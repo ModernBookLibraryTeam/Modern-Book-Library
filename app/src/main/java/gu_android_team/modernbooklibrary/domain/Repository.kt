@@ -8,7 +8,6 @@ interface Repository {
     fun getNewBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit)
     fun getSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit)
     fun getBookInfoFromRemoteDataSource(callback: (Response<SpecificBookDTO>) -> Unit)
-    fun getNextPageSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit)
     fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit)
     fun insertBookToDB(book: Book)
     fun deleteBookFromDB(book: Book)
