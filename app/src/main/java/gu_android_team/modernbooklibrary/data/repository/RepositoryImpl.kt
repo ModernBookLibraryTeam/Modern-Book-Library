@@ -6,6 +6,8 @@ import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBook
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
 import gu_android_team.modernbooklibrary.domain.Book
+import gu_android_team.modernbooklibrary.domain.LocalDataSource
+import gu_android_team.modernbooklibrary.domain.RemoteDataSource
 import gu_android_team.modernbooklibrary.domain.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,15 +18,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RepositoryImpl(
-    private val remoteDataSourceImpl: RemoteDataSourceImpl,
-    private val localDataSourceImpl: LocalDataSourceImpl
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource<Book>
 ) : Repository {
     private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit) {
         scope.launch {
             withContext(Dispatchers.Main) {
-                callback(localDataSourceImpl.getData())
+                callback(localDataSource.getData())
             }
         }
     }
@@ -32,7 +34,7 @@ class RepositoryImpl(
     override fun insertBookToDB(book: Book) {
         scope.launch {
             withContext(Dispatchers.Main) {
-                localDataSourceImpl.insert(book)
+                localDataSource.insert(book)
             }
         }
     }
@@ -40,14 +42,14 @@ class RepositoryImpl(
     override fun deleteBookFromDB(book: Book) {
         scope.launch {
             withContext(Dispatchers.Main) {
-                localDataSourceImpl.delete(book)
+                localDataSource.delete(book)
             }
         }
     }
 
     override fun getNewBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
         scope.launch {
-            remoteDataSourceImpl.newBooks.collect {
+            remoteDataSource.newBooks.collect {
                 it.enqueue(object : Callback<NewAndSearchBooksDTO> {
                     override fun onResponse(
                         call: Call<NewAndSearchBooksDTO>,
@@ -69,7 +71,7 @@ class RepositoryImpl(
 
     override fun getSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
         scope.launch {
-            remoteDataSourceImpl.searchedBooks.collect {
+            remoteDataSource.searchedBooks.collect {
                 it.enqueue(object : Callback<NewAndSearchBooksDTO> {
                     override fun onResponse(
                         call: Call<NewAndSearchBooksDTO>,
@@ -91,7 +93,7 @@ class RepositoryImpl(
 
     override fun getNextPageSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
         scope.launch {
-            remoteDataSourceImpl.nextPageOfSearchedBooks.collect {
+            remoteDataSource.nextPageOfSearchedBooks.collect {
                 it.enqueue(object : Callback<NewAndSearchBooksDTO> {
                     override fun onResponse(
                         call: Call<NewAndSearchBooksDTO>,
@@ -113,7 +115,7 @@ class RepositoryImpl(
 
     override fun getBookInfoFromRemoteDataSource(callback: (Response<SpecificBookDTO>) -> Unit) {
         scope.launch {
-            remoteDataSourceImpl.bookInfo.collect {
+            remoteDataSource.bookInfo.collect {
                 it.enqueue(object : Callback<SpecificBookDTO> {
                     override fun onResponse(
                         call: Call<SpecificBookDTO>,

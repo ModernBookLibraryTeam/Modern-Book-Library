@@ -7,6 +7,7 @@ import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
+import gu_android_team.modernbooklibrary.data.mapper.Mapper
 import gu_android_team.modernbooklibrary.data.repository.RepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,7 +44,7 @@ val remoteModule = module {
 
     single(qualifier = named(BOOK_DAO)) { provideBookDao(get(named(BOOK_DATABASE))) }
 
-    single(qualifier = named(LOCAL_MAPPER)) { LocalMapperImpl() }
+    single(qualifier = named(LOCAL_MAPPER)) { Mapper() }
 
     single(qualifier = named(LOCAL_DATA_SOURCE_IMPL)) {
         LocalDataSourceImpl(
