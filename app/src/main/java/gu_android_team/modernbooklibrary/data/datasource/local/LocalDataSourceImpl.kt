@@ -20,4 +20,28 @@ class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper
     override suspend fun delete(book: Book) {
         return localProvider.deleteBook(mapper.mapDomainToData(book))
     }
+
+    override suspend fun getDataSortedByDate(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByDateAsc())
+    }
+
+    override suspend fun getDataSortedByDateDesc(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByDateDesc())
+    }
+
+    override suspend fun getDataSortedByAuthor(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByAuthorAsc())
+    }
+
+    override suspend fun getDataSortedByAuthorDesc(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByAuthorDesc())
+    }
+
+    override suspend fun getDataSortedByName(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByTitleAsc())
+    }
+
+    override suspend fun getDataSortedByNameDesc(): List<Book> {
+        return mapper.mapData(localProvider.getSortedBooksByTitleDesc())
+    }
 }

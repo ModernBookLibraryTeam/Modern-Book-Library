@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 data class LocalBook(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    @ColumnInfo(name = "created_date")
+    val createdDate: Long,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "author")
