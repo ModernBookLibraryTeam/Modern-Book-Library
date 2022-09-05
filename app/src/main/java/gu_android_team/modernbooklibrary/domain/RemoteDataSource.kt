@@ -8,8 +8,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 interface RemoteDataSource {
-/*    fun getNewBooksFromServer(): List<Book>
-    val searchedBooks: Flow<Call<NewAndSearchBooksDTO>>
-    val bookInfo: Flow<Call<SpecificBookDTO>>
-    fun <T> getResponse(value: Call<T>, callback: (AppState) -> Unit)*/
+    val newBooks: Flow<List<Book>>
+    val searchedBooks: Flow<List<Book>>
+    val bookInfo: Flow<Book>
 }

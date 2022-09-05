@@ -14,27 +14,30 @@ class RemoteDataSourceImpl(
     var page: String,
 ) : RemoteDataSource, BaseRemoteDataSource() {
 
-    suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
+    private suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
 
-    suspend fun getBooksBySearchingFromServer() = apiCall { api.getBooksBySearching(request, page) }
+    private suspend fun getBooksBySearchingFromServer() =
+        apiCall { api.getBooksBySearching(request, page) }
 
-    suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
+    private suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
 
-
-
-    /*
-    override val newBooks: Flow<AppState>
-            get() = flow {
-                emit(getResponse(api.getNewBooks()))
-            }
-    override val searchedBooks: Flow<Call<NewAndSearchBooksDTO>>
+    override val newBooks: Flow<List<Book>>
         get() = flow {
-            emit(api.getBooksBySearching(request, page))
+            emit(mapper.mapRemoteDataToLocal(getNewBooksFromServer().data?.books ?: emptyList()))
         }
 
-    override val bookInfo: Flow<Call<SpecificBookDTO>>
+    override val searchedBooks: Flow<List<Book>>
         get() = flow {
-            emit(api.getBookInfo(bookId))
+            emit(
+                mapper.mapRemoteDataToLocal(
+                    getBooksBySearchingFromServer().data?.books ?: emptyList()
+                )
+            )
         }
-*/
+
+    override val bookInfo: Flow<Book>
+        get() = flow {
+            emit(mapper.mapRemoteDataSpecificToLocal(getBookInfoFromServer().data))
+        }
+
 }

@@ -47,68 +47,26 @@ class RepositoryImpl(
         }
     }
 
-    override fun getNewBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
+    override fun getNewBooksFromRemoteDataSource(callback: (List<Book>) -> Unit) {
         scope.launch {
             remoteDataSource.newBooks.collect {
-                it.enqueue(object : Callback<NewAndSearchBooksDTO> {
-                    override fun onResponse(
-                        call: Call<NewAndSearchBooksDTO>,
-                        response: Response<NewAndSearchBooksDTO>
-                    ) {
-                        if (response.isSuccessful) {
-                            callback(response)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<NewAndSearchBooksDTO>, t: Throwable) {
-                        Log.d("TAG", t.message.toString())
-                    }
-
-                })
+                callback(it)
             }
         }
     }
 
-    override fun getSearchedBooksFromRemoteDataSource(callback: (Response<NewAndSearchBooksDTO>) -> Unit) {
+    override fun getSearchedBooksFromRemoteDataSource(callback: (List<Book>) -> Unit) {
         scope.launch {
             remoteDataSource.searchedBooks.collect {
-                it.enqueue(object : Callback<NewAndSearchBooksDTO> {
-                    override fun onResponse(
-                        call: Call<NewAndSearchBooksDTO>,
-                        response: Response<NewAndSearchBooksDTO>
-                    ) {
-                        if (response.isSuccessful) {
-                            callback(response)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<NewAndSearchBooksDTO>, t: Throwable) {
-                        Log.d("TAG", t.message.toString())
-                    }
-
-                })
+                callback(it)
             }
         }
     }
 
-    override fun getBookInfoFromRemoteDataSource(callback: (Response<SpecificBookDTO>) -> Unit) {
+    override fun getBookInfoFromRemoteDataSource(callback: (Book) -> Unit) {
         scope.launch {
             remoteDataSource.bookInfo.collect {
-                it.enqueue(object : Callback<SpecificBookDTO> {
-                    override fun onResponse(
-                        call: Call<SpecificBookDTO>,
-                        response: Response<SpecificBookDTO>
-                    ) {
-                        if (response.isSuccessful) {
-                            callback(response)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<SpecificBookDTO>, t: Throwable) {
-                        Log.d("TAG", t.message.toString())
-                    }
-
-                })
+                callback(it)
             }
         }
     }

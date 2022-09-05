@@ -2,6 +2,7 @@ package gu_android_team.modernbooklibrary.data.mapper
 
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalBook
 import gu_android_team.modernbooklibrary.data.datasource.remote.BooksInfo
+import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBooksDTO
 import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.mapper.Mapper
@@ -62,15 +63,15 @@ class Mapper : Mapper {
         }
     }
 
-    override fun mapRemoteDataSpecificToLocal(book: SpecificBookDTO): Book {
+    override fun mapRemoteDataSpecificToLocal(book: SpecificBookDTO?): Book {
         return Book(
-            title = book.title.toString(),
-            subtitle = book.subtitle.toString(),
-            author = book.authors.toString(),
-            pages = book.pages.toString(),
-            year = book.year.toString(),
-            desc = book.desc.toString(),
-            image = book.image.toString()
+            title = book?.title.toString(),
+            subtitle = book?.subtitle.toString(),
+            author = book?.authors.toString(),
+            pages = book?.pages.toString(),
+            year = book?.year.toString(),
+            desc = book?.desc.toString(),
+            image = book?.image.toString()
         )
     }
 }
