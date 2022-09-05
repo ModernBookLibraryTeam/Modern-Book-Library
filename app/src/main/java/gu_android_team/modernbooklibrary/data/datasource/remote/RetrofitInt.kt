@@ -11,13 +11,13 @@ interface RetrofitInt {
     suspend fun getNewBooks(): Response<NewAndSearchBooksDTO>
 
     @GET("1.0/search/{query}/{page}")
-    fun getBooksBySearching(
+     suspend fun getBooksBySearching(
         @Path("query") request: String,
         @Path("page") page: String
     ): Response<NewAndSearchBooksDTO>
 
     @GET("1.0/books/{isbn13}")
-    fun getBookInfo(
+    suspend fun getBookInfo(
         @Path("isbn13") bookId: String
     ): Response<SpecificBookDTO>
 }

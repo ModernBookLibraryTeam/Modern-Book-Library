@@ -1,9 +1,13 @@
 package gu_android_team.modernbooklibrary.domain
 
-data class Book (
-    val id: Int,
+data class Book(
+    val id: Int = 0,
     val title: String,
-    val author: String,
-    val publishDate: String,
-    val cover: String
-    )
+    val subtitle: String,
+    val author: String = "",
+    val isbn13: String = "",
+    val pages: String = "",
+    val year: String = "",
+    val desc: String = "",
+    val image: String
+)

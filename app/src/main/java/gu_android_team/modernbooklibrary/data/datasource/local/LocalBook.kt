@@ -7,13 +7,21 @@ import androidx.room.PrimaryKey
 @Entity
 data class LocalBook(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     @ColumnInfo(name = "title")
     val title: String,
+    @ColumnInfo(name = "subtitle")
+    val subtitle: String,
     @ColumnInfo(name = "author")
     val author: String,
+    @ColumnInfo(name = "isbn13")
+    val isbn13: String,
+    @ColumnInfo(name = "pages")
+    val pages: String,
     @ColumnInfo(name = "year")
-    val publishDate: String,
-    @ColumnInfo(name = "book_jacket")
-    val bookJacket: String
+    val year: String,
+    @ColumnInfo(name = "desc")
+    val description: String,
+    @ColumnInfo(name = "image")
+    val image: String
 )
