@@ -8,36 +8,15 @@ import kotlinx.coroutines.flow.flow
 
 class RemoteDataSourceImpl(
     private val api: RetrofitInt,
-    private val mapper: Mapper,
     var request: String,
     var bookId: String,
     var page: String,
 ) : RemoteDataSource, BaseRemoteDataSource() {
 
-    private suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
+    override suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
 
-    private suspend fun getBooksBySearchingFromServer() =
+    override suspend fun getBooksBySearchingFromServer() =
         apiCall { api.getBooksBySearching(request, page) }
 
-    private suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
-
-    override val newBooks: Flow<List<Book>>
-        get() = flow {
-            emit(mapper.mapRemoteDataToLocal(getNewBooksFromServer().data?.books ?: emptyList()))
-        }
-
-    override val searchedBooks: Flow<List<Book>>
-        get() = flow {
-            emit(
-                mapper.mapRemoteDataToLocal(
-                    getBooksBySearchingFromServer().data?.books ?: emptyList()
-                )
-            )
-        }
-
-    override val bookInfo: Flow<Book>
-        get() = flow {
-            emit(mapper.mapRemoteDataSpecificToLocal(getBookInfoFromServer().data))
-        }
-
+    override suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
 }

@@ -27,7 +27,6 @@ const val REPOSITORY_IMPL = "RepositoryImpl"
 const val BOOK_DAO = "BookDao"
 const val LOCAL_MAPPER = "LocalMapper"
 const val BOOK_DATABASE = "BookDatabase"
-const val MAPPER = "Mapper"
 
 val remoteModule = module {
 
@@ -77,12 +76,9 @@ val remoteModule = module {
         )
     }
 
-    single(qualifier = named(MAPPER)) {
-        Mapper()
-    }
 
     single(qualifier = named(REMOTE_DATA_SOURCE_IMPL)) {
-        RemoteDataSourceImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), get(named(MAPPER)), "", "", "")
+        RemoteDataSourceImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), "", "", "")
     }
 
     single(qualifier = named(REPOSITORY_IMPL)) {

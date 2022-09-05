@@ -2,6 +2,7 @@ package gu_android_team.modernbooklibrary.data.repository
 
 import android.util.Log
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
+import gu_android_team.modernbooklibrary.data.datasource.remote.DataSate
 import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBooksDTO
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
@@ -11,6 +12,8 @@ import gu_android_team.modernbooklibrary.domain.RemoteDataSource
 import gu_android_team.modernbooklibrary.domain.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -47,27 +50,18 @@ class RepositoryImpl(
         }
     }
 
-    override fun getNewBooksFromRemoteDataSource(callback: (List<Book>) -> Unit) {
-        scope.launch {
-            remoteDataSource.newBooks.collect {
-                callback(it)
-            }
+    override val newBooksFromRemoteDataSource: Flow<DataSate<NewAndSearchBooksDTO>>
+        get() = flow {
+            emit(remoteDataSource.getNewBooksFromServer())
         }
-    }
 
-    override fun getSearchedBooksFromRemoteDataSource(callback: (List<Book>) -> Unit) {
-        scope.launch {
-            remoteDataSource.searchedBooks.collect {
-                callback(it)
-            }
+    override val searchedBooksFromRemoteDataSource: Flow<DataSate<NewAndSearchBooksDTO>>
+        get() = flow {
+            emit(remoteDataSource.getBooksBySearchingFromServer())
         }
-    }
 
-    override fun getBookInfoFromRemoteDataSource(callback: (Book) -> Unit) {
-        scope.launch {
-            remoteDataSource.bookInfo.collect {
-                callback(it)
-            }
+    override val bookInfoFromRemoteDataSource: Flow<DataSate<SpecificBookDTO>>
+        get() = flow {
+            emit(remoteDataSource.getBookInfoFromServer())
         }
-    }
 }
