@@ -44,6 +44,8 @@ class Mapper : Mapper {
             title = book.title,
             subtitle = book.subtitle,
             author = book.author,
+            publisher = book.publisher,
+            isbn10 = book.isbn10,
             isbn13 = book.isbn13,
             pages = book.pages,
             year = book.year,

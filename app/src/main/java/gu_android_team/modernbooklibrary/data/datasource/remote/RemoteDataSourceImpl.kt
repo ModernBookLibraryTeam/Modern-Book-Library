@@ -40,7 +40,7 @@ class RemoteDataSourceImpl(
                 )
             )
         } else {
-            DataSate.Error(getNewBooksFromServer().message.toString())
+            DataSate.Error(getBooksBySearchingFromServer().message.toString())
         }
 
     override suspend fun getMappedBookInfoFromServer() =
@@ -49,6 +49,6 @@ class RemoteDataSourceImpl(
                 mapper.mapRemoteDataSpecificToLocal(getBookInfoFromServer().data)
             )
         } else {
-            DataSate.Error(getNewBooksFromServer().message.toString())
+            DataSate.Error(getBookInfoFromServer().message.toString())
         }
 }

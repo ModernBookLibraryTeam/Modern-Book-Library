@@ -14,6 +14,10 @@ data class LocalBook(
     val subtitle: String,
     @ColumnInfo(name = "author")
     val author: String,
+    @ColumnInfo(name = "publisher")
+    val publisher: String,
+    @ColumnInfo(name = "isbn10")
+    val isbn10: String,
     @ColumnInfo(name = "isbn13")
     val isbn13: String,
     @ColumnInfo(name = "pages")
