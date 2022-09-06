@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class LocalBook(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    @ColumnInfo(name = "isbn13")
+    val isbn13: String,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "subtitle")
@@ -18,8 +19,6 @@ data class LocalBook(
     val publisher: String,
     @ColumnInfo(name = "isbn10")
     val isbn10: String,
-    @ColumnInfo(name = "isbn13")
-    val isbn13: String,
     @ColumnInfo(name = "pages")
     val pages: String,
     @ColumnInfo(name = "year")

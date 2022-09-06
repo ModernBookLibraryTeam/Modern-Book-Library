@@ -12,11 +12,11 @@ import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
 
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin{
+        startKoin {
             androidLogger()
             androidContext(this@App)
             modules(localModule, viewModelsModule, useCasesModule, remoteModule)

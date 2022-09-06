@@ -8,8 +8,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentMainScreenBinding
-import gu_android_team.modernbooklibrary.domain.FakeBook
+import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.utils.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
@@ -73,12 +74,27 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     private fun observeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
-            fillListTitles(data)
-            fillLists(data)
+            when (data) {
+                is AppState.AppStateSuccess<*> -> {
+                    showStandardScreen()
+                    val result = data.value as LinkedHashMap<String, List<Book>>
+                    fillListTitles(result)
+                    fillLists(result)
+                }
+
+                is AppState.AppStateError -> {
+                    showStandardScreen()
+                    showError(data.error)
+                }
+
+                is AppState.AppStateLoading -> {
+                    showProgress()
+                }
+            }
         }
     }
 
-    private fun fillListTitles(data: LinkedHashMap<String, List<FakeBook>>?) {
+    private fun fillListTitles(data: LinkedHashMap<String, List<Book>>?) {
 
         titles.clear()
 
@@ -88,18 +104,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         with(binding) {
             mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
-            mainSecondListTitleTextView.text = titles[SECOND_TITLE_INDEX]
-            mainThirdListTitleTextView.text = titles[THIRD_TITLE_INDEX]
-            mainFourthListTitleTextView.text = titles[FOURTH_TITLE_INDEX]
         }
     }
 
-    private fun fillLists(data: LinkedHashMap<String, List<FakeBook>>?) {
+    private fun fillLists(data: LinkedHashMap<String, List<Book>>?) {
 
         data?.get(titles[FIRST_TITLE_INDEX])?.let { newListAdapter.updateData(it) }
-        data?.get(titles[SECOND_TITLE_INDEX])?.let { secondListAdapter.updateData(it) }
-        data?.get(titles[THIRD_TITLE_INDEX])?.let { thirdListAdapter.updateData(it) }
-        data?.get(titles[FOURTH_TITLE_INDEX])?.let { fourthListAdapter.updateData(it) }
     }
 
 
