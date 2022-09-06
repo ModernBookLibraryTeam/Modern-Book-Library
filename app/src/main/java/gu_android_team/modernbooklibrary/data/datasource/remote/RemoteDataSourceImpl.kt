@@ -8,15 +8,47 @@ import kotlinx.coroutines.flow.flow
 
 class RemoteDataSourceImpl(
     private val api: RetrofitInt,
+    private val mapper: Mapper,
     var request: String,
     var bookId: String,
     var page: String,
 ) : RemoteDataSource, BaseRemoteDataSource() {
 
-    override suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
+    private suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
 
-    override suspend fun getBooksBySearchingFromServer() =
+    private suspend fun getBooksBySearchingFromServer() =
         apiCall { api.getBooksBySearching(request, page) }
 
-    override suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
+    private suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
+
+    override suspend fun getMappedNewBooksFromServer() =
+        if (getNewBooksFromServer() is DataSate.Success) {
+            DataSate.Success(
+                mapper.mapRemoteDataToLocal(
+                    getNewBooksFromServer().data?.books ?: emptyList()
+                )
+            )
+        } else {
+            DataSate.Error(getNewBooksFromServer().message.toString())
+        }
+
+    override suspend fun getMappedBooksBySearchingFromServer() =
+        if (getBooksBySearchingFromServer() is DataSate.Success) {
+            DataSate.Success(
+                mapper.mapRemoteDataToLocal(
+                    getBooksBySearchingFromServer().data?.books ?: emptyList()
+                )
+            )
+        } else {
+            DataSate.Error(getNewBooksFromServer().message.toString())
+        }
+
+    override suspend fun getMappedBookInfoFromServer() =
+        if (getBookInfoFromServer() is DataSate.Success) {
+            DataSate.Success(
+                mapper.mapRemoteDataSpecificToLocal(getBookInfoFromServer().data)
+            )
+        } else {
+            DataSate.Error(getNewBooksFromServer().message.toString())
+        }
 }

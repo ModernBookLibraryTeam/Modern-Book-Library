@@ -2,10 +2,7 @@ package gu_android_team.modernbooklibrary.data.repository
 
 import android.util.Log
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
-import gu_android_team.modernbooklibrary.data.datasource.remote.DataSate
-import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBooksDTO
-import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
-import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
+import gu_android_team.modernbooklibrary.data.datasource.remote.*
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.LocalDataSource
 import gu_android_team.modernbooklibrary.domain.RemoteDataSource
@@ -50,18 +47,18 @@ class RepositoryImpl(
         }
     }
 
-    override val newBooksFromRemoteDataSource: Flow<DataSate<NewAndSearchBooksDTO>>
+    override val newBooksFromRemoteDataSource: Flow<DataSate<List<Book>>>
         get() = flow {
-            emit(remoteDataSource.getNewBooksFromServer())
+            emit(remoteDataSource.getMappedNewBooksFromServer())
         }
 
-    override val searchedBooksFromRemoteDataSource: Flow<DataSate<NewAndSearchBooksDTO>>
+    override val searchedBooksFromRemoteDataSource: Flow<DataSate<List<Book>>>
         get() = flow {
-            emit(remoteDataSource.getBooksBySearchingFromServer())
+            emit(remoteDataSource.getMappedBooksBySearchingFromServer())
         }
 
-    override val bookInfoFromRemoteDataSource: Flow<DataSate<SpecificBookDTO>>
+    override val bookInfoFromRemoteDataSource: Flow<DataSate<Book>>
         get() = flow {
-            emit(remoteDataSource.getBookInfoFromServer())
+            emit(remoteDataSource.getMappedBookInfoFromServer())
         }
 }
