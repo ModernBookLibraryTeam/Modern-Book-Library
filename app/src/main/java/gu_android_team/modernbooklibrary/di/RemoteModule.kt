@@ -76,6 +76,7 @@ val remoteModule = module {
         )
     }
 
+
     single(qualifier = named(REMOTE_DATA_SOURCE_IMPL)) {
         RemoteDataSourceImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), "", "", "")
     }
