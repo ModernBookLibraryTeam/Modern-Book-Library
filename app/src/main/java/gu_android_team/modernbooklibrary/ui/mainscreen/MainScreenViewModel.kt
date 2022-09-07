@@ -8,9 +8,7 @@ import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.usecases.screens.MainScreenUseCase
 import gu_android_team.modernbooklibrary.utils.AppState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class MainScreenViewModel(private val usecase: MainScreenUseCase) : ViewModel() {
 
@@ -32,21 +30,16 @@ class MainScreenViewModel(private val usecase: MainScreenUseCase) : ViewModel() 
         _livedataToObserve.postValue(AppState.AppStateLoading)
         viewModelScope.launch {
 
-            val requestNewBooks = launch {
+            launch {
                 getNewBooksList()
-            }
+            }.join()
 
-            requestNewBooks.join()
+            getSearchedBooksListAsync(SECOND_TITLE, FIRST_PAGE).join()
+            getSearchedBooksListAsync(THIRD_TITLE, FIRST_PAGE).join()
+            getSearchedBooksListAsync(FOURTH_TITLE, FIRST_PAGE).join()
 
             _livedataToObserve.postValue(AppState.AppStateSuccess(listOfLists))
-
-
-            getSearchedBooksList(SECOND_TITLE, FIRST_PAGE)
-            getSearchedBooksList(THIRD_TITLE, FIRST_PAGE)
-            getSearchedBooksList(FOURTH_TITLE, FIRST_PAGE)
         }
-
-
     }
 
     private suspend fun getNewBooksList() {
@@ -70,9 +63,9 @@ class MainScreenViewModel(private val usecase: MainScreenUseCase) : ViewModel() 
         }
     }
 
-    private suspend fun getSearchedBooksList(searchWord: String, page: String) {
+    private suspend fun getSearchedBooksListAsync(searchWord: String, page: String): Deferred<Unit> {
 
-        withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+        return viewModelScope.async(Dispatchers.IO) {
             usecase.getSearchingBooksList(searchWord, page).collect { dataState ->
                 when (dataState) {
                     is DataState.Success -> {
@@ -90,8 +83,6 @@ class MainScreenViewModel(private val usecase: MainScreenUseCase) : ViewModel() 
                 }
             }
         }
-
-
     }
 
     private fun addListToLinkedHashMap(list: List<Book>, title: String) {

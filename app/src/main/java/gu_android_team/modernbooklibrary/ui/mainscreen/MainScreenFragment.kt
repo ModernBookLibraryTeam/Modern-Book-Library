@@ -74,22 +74,26 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     private fun observeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
-            when (data) {
-                is AppState.AppStateSuccess<*> -> {
-                    showStandardScreen()
-                    val result = data.value as LinkedHashMap<String, List<Book>>
-                    fillListTitles(result)
-                    fillLists(result)
-                }
+            renderData(data)
+        }
+    }
 
-                is AppState.AppStateError -> {
-                    showStandardScreen()
-                    showError(data.error)
-                }
+    private fun renderData(data: AppState) {
+        when (data) {
+            is AppState.AppStateSuccess<*> -> {
+                showStandardScreen()
+                val result = data.value as LinkedHashMap<String, List<Book>>
+                fillListTitles(result)
+                fillLists(result)
+            }
 
-                is AppState.AppStateLoading -> {
-                    showProgress()
-                }
+            is AppState.AppStateError -> {
+                showStandardScreen()
+                showError(data.error)
+            }
+
+            is AppState.AppStateLoading -> {
+                showProgress()
             }
         }
     }
@@ -104,12 +108,18 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         with(binding) {
             mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
+            mainSecondListTitleTextView.text = titles[SECOND_TITLE_INDEX]
+            mainThirdListTitleTextView.text = titles[THIRD_TITLE_INDEX]
+            mainFourthListTitleTextView.text = titles[FOURTH_TITLE_INDEX]
         }
     }
 
     private fun fillLists(data: LinkedHashMap<String, List<Book>>?) {
 
         data?.get(titles[FIRST_TITLE_INDEX])?.let { newListAdapter.updateData(it) }
+        data?.get(titles[SECOND_TITLE_INDEX])?.let { secondListAdapter.updateData(it) }
+        data?.get(titles[THIRD_TITLE_INDEX])?.let { thirdListAdapter.updateData(it) }
+        data?.get(titles[FOURTH_TITLE_INDEX])?.let { fourthListAdapter.updateData(it) }
     }
 
 
