@@ -2,13 +2,18 @@ package gu_android_team.modernbooklibrary.di
 
 import android.app.Application
 import androidx.room.Room
-import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
+import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RemoteDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.remote.RetrofitInt
-import gu_android_team.modernbooklibrary.data.mapper.Mapper
+import gu_android_team.modernbooklibrary.data.mapper.MapperImpl
 import gu_android_team.modernbooklibrary.data.repository.RepositoryImpl
+import gu_android_team.modernbooklibrary.domain.Book
+import gu_android_team.modernbooklibrary.domain.LocalDataSource
+import gu_android_team.modernbooklibrary.domain.RemoteDataSource
+import gu_android_team.modernbooklibrary.domain.Repository
+import gu_android_team.modernbooklibrary.domain.mapper.Mapper
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -25,7 +30,7 @@ const val RETROFIT_INT = "RetrofitInt"
 const val REMOTE_DATA_SOURCE_IMPL = "RemoteDataSource"
 const val REPOSITORY_IMPL = "RepositoryImpl"
 const val BOOK_DAO = "BookDao"
-const val LOCAL_MAPPER = "LocalMapper"
+const val APP_MAPPER = "LocalMapper"
 const val BOOK_DATABASE = "BookDatabase"
 
 val remoteModule = module {
@@ -44,12 +49,12 @@ val remoteModule = module {
 
     single(qualifier = named(BOOK_DAO)) { provideBookDao(get(named(BOOK_DATABASE))) }
 
-    single(qualifier = named(LOCAL_MAPPER)) { Mapper() }
+    factory<Mapper>(qualifier = named(APP_MAPPER)) { MapperImpl() }
 
-    single(qualifier = named(LOCAL_DATA_SOURCE_IMPL)) {
+    single<LocalDataSource<Book>>(qualifier = named(LOCAL_DATA_SOURCE_IMPL)) {
         LocalDataSourceImpl(
             get(named(BOOK_DAO)),
-            get(named(LOCAL_MAPPER))
+            get(named(APP_MAPPER))
         )
     }
 
@@ -76,12 +81,14 @@ val remoteModule = module {
         )
     }
 
-
-    single(qualifier = named(REMOTE_DATA_SOURCE_IMPL)) {
-        RemoteDataSourceImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), "", "", "")
+    single<RemoteDataSource>(qualifier = named(REMOTE_DATA_SOURCE_IMPL)) {
+        RemoteDataSourceImpl(
+            get(named(RETROFIT_INT)),
+            get(named(APP_MAPPER))
+        )
     }
 
-    single(qualifier = named(REPOSITORY_IMPL)) {
-        RepositoryImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), get())
+    single<Repository>(qualifier = named(REPOSITORY_IMPL)) {
+        RepositoryImpl(get(named(REMOTE_DATA_SOURCE_IMPL)), get(named(LOCAL_DATA_SOURCE_IMPL)))
     }
 }

@@ -6,18 +6,18 @@ import gu_android_team.modernbooklibrary.domain.LocalDataSource
 
 class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper: Mapper) : LocalDataSource<Book> {
     override suspend fun getData(): List<Book> {
-        return mapper.mapData(localProvider.getAllBooks())
+        return mapper.mapLocalDataToAppData(localProvider.getAllBooks())
     }
 
     override suspend fun getDataByTitle(title: String): Book {
-        return mapper.mapDataByTitle(localProvider.getBooksByTitle(title))
+        return mapper.mapLocalBookToBook(localProvider.getBooksByTitle(title))
     }
 
     override suspend fun insert(book: Book) {
-        return localProvider.insertBook(mapper.mapDomainToData(book))
+        return localProvider.insertBook(mapper.mapBookToLocalBook(book))
     }
 
     override suspend fun delete(book: Book) {
-        return localProvider.deleteBook(mapper.mapDomainToData(book))
+        return localProvider.deleteBook(mapper.mapBookToLocalBook(book))
     }
 }

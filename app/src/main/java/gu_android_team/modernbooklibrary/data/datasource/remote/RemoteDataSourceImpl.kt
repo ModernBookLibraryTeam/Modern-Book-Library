@@ -3,52 +3,60 @@ package gu_android_team.modernbooklibrary.data.datasource.remote
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.RemoteDataSource
 import gu_android_team.modernbooklibrary.domain.mapper.Mapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class RemoteDataSourceImpl(
     private val api: RetrofitInt,
-    private val mapper: Mapper,
-    var request: String,
-    var bookId: String,
-    var page: String,
+    private val mapper: Mapper
 ) : RemoteDataSource, BaseRemoteDataSource() {
 
     private suspend fun getNewBooksFromServer() = apiCall { api.getNewBooks() }
 
-    private suspend fun getBooksBySearchingFromServer() =
-        apiCall { api.getBooksBySearching(request, page) }
+    private suspend fun getBooksBySearchingFromServer(searchWord: String, page: String) =
+        apiCall { api.getBooksBySearching(searchWord, page) }
 
-    private suspend fun getBookInfoFromServer() = apiCall { api.getBookInfo(bookId) }
+    private suspend fun getBookInfoFromServer(bookIsbn13: String) =
+        apiCall { api.getBookInfo(bookIsbn13) }
 
-    override suspend fun getMappedNewBooksFromServer() =
-        if (getNewBooksFromServer() is DataSate.Success) {
-            DataSate.Success(
-                mapper.mapRemoteDataToLocal(
-                    getNewBooksFromServer().data?.books ?: emptyList()
+    override suspend fun getMappedNewBooksFromServer(): DataState<List<Book>> {
+        val data = getNewBooksFromServer()
+
+        return if (data is DataState.Success) {
+            DataState.Success(
+                mapper.mapRemoteDataToAppData(
+                    data.data?.books ?: emptyList()
                 )
             )
         } else {
-            DataSate.Error(getNewBooksFromServer().message.toString())
+            DataState.Error(data.message.toString())
         }
+    }
 
-    override suspend fun getMappedBooksBySearchingFromServer() =
-        if (getBooksBySearchingFromServer() is DataSate.Success) {
-            DataSate.Success(
-                mapper.mapRemoteDataToLocal(
-                    getBooksBySearchingFromServer().data?.books ?: emptyList()
+    override suspend fun getMappedBooksBySearchingFromServer(
+        searchWord: String,
+        page: String
+    ): DataState<List<Book>> {
+        val data = getBooksBySearchingFromServer(searchWord, page)
+
+        return if (data is DataState.Success) {
+            DataState.Success(
+                mapper.mapRemoteDataToAppData(
+                    data.data?.books ?: emptyList()
                 )
             )
         } else {
-            DataSate.Error(getBooksBySearchingFromServer().message.toString())
+            DataState.Error(data.message.toString())
         }
+    }
 
-    override suspend fun getMappedBookInfoFromServer() =
-        if (getBookInfoFromServer() is DataSate.Success) {
-            DataSate.Success(
-                mapper.mapRemoteDataSpecificToLocal(getBookInfoFromServer().data)
+    override suspend fun getMappedBookInfoFromServer(bookIsbn13: String): DataState<Book> {
+        val data = getBookInfoFromServer(bookIsbn13)
+
+        return if (data is DataState.Success) {
+            DataState.Success(
+                mapper.mapRemoteSpecificBookDtoToBook(data.data)
             )
         } else {
-            DataSate.Error(getBookInfoFromServer().message.toString())
+            DataState.Error(data.message.toString())
         }
+    }
 }

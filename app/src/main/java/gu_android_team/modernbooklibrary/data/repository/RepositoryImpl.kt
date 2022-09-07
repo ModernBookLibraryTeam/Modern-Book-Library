@@ -1,8 +1,6 @@
 package gu_android_team.modernbooklibrary.data.repository
 
-import android.util.Log
-import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
-import gu_android_team.modernbooklibrary.data.datasource.remote.*
+import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.LocalDataSource
 import gu_android_team.modernbooklibrary.domain.RemoteDataSource
@@ -13,15 +11,27 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource<Book>
 ) : Repository {
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    override suspend fun getNewBooksFromRemoteDataSource(): Flow<DataState<List<Book>>> = flow {
+            emit(remoteDataSource.getMappedNewBooksFromServer())
+        }
+
+    override suspend fun getSearchedBooksFromRemoteDataSource(
+        searchWord: String,
+        page: String
+    ): Flow<DataState<List<Book>>> = flow {
+        emit(remoteDataSource.getMappedBooksBySearchingFromServer(searchWord, page))
+    }
+
+    override suspend fun getBookInfoFromRemoteDataSource(bookIsbn13: String): Flow<DataState<Book>> = flow {
+        emit(remoteDataSource.getMappedBookInfoFromServer(bookIsbn13))
+    }
 
     override fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit) {
         scope.launch {
@@ -46,19 +56,4 @@ class RepositoryImpl(
             }
         }
     }
-
-    override val newBooksFromRemoteDataSource: Flow<DataSate<List<Book>>>
-        get() = flow {
-            emit(remoteDataSource.getMappedNewBooksFromServer())
-        }
-
-    override val searchedBooksFromRemoteDataSource: Flow<DataSate<List<Book>>>
-        get() = flow {
-            emit(remoteDataSource.getMappedBooksBySearchingFromServer())
-        }
-
-    override val bookInfoFromRemoteDataSource: Flow<DataSate<Book>>
-        get() = flow {
-            emit(remoteDataSource.getMappedBookInfoFromServer())
-        }
 }

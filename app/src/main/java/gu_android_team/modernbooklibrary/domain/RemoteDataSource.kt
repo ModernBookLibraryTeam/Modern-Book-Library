@@ -1,10 +1,9 @@
 package gu_android_team.modernbooklibrary.domain
 
-import gu_android_team.modernbooklibrary.data.datasource.remote.DataSate
-import retrofit2.Response
+import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 
 interface RemoteDataSource {
-    suspend fun getMappedNewBooksFromServer(): DataSate<List<Book>>
-    suspend fun getMappedBooksBySearchingFromServer(): DataSate<List<Book>>
-    suspend fun getMappedBookInfoFromServer(): DataSate<Book>
+    suspend fun getMappedNewBooksFromServer(): DataState<List<Book>>
+    suspend fun getMappedBooksBySearchingFromServer(searchWord: String, page: String): DataState<List<Book>>
+    suspend fun getMappedBookInfoFromServer(bookIsbn13: String): DataState<Book>
 }
