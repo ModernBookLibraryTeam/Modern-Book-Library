@@ -48,7 +48,7 @@ class MainScreenViewModel(
     private val todayTitlesList = mutableListOf<String>()
 
     private val defaultTitlesSet =
-        mutableSetOf(NEW_BOOKS_TITLE, ANDROID_BOOKS_TITLE, KOTLIN_BOOKS_TITLE, JAVA_BOOKS_TITLE)
+        mutableSetOf(ANDROID_BOOKS_TITLE, KOTLIN_BOOKS_TITLE, JAVA_BOOKS_TITLE)
 
     private val _livedataToObserve = MutableLiveData<AppState>()
     val livedataToObserve: LiveData<AppState> = _livedataToObserve
