@@ -20,6 +20,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
 
+    companion object {
+        const val LAST_CHECKED_TIME_KEY = "LAST_CHECKED_TIME_KEY"
+        const val APP_SHARED_PREFERENCES = "APP_SHARED_PREFERENCES"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

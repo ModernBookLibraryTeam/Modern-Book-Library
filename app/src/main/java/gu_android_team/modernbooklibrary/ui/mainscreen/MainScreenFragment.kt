@@ -19,10 +19,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         fun newInstance() = MainScreenFragment()
 
-        private const val FIRST_TITLE_INDEX = 0
-        private const val SECOND_TITLE_INDEX = 1
-        private const val THIRD_TITLE_INDEX = 2
-        private const val FOURTH_TITLE_INDEX = 3
+        const val FIRST_TITLE_INDEX = 0
+        const val SECOND_TITLE_INDEX = 1
+        const val THIRD_TITLE_INDEX = 2
+        const val FOURTH_TITLE_INDEX = 3
+        const val CPP_SPECIAL_TITLE_PART = "cpp"
+        const val CSHARP_SPECIAL_TITLE_PART = "csharp"
     }
 
     private val titles = mutableListOf<String>()
@@ -108,11 +110,29 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         with(binding) {
             mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
-            mainSecondListTitleTextView.text = titles[SECOND_TITLE_INDEX]
-            mainThirdListTitleTextView.text = titles[THIRD_TITLE_INDEX]
-            mainFourthListTitleTextView.text = titles[FOURTH_TITLE_INDEX]
+            mainSecondListTitleTextView.text = makeCorrectTitle(titles[SECOND_TITLE_INDEX])
+            mainThirdListTitleTextView.text = makeCorrectTitle(titles[THIRD_TITLE_INDEX])
+            mainFourthListTitleTextView.text = makeCorrectTitle(titles[FOURTH_TITLE_INDEX])
         }
     }
+
+    private fun makeCorrectTitle(newTitle: String): String {
+        return when (newTitle) {
+            CPP_SPECIAL_TITLE_PART -> {
+                this.getString(R.string.main_title_about_cpp)
+            }
+            CSHARP_SPECIAL_TITLE_PART -> {
+                this.getString(R.string.main_title_about_csharp)
+            }
+            else -> {
+                StringBuilder(this.getString(R.string.main_title_about_addition)).apply {
+                    append(" ")
+                    append(newTitle)
+                }.toString()
+            }
+        }
+    }
+
 
     private fun fillLists(data: LinkedHashMap<String, List<Book>>?) {
 

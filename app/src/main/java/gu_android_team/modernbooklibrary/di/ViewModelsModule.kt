@@ -10,7 +10,8 @@ const val MAIN_SCREEN_VIEW_MODEL_NAME = "MainScreenViewModel"
 val viewModelsModule = module {
     viewModel {
         MainScreenViewModel(
-            usecase = get(named(MAIN_SCREEN_USECASE_NAME))
+            usecase = get(named(MAIN_SCREEN_USECASE_NAME)),
+            app = get()
         )
     }
 }

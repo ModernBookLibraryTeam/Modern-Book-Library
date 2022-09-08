@@ -16,4 +16,7 @@
     <string name="book_author_label_text">Authors:</string>
     <string name="book_publisher_label_text">Publisher:</string>
     <string name="retry_string">Retry</string>
+    <string name="main_title_about_addition">books about</string>
+    <string name="main_title_about_cpp">books about c++</string>
+    <string name="main_title_about_csharp">books about c#</string>
 </resources>
