@@ -47,7 +47,7 @@
     <dimen name="book_title_text_size">24sp</dimen>
     <dimen name="book_subtitle_text_size">18sp</dimen>
     <dimen name="book_subtitle_margin_top">5dp</dimen>
-    <dimen name="book_subtitle_margin_bottom">5dp</dimen>
+    <dimen name="book_subtitle_margin_bottom">24dp</dimen>
     <dimen name="book_author_text_size">18sp</dimen>
     <dimen name="book_cover_image_width">240dp</dimen>
     <dimen name="book_cover_image_stroke_width">2dp</dimen>
@@ -65,4 +65,5 @@
     <dimen name="profile_authorisation_button_margin_top">16dp</dimen>
     <item name="profile_user_image_alpha" type="dimen" format="float">0.5</item>
     <dimen name="favorites_item_image_width">100dp</dimen>
+    <dimen name="book_title_margin_top">36dp</dimen>
 </resources>

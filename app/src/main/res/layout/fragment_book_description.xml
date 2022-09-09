@@ -23,6 +23,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookTitleTextview"
             style="@style/book_title_style"
+
             app:layout_constraintEnd_toStartOf="@id/bookAddToFavoritesImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +32,6 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookSubtitleTextview"
             style="@style/book_subtitle_style"
-            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@id/bookCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
             app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
@@ -41,12 +41,11 @@
             android:id="@+id/bookAddToFavoritesImageView"
             style="@style/book_add_to_favorites_image_style"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bookTitleTextview" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/bookCoverImageView"
             style="@style/book_cover_image_style"
-            android:layout_width="240dp"
             app:layout_constraintBottom_toBottomOf="@id/bookPublisherTextView"
             app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
             app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview"
