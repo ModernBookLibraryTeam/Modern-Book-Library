@@ -31,6 +31,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookSubtitleTextview"
             style="@style/book_subtitle_style"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@id/bookCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
             app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
             tools:text="Security in the Cloud" />

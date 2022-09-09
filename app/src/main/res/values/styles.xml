@@ -167,6 +167,7 @@
     <style name="book_title_style">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/book_title_text_size</item>
     </style>
 
@@ -187,6 +188,7 @@
     <style name="book_author_label_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">@dimen/book_author_label_margin_start
         </item>
     </style>
@@ -213,6 +215,7 @@
     <style name="book_secondary_label_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
     </style>
 
