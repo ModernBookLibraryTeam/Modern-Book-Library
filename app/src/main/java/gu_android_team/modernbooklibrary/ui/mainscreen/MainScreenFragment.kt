@@ -1,5 +1,6 @@
 package gu_android_team.modernbooklibrary.ui.mainscreen
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentMainScreenBinding
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,17 +29,52 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         const val CSHARP_SPECIAL_TITLE_PART = "csharp"
     }
 
+
+    private val controller by lazy {
+        activity as MainScreenController
+    }
+
     private val titles = mutableListOf<String>()
-    private val newListAdapter = MainRecyclerViewAdapter()
-    private val secondListAdapter = MainRecyclerViewAdapter()
-    private val thirdListAdapter = MainRecyclerViewAdapter()
-    private val fourthListAdapter = MainRecyclerViewAdapter()
+    private val newListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+
+    private val secondListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+    private val thirdListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+    private val fourthListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+
 
     private val binding: FragmentMainScreenBinding by viewBinding(
         FragmentMainScreenBinding::bind
     )
 
     private val mainViewModel: MainScreenViewModel by viewModel()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (activity !is MainScreenController) {
+            throw IllegalStateException(getString(R.string.wrong_activity_error_message))
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -47,7 +84,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerViews()
-        observeToLivaData()
+        subscribeToLivaData()
     }
 
     private fun initRecyclerViews() {
@@ -74,7 +111,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         }
     }
 
-    private fun observeToLivaData() {
+    private fun subscribeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
             renderData(data)
         }
@@ -168,5 +205,15 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     private fun updateData() {
         mainViewModel.getLists()
+    }
+
+    interface MainScreenController {
+        fun openBookDescriptionScreen(bundle: Bundle)
+    }
+
+    private fun putBookIsbn13toBundle(bookIsbn13: String): Bundle {
+        val bundle = Bundle()
+        bundle.putString(BOOK_ISBN13_KEY, bookIsbn13)
+        return bundle
     }
 }

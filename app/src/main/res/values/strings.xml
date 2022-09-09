@@ -19,4 +19,6 @@
     <string name="main_title_about_addition">books about</string>
     <string name="main_title_about_cpp">books about c++</string>
     <string name="main_title_about_csharp">books about c#</string>
+    <string name="error_fragment_arguments_is_null_message">Fragment arguments is null</string>
+    <string name="wrong_activity_error_message">This activity isn\'t MainScreenController</string>
 </resources>

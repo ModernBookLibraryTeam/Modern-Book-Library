@@ -9,12 +9,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment
 import gu_android_team.modernbooklibrary.ui.favoritesscreen.FavoritesScreenFragment
 import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
 import gu_android_team.modernbooklibrary.ui.profilescreen.ProfileScreenFragment
 import gu_android_team.modernbooklibrary.ui.searchscreen.SearchScreenFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenController {
 
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
 
@@ -110,5 +111,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun openBookDescriptionScreen(bundle: Bundle) {
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(R.id.mainContainerFrameLayout, BookDescriptionFragment.newInstance(bundle))
+            .addToBackStack("bookDescriptionScreen")
+            .commit()
     }
 }
