@@ -23,6 +23,7 @@ class MapperImpl : Mapper {
                 isbn10 = it.isbn10,
                 isbn13 = it.isbn13,
                 pages = it.pages,
+                rating = it.rating,
                 year = it.year,
                 desc = it.description,
                 image = it.image
@@ -39,6 +40,7 @@ class MapperImpl : Mapper {
             isbn10 = localBook.isbn10,
             isbn13 = localBook.isbn13,
             pages = localBook.pages,
+            rating = localBook.rating,
             year = localBook.year,
             desc = localBook.description,
             image = localBook.image
@@ -54,6 +56,7 @@ class MapperImpl : Mapper {
             isbn10 = book.isbn10,
             isbn13 = book.isbn13,
             pages = book.pages,
+            rating = book.rating,
             year = book.year,
             description = book.desc,
             image = book.image
@@ -80,6 +83,7 @@ class MapperImpl : Mapper {
             isbn10 = bookDTO?.isbn10 ?: "",
             isbn13 = bookDTO?.isbn13 ?: "",
             pages = bookDTO?.pages ?: "",
+            rating = bookDTO?.rating ?: "",
             year = bookDTO?.year ?: "",
             desc = bookDTO?.desc ?: "",
             image = bookDTO?.image ?: NO_IMAGE_URL

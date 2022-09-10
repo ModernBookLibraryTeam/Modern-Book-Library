@@ -10,7 +10,9 @@ import gu_android_team.modernbooklibrary.databinding.ItemMainListsBinding
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.utils.MainDiffUtilCallback
 
-class MainRecyclerViewAdapter :
+class MainRecyclerViewAdapter(
+    private val onItemClickCallback: (String) -> Unit,
+) :
     RecyclerView.Adapter<MainRecyclerViewAdapter.MainRecyclerViewViewHolder>() {
 
     private var booksList = emptyList<Book>()
@@ -38,6 +40,9 @@ class MainRecyclerViewAdapter :
             bookSubtitle.text = booksList[position].subtitle
             bookCover.load(booksList[position].image) {
                 placeholder(R.drawable.ic_baseline_image_24)
+            }
+            itemView.setOnClickListener {
+                onItemClickCallback(booksList[position].isbn13)
             }
         }
     }

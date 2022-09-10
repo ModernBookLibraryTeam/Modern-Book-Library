@@ -21,6 +21,8 @@ data class LocalBook(
     val isbn10: String,
     @ColumnInfo(name = "pages")
     val pages: String,
+    @ColumnInfo(name = "rating")
+    val rating: String,
     @ColumnInfo(name = "year")
     val year: String,
     @ColumnInfo(name = "desc")

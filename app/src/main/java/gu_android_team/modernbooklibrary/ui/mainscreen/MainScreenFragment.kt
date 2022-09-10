@@ -1,5 +1,6 @@
 package gu_android_team.modernbooklibrary.ui.mainscreen
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentMainScreenBinding
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,23 +21,60 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         fun newInstance() = MainScreenFragment()
 
-        private const val FIRST_TITLE_INDEX = 0
-        private const val SECOND_TITLE_INDEX = 1
-        private const val THIRD_TITLE_INDEX = 2
-        private const val FOURTH_TITLE_INDEX = 3
+        const val FIRST_TITLE_INDEX = 0
+        const val SECOND_TITLE_INDEX = 1
+        const val THIRD_TITLE_INDEX = 2
+        const val FOURTH_TITLE_INDEX = 3
+        const val CPP_SPECIAL_TITLE_PART = "cpp"
+        const val CSHARP_SPECIAL_TITLE_PART = "csharp"
+    }
+
+
+    private val controller by lazy {
+        activity as MainScreenController
     }
 
     private val titles = mutableListOf<String>()
-    private val newListAdapter = MainRecyclerViewAdapter()
-    private val secondListAdapter = MainRecyclerViewAdapter()
-    private val thirdListAdapter = MainRecyclerViewAdapter()
-    private val fourthListAdapter = MainRecyclerViewAdapter()
+    private val newListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+
+    private val secondListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+    private val thirdListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+    private val fourthListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
+
+        controller.openBookDescriptionScreen(
+            putBookIsbn13toBundle(bookIsbn13)
+        )
+    }
+
 
     private val binding: FragmentMainScreenBinding by viewBinding(
         FragmentMainScreenBinding::bind
     )
 
     private val mainViewModel: MainScreenViewModel by viewModel()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (activity !is MainScreenController) {
+            throw IllegalStateException(getString(R.string.wrong_activity_error_message))
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -45,7 +84,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerViews()
-        observeToLivaData()
+        subscribeToLivaData()
     }
 
     private fun initRecyclerViews() {
@@ -72,24 +111,28 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         }
     }
 
-    private fun observeToLivaData() {
+    private fun subscribeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
-            when (data) {
-                is AppState.AppStateSuccess<*> -> {
-                    showStandardScreen()
-                    val result = data.value as LinkedHashMap<String, List<Book>>
-                    fillListTitles(result)
-                    fillLists(result)
-                }
+            renderData(data)
+        }
+    }
 
-                is AppState.AppStateError -> {
-                    showStandardScreen()
-                    showError(data.error)
-                }
+    private fun renderData(data: AppState) {
+        when (data) {
+            is AppState.AppStateSuccess<*> -> {
+                showStandardScreen()
+                val result = data.value as LinkedHashMap<String, List<Book>>
+                fillListTitles(result)
+                fillLists(result)
+            }
 
-                is AppState.AppStateLoading -> {
-                    showProgress()
-                }
+            is AppState.AppStateError -> {
+                showStandardScreen()
+                showError(data.error)
+            }
+
+            is AppState.AppStateLoading -> {
+                showProgress()
             }
         }
     }
@@ -104,12 +147,36 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         with(binding) {
             mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
+            mainSecondListTitleTextView.text = makeCorrectTitle(titles[SECOND_TITLE_INDEX])
+            mainThirdListTitleTextView.text = makeCorrectTitle(titles[THIRD_TITLE_INDEX])
+            mainFourthListTitleTextView.text = makeCorrectTitle(titles[FOURTH_TITLE_INDEX])
         }
     }
+
+    private fun makeCorrectTitle(newTitle: String): String {
+        return when (newTitle) {
+            CPP_SPECIAL_TITLE_PART -> {
+                this.getString(R.string.main_title_about_cpp)
+            }
+            CSHARP_SPECIAL_TITLE_PART -> {
+                this.getString(R.string.main_title_about_csharp)
+            }
+            else -> {
+                StringBuilder(this.getString(R.string.main_title_about_addition)).apply {
+                    append(" ")
+                    append(newTitle)
+                }.toString()
+            }
+        }
+    }
+
 
     private fun fillLists(data: LinkedHashMap<String, List<Book>>?) {
 
         data?.get(titles[FIRST_TITLE_INDEX])?.let { newListAdapter.updateData(it) }
+        data?.get(titles[SECOND_TITLE_INDEX])?.let { secondListAdapter.updateData(it) }
+        data?.get(titles[THIRD_TITLE_INDEX])?.let { thirdListAdapter.updateData(it) }
+        data?.get(titles[FOURTH_TITLE_INDEX])?.let { fourthListAdapter.updateData(it) }
     }
 
 
@@ -138,5 +205,15 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     private fun updateData() {
         mainViewModel.getLists()
+    }
+
+    interface MainScreenController {
+        fun openBookDescriptionScreen(bundle: Bundle)
+    }
+
+    private fun putBookIsbn13toBundle(bookIsbn13: String): Bundle {
+        val bundle = Bundle()
+        bundle.putString(BOOK_ISBN13_KEY, bookIsbn13)
+        return bundle
     }
 }

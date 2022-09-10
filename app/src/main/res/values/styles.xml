@@ -165,8 +165,10 @@
     </style>
 
     <style name="book_title_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_title_margin_top</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/book_title_text_size</item>
     </style>
 
@@ -187,18 +189,19 @@
     <style name="book_author_label_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">@dimen/book_author_label_margin_start
         </item>
     </style>
 
     <style name="book_author_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="book_cover_image_style">
         <item name="android:layout_width">@dimen/book_cover_image_width</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
         <item name="android:layout_marginTop">@dimen/book_cover_image_margin_top</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="strokeWidth">@dimen/book_cover_image_stroke_width</item>
@@ -213,6 +216,7 @@
     <style name="book_secondary_label_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
     </style>
 

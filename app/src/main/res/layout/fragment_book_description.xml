@@ -15,21 +15,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookTitleTextview"
             style="@style/book_title_style"
+
+            app:layout_constraintEnd_toStartOf="@id/bookAddToFavoritesImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Securing DevOps" />
+            tools:text="Securing DevOps Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookSubtitleTextview"
             style="@style/book_subtitle_style"
+            app:layout_constraintBottom_toTopOf="@id/bookCoverImageView"
             app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
             app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
             tools:text="Security in the Cloud" />
@@ -38,12 +41,12 @@
             android:id="@+id/bookAddToFavoritesImageView"
             style="@style/book_add_to_favorites_image_style"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bookTitleTextview" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/bookCoverImageView"
             style="@style/book_cover_image_style"
-            android:layout_width="240dp"
+            app:layout_constraintBottom_toBottomOf="@id/bookPublisherTextView"
             app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
             app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview"
             tools:src="@drawable/cover_example_2" />
@@ -51,13 +54,14 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookAuthorLabelTextview"
             style="@style/book_author_label_style"
+            android:text="@string/book_author_label_text"
             app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
-            app:layout_constraintTop_toTopOf="@id/bookCoverImageView"
-            android:text="@string/book_author_label_text" />
+            app:layout_constraintTop_toTopOf="@id/bookCoverImageView" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookAuthorTextview"
             style="@style/book_author_style"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/bookAuthorLabelTextview"
             app:layout_constraintTop_toBottomOf="@id/bookAuthorLabelTextview"
             tools:text="Julien Vehent" />
