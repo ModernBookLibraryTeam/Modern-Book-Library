@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -58,6 +59,10 @@ class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenControlle
 
     override fun openBookDescriptionScreen(bundle: Bundle) {
 
-        navController.navigate(R.id.bookDescriptionScreen, bundle)
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.bottomMenuMainScreenButton, true)
+            .build()
+
+        navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
     }
 }

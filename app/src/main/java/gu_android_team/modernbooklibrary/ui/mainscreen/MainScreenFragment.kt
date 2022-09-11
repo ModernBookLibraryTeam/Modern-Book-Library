@@ -25,6 +25,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         const val SECOND_TITLE_INDEX = 1
         const val THIRD_TITLE_INDEX = 2
         const val FOURTH_TITLE_INDEX = 3
+        const val TITLES_REQUIRED_COUNT = 4
         const val CPP_SPECIAL_TITLE_PART = "cpp"
         const val CSHARP_SPECIAL_TITLE_PART = "csharp"
     }
@@ -113,7 +114,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     private fun subscribeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
-            renderData(data)
+            data?.let {
+                renderData(data)
+            }?: showError(getString(R.string.network_connection_error_message))
         }
     }
 
@@ -122,8 +125,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
             is AppState.AppStateSuccess<*> -> {
                 showStandardScreen()
                 val result = data.value as LinkedHashMap<String, List<Book>>
-                fillListTitles(result)
-                fillLists(result)
+                if(result.keys.size == TITLES_REQUIRED_COUNT) {
+                    fillListTitles(result)
+                    fillLists(result)
+                } else {
+                    showError(getString(R.string.network_connection_error_message))
+                }
             }
 
             is AppState.AppStateError -> {
@@ -144,12 +151,15 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         data?.keys?.forEach {
             titles.add(it)
         }
-
-        with(binding) {
-            mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
-            mainSecondListTitleTextView.text = makeCorrectTitle(titles[SECOND_TITLE_INDEX])
-            mainThirdListTitleTextView.text = makeCorrectTitle(titles[THIRD_TITLE_INDEX])
-            mainFourthListTitleTextView.text = makeCorrectTitle(titles[FOURTH_TITLE_INDEX])
+        if(titles.isNotEmpty() && titles.size == TITLES_REQUIRED_COUNT) {
+            with(binding) {
+                mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
+                mainSecondListTitleTextView.text = makeCorrectTitle(titles[SECOND_TITLE_INDEX])
+                mainThirdListTitleTextView.text = makeCorrectTitle(titles[THIRD_TITLE_INDEX])
+                mainFourthListTitleTextView.text = makeCorrectTitle(titles[FOURTH_TITLE_INDEX])
+            }
+        } else {
+            showError(getString(R.string.network_connection_error_message))
         }
     }
 

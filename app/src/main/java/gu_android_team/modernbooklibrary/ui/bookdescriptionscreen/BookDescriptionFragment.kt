@@ -88,50 +88,14 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
     override fun showProgress() {
         with(binding) {
             bookProgressBar.visibility = View.VISIBLE
-            bookTitleTextview.visibility = View.GONE
-            bookSubtitleTextview.visibility = View.GONE
-            bookAuthorLabelTextview.visibility = View.GONE
-            bookAuthorTextview.visibility = View.GONE
-            bookAddToFavoritesImageView.visibility = View.GONE
-            bookCoverImageView.visibility = View.GONE
-            bookPublicationDateTextView.visibility = View.GONE
-            bookNumberOfPagesLabelTextView.visibility = View.GONE
-            bookNumberOfPagesTextView.visibility = View.GONE
-            bookRatingLabelTextView.visibility = View.GONE
-            bookRatingTextView.visibility = View.GONE
-            bookRatingStarImageView.visibility = View.GONE
-            bookIsbn10LabelTextView.visibility = View.GONE
-            bookIsbn10TextView.visibility = View.GONE
-            bookIsbn13LabelTextView.visibility = View.GONE
-            bookIsbn13TextView.visibility = View.GONE
-            bookPublisherLabelTextView.visibility = View.GONE
-            bookPublisherTextView.visibility = View.GONE
-            bookDescriptionTextView.visibility = View.GONE
+            bookMainContainerConstraintLayout.visibility = View.GONE
         }
     }
 
     override fun showStandardScreen() {
         with(binding) {
             bookProgressBar.visibility = View.GONE
-            bookTitleTextview.visibility = View.VISIBLE
-            bookSubtitleTextview.visibility = View.VISIBLE
-            bookAuthorLabelTextview.visibility = View.VISIBLE
-            bookAuthorTextview.visibility = View.VISIBLE
-            bookAddToFavoritesImageView.visibility = View.VISIBLE
-            bookCoverImageView.visibility = View.VISIBLE
-            bookNumberOfPagesLabelTextView.visibility = View.VISIBLE
-            bookNumberOfPagesTextView.visibility = View.VISIBLE
-            bookPublicationDateTextView.visibility = View.VISIBLE
-            bookRatingLabelTextView.visibility = View.VISIBLE
-            bookRatingTextView.visibility = View.VISIBLE
-            bookRatingStarImageView.visibility = View.VISIBLE
-            bookIsbn10LabelTextView.visibility = View.VISIBLE
-            bookIsbn10TextView.visibility = View.VISIBLE
-            bookIsbn13LabelTextView.visibility = View.VISIBLE
-            bookIsbn13TextView.visibility = View.VISIBLE
-            bookPublisherLabelTextView.visibility = View.VISIBLE
-            bookPublisherTextView.visibility = View.VISIBLE
-            bookDescriptionTextView.visibility = View.VISIBLE
+            bookMainContainerConstraintLayout.visibility = View.VISIBLE
         }
     }
 

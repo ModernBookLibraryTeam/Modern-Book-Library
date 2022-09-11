@@ -9,11 +9,7 @@
         android:id="@+id/bottomMenuMainScreenButton"
         android:name="gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment"
         android:label="@string/bottom_menu_home_button_label"
-        tools:layout="@layout/fragment_main_screen">
-        <action
-            android:id="@+id/navigateToBookDescription"
-            app:destination="@id/bookDescriptionScreen" />
-    </fragment>
+        tools:layout="@layout/fragment_main_screen" />
 
     <fragment
         android:id="@+id/bottomMenuSearchScreenButton"
@@ -37,8 +33,5 @@
         android:id="@+id/bookDescriptionScreen"
         android:name="gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment"
         android:label="@string/book_description_label"
-        tools:layout="@layout/fragment_book_description">
-
-    </fragment>
-
+        tools:layout="@layout/fragment_book_description" />
 </navigation>
