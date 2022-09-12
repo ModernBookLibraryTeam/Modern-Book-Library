@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import gu_android_team.modernbooklibrary.MainActivity
 import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentMainScreenBinding
 import gu_android_team.modernbooklibrary.domain.Book
@@ -187,6 +188,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         data?.get(titles[SECOND_TITLE_INDEX])?.let { secondListAdapter.updateData(it) }
         data?.get(titles[THIRD_TITLE_INDEX])?.let { thirdListAdapter.updateData(it) }
         data?.get(titles[FOURTH_TITLE_INDEX])?.let { fourthListAdapter.updateData(it) }
+
+        val activity = requireActivity() as MainActivity
+        activity.setKeepOnScreenCondition(false)
     }
 
 

@@ -49,7 +49,7 @@
     <dimen name="book_subtitle_margin_top">5dp</dimen>
     <dimen name="book_subtitle_margin_bottom">24dp</dimen>
     <dimen name="book_author_text_size">18sp</dimen>
-    <dimen name="book_cover_image_width">240dp</dimen>
+    <dimen name="book_cover_image_width">220dp</dimen>
     <dimen name="book_cover_image_stroke_width">2dp</dimen>
     <dimen name="book_cover_image_margin_top">8dp</dimen>
     <dimen name="book_publication_date_label_margin_start">8dp</dimen>

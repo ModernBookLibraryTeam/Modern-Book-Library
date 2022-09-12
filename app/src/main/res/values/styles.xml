@@ -213,7 +213,7 @@
     </style>
 
     <style name="book_secondary_label_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
@@ -246,7 +246,7 @@
     </style>
 
     <style name="book_publisher_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
