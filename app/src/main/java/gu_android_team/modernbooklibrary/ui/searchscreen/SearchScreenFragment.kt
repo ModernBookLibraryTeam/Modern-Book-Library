@@ -25,14 +25,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
-class SearchScreenFragment : Fragment(), Screen {
+class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
 
     companion object {
         @JvmStatic
         fun newInstance() = SearchScreenFragment()
     }
 
-    private val searchAdapter = SearchRecyclerViewAdapter()
+    private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
     private var page = 1
     private val binding: FragmentSearchScreenBinding by viewBinding(
@@ -150,5 +150,10 @@ class SearchScreenFragment : Fragment(), Screen {
             binding.searchTextInputEditText.text.toString(),
             "$page"
         )
+    }
+
+    override fun onBookClick(position: Int) {
+        searchAdapter.searchedBooks[position]
+        Timber.tag("TAG").d("Clicked ${searchAdapter.searchedBooks[position]}")
     }
 }

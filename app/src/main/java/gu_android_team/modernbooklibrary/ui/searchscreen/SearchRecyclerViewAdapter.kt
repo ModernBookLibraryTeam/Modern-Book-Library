@@ -12,7 +12,7 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.utils.MainDiffUtilCallback
 
-class SearchRecyclerViewAdapter :
+class SearchRecyclerViewAdapter(private val onAdapterBookListener: OnBookListener) :
     RecyclerView.Adapter<SearchRecyclerViewAdapter.SearchRecyclerViewViewHolder>() {
     val searchedBooks = mutableListOf<Book>()
 
@@ -29,7 +29,7 @@ class SearchRecyclerViewAdapter :
     ): SearchRecyclerViewViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_search_list, parent, false)
-        return SearchRecyclerViewViewHolder(view)
+        return SearchRecyclerViewViewHolder(view, onAdapterBookListener)
     }
 
     override fun onBindViewHolder(holder: SearchRecyclerViewViewHolder, position: Int) {
@@ -38,10 +38,17 @@ class SearchRecyclerViewAdapter :
 
     override fun getItemCount() = searchedBooks.size
 
-    inner class SearchRecyclerViewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image = view.findViewById<ShapeableImageView>(R.id.searchItemImageView)
-        val title = view.findViewById<MaterialTextView>(R.id.searchItemTitleTextView)
-        val author = view.findViewById<MaterialTextView>(R.id.searchItemAuthorTextView)
+    inner class SearchRecyclerViewViewHolder(view: View, var onBookListener: OnBookListener) :
+        RecyclerView.ViewHolder(view),
+        View.OnClickListener {
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        private val image = view.findViewById<ShapeableImageView>(R.id.searchItemImageView)
+        private val title = view.findViewById<MaterialTextView>(R.id.searchItemTitleTextView)
+        private val author = view.findViewById<MaterialTextView>(R.id.searchItemAuthorTextView)
+
         fun binding(item: Book) {
             image.load(item.image) {
                 placeholder(R.drawable.ic_baseline_image_24)
@@ -49,5 +56,13 @@ class SearchRecyclerViewAdapter :
             title.text = item.title
             author.text = item.authors
         }
+
+        override fun onClick(p0: View?) {
+            onBookListener.onBookClick(adapterPosition)
+        }
+    }
+
+    interface OnBookListener {
+        fun onBookClick(position: Int)
     }
 }
