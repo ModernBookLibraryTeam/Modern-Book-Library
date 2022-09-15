@@ -14,14 +14,14 @@ import gu_android_team.modernbooklibrary.utils.MainDiffUtilCallback
 
 class SearchRecyclerViewAdapter :
     RecyclerView.Adapter<SearchRecyclerViewAdapter.SearchRecyclerViewViewHolder>() {
-    var searchedBooks = listOf<Book>()
-        set(listParam) {
-            val diffCallBack = MainDiffUtilCallback(this.searchedBooks, listParam)
-            DiffUtil.calculateDiff(diffCallBack).also {
-                it.dispatchUpdatesTo(this)
-            }
-            field = listParam
-        }
+    val searchedBooks = mutableListOf<Book>()
+
+    fun setSearchedBooksList(searchedListParam: List<Book>) {
+        val diffCallBack = MainDiffUtilCallback(this.searchedBooks, searchedListParam)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack)
+        this.searchedBooks.addAll(searchedListParam)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

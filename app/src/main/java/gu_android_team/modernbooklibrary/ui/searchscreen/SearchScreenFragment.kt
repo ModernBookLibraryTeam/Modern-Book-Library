@@ -2,6 +2,7 @@ package gu_android_team.modernbooklibrary.ui.searchscreen
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.flexbox.*
 import com.google.android.material.snackbar.Snackbar
 import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
@@ -23,6 +23,7 @@ import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import timber.log.Timber
 
 class SearchScreenFragment : Fragment(), Screen {
 
@@ -33,7 +34,7 @@ class SearchScreenFragment : Fragment(), Screen {
 
     private val searchAdapter = SearchRecyclerViewAdapter()
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
-
+    private var page = 1
     private val binding: FragmentSearchScreenBinding by viewBinding(
         FragmentSearchScreenBinding::bind
     )
@@ -56,13 +57,13 @@ class SearchScreenFragment : Fragment(), Screen {
                     showProgress()
                     searchViewModel.getSearchedBooks(
                         binding.searchTextInputEditText.text.toString(),
-                        "1"
+                        "$page"
                     )
                     searchViewModel.searchedResult.observe(viewLifecycleOwner) {
                         when (it) {
                             is DataState.Success -> {
                                 showStandardScreen()
-                                searchAdapter.searchedBooks = it.data ?: emptyList()
+                                searchAdapter.setSearchedBooksList(it.data!!)
                             }
                             is DataState.Error -> {
                                 showStandardScreen()
@@ -75,6 +76,23 @@ class SearchScreenFragment : Fragment(), Screen {
                 return false
             }
 
+        })
+        binding.searchListRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    page += 1
+                    searchViewModel.getSearchedBooks(
+                        binding.searchTextInputEditText.text.toString(),
+                        "$page"
+                    )
+                }
+            }
         })
     }
 
@@ -90,8 +108,13 @@ class SearchScreenFragment : Fragment(), Screen {
     private fun initSearchRecyclerView() {
         with(binding) {
             searchListRecyclerView.apply {
-                layoutManager = GridLayoutManager(context, 2)
-                adapter = searchAdapter
+                layoutManager = FlexboxLayoutManager(context).apply {
+                    justifyContent = JustifyContent.CENTER
+                    alignItems = AlignItems.CENTER
+                    flexDirection = FlexDirection.ROW
+                    flexWrap = FlexWrap.WRAP
+                    adapter = searchAdapter
+                }
             }
         }
     }
@@ -123,6 +146,9 @@ class SearchScreenFragment : Fragment(), Screen {
     }
 
     private fun updateResultList() {
-        TODO("Not yet implemented")
+        searchViewModel.getSearchedBooks(
+            binding.searchTextInputEditText.text.toString(),
+            "$page"
+        )
     }
 }
