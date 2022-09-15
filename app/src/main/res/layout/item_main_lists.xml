@@ -22,7 +22,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mainItemTitleTextView"
             style="@style/main_item_title_style"
+
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainItemImageView"
             tools:text="Securing DevOps" />
 
@@ -30,6 +32,7 @@
             android:id="@+id/mainItemSubtitleTextView"
             style="@style/main_item_subtitle_style"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainItemTitleTextView"
             tools:text="Architecting, Developing, and Administering MongoDB" />
 

@@ -53,7 +53,8 @@ class MainScreenViewModel(
     private val _livedataToObserve = MutableLiveData<AppState>()
     val livedataToObserve: LiveData<AppState> = _livedataToObserve
 
-    private val listOfLists = linkedMapOf<String, List<Book>>()
+    private val listOfLists = linkedMapOf<String, MutableList<Book>>()
+    private val listOfPages = mutableListOf(ONE_VALUE, ONE_VALUE, ONE_VALUE, ONE_VALUE)
 
     fun getLists() {
 
@@ -144,7 +145,7 @@ class MainScreenViewModel(
             usecase.getNewBooksFromRemoteSource().collect { dataState ->
                 when (dataState) {
                     is DataState.Success -> {
-                        val data = dataState.data as List<Book>
+                        val data = dataState.data as MutableList<Book>
                         addListToLinkedHashMap(data, NEW_BOOKS_TITLE)
                     }
 
@@ -169,7 +170,7 @@ class MainScreenViewModel(
             usecase.getSearchingBooksList(searchWord, page).collect { dataState ->
                 when (dataState) {
                     is DataState.Success -> {
-                        val data = dataState.data as List<Book>
+                        val data = dataState.data as MutableList<Book>
                         addListToLinkedHashMap(data, searchWord)
                     }
 
@@ -185,7 +186,38 @@ class MainScreenViewModel(
         }
     }
 
-    private fun addListToLinkedHashMap(list: List<Book>, title: String) {
+    private fun addListToLinkedHashMap(list: MutableList<Book>, title: String) {
         listOfLists[title] = list
+    }
+
+    fun loadMoreToSelectedList(
+        searchWord: String,
+        titleIndex: Int
+    ) {
+
+        listOfPages[titleIndex] = listOfPages[titleIndex] + ONE_VALUE
+
+        viewModelScope.launch(Dispatchers.IO) {
+            usecase.getSearchingBooksList(searchWord, listOfPages[titleIndex].toString())
+                .collect { dataState ->
+                    when (dataState) {
+                        is DataState.Success -> {
+                            val data = dataState.data as MutableList<Book>
+                            if (data.isNotEmpty()) {
+                                listOfLists[searchWord]?.addAll(data)
+                                _livedataToObserve.postValue(AppState.AppStateSuccess(listOfLists))
+                            }
+                        }
+
+                        is DataState.Error -> {
+                            _livedataToObserve.postValue(dataState.message?.let {
+                                AppState.AppStateError(
+                                    it
+                                )
+                            })
+                        }
+                    }
+                }
+        }
     }
 }

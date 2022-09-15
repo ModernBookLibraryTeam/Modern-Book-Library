@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import gu_android_team.modernbooklibrary.MainActivity
@@ -14,18 +15,18 @@ import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
+import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
     companion object {
-
-        fun newInstance() = MainScreenFragment()
-
         const val FIRST_TITLE_INDEX = 0
         const val SECOND_TITLE_INDEX = 1
         const val THIRD_TITLE_INDEX = 2
         const val FOURTH_TITLE_INDEX = 3
+        const val LOAD_MORE_DIFFERENCE = 3
         const val TITLES_REQUIRED_COUNT = 4
         const val CPP_SPECIAL_TITLE_PART = "cpp"
         const val CSHARP_SPECIAL_TITLE_PART = "csharp"
@@ -37,6 +38,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
     }
 
     private val titles = mutableListOf<String>()
+    private var isLoadingMoreItems = true
     private val newListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
 
         controller.openBookDescriptionScreen(
@@ -78,13 +80,13 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        mainViewModel.getLists()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (savedInstanceState == null) {
+            mainViewModel.getLists()
+        }
+
         initRecyclerViews()
         subscribeToLivaData()
     }
@@ -94,30 +96,68 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
             mainListNewRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = newListAdapter
+
             }
 
             mainSecondListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = secondListAdapter
+                initOnScrollListener(this@apply, SECOND_TITLE_INDEX)
             }
 
             mainThirdListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = thirdListAdapter
+                initOnScrollListener(this@apply, THIRD_TITLE_INDEX)
             }
 
             mainFourthListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = fourthListAdapter
+                initOnScrollListener(this@apply, FOURTH_TITLE_INDEX)
             }
         }
+    }
+
+    private fun initOnScrollListener(recyclerView: RecyclerView, titleIndex: Int) {
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var pastVisibleItems: Int = ZERO_VAL
+            var visibleItemCount: Int = ZERO_VAL
+            var totalItemCount: Int = ZERO_VAL
+            var previousTotalCount: Int = ZERO_VAL
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+                if (dx > 0) {
+                    visibleItemCount = layoutManager.childCount
+                    totalItemCount = layoutManager.itemCount
+                    pastVisibleItems = layoutManager.findLastVisibleItemPosition()
+
+                    if (isLoadingMoreItems) {
+
+                        if (visibleItemCount + pastVisibleItems > totalItemCount - LOAD_MORE_DIFFERENCE && totalItemCount > previousTotalCount) {
+
+                            previousTotalCount = totalItemCount
+                            isLoadingMoreItems = false
+                            Timber.tag("@@@").d("loading")
+                            mainViewModel.loadMoreToSelectedList(
+                                titles[titleIndex],
+                                titleIndex
+                            )
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun subscribeToLivaData() {
         mainViewModel.livedataToObserve.observe(viewLifecycleOwner) { data ->
             data?.let {
                 renderData(data)
-            }?: showError(getString(R.string.network_connection_error_message))
+            } ?: showError(getString(R.string.network_connection_error_message))
         }
     }
 
@@ -126,7 +166,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
             is AppState.AppStateSuccess<*> -> {
                 showStandardScreen()
                 val result = data.value as LinkedHashMap<String, List<Book>>
-                if(result.keys.size == TITLES_REQUIRED_COUNT) {
+                if (result.keys.size == TITLES_REQUIRED_COUNT) {
                     fillListTitles(result)
                     fillLists(result)
                 } else {
@@ -152,7 +192,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         data?.keys?.forEach {
             titles.add(it)
         }
-        if(titles.isNotEmpty() && titles.size == TITLES_REQUIRED_COUNT) {
+        if (titles.isNotEmpty() && titles.size == TITLES_REQUIRED_COUNT) {
             with(binding) {
                 mainListNewTitleTextView.text = titles[FIRST_TITLE_INDEX]
                 mainSecondListTitleTextView.text = makeCorrectTitle(titles[SECOND_TITLE_INDEX])
@@ -191,6 +231,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         val activity = requireActivity() as MainActivity
         activity.setKeepOnScreenCondition(false)
+
+        isLoadingMoreItems = true
     }
 
 

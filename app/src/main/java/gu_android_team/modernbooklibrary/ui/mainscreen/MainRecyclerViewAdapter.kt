@@ -15,7 +15,7 @@ class MainRecyclerViewAdapter(
 ) :
     RecyclerView.Adapter<MainRecyclerViewAdapter.MainRecyclerViewViewHolder>() {
 
-    private var booksList = emptyList<Book>()
+    private var booksList = mutableListOf<Book>()
 
     inner class MainRecyclerViewViewHolder(binding: ItemMainListsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -52,7 +52,10 @@ class MainRecyclerViewAdapter(
     fun updateData(newBooksList: List<Book>) {
         val diffUtil = MainDiffUtilCallback(booksList, newBooksList)
         val result = DiffUtil.calculateDiff(diffUtil)
-        booksList = newBooksList
+
+        booksList.clear()
+        booksList.addAll(newBooksList)
+
         result.dispatchUpdatesTo(this@MainRecyclerViewAdapter)
     }
 }

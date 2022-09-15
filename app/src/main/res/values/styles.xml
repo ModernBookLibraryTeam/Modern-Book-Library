@@ -35,6 +35,7 @@
     <style name="main_item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
@@ -48,6 +49,7 @@
     <style name="main_item_subtitle_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
