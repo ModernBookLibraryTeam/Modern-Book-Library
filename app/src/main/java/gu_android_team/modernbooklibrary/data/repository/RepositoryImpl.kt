@@ -33,12 +33,13 @@ class RepositoryImpl(
         emit(remoteDataSource.getMappedBookInfoFromServer(bookIsbn13))
     }
 
-    override fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit) {
-        scope.launch {
-            withContext(Dispatchers.Main) {
-                callback(localDataSource.getData())
-            }
-        }
+    override suspend fun getDataFromLocalDataSource(): Flow<List<Book>> {
+        return localDataSource.getData()
+
+    }
+
+    override suspend fun isExistsDataFromLocalDataSource(id: String): Boolean {
+        return localDataSource.isExistData(id)
     }
 
     override fun insertBookToDB(book: Book) {
