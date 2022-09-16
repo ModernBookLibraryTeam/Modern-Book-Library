@@ -7,6 +7,6 @@ interface LocalDataSource<T> {
     suspend fun getDataByTitle(title: String): T
     suspend fun insert(t: T)
     suspend fun delete(t: T)
-
+    suspend fun isExistData(id: String): Boolean
 
 }

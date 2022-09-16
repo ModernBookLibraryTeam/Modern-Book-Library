@@ -38,6 +38,10 @@ class RepositoryImpl(
 
     }
 
+    override suspend fun isExistsDataFromLocalDataSource(id: String): Boolean {
+        return localDataSource.isExistData(id)
+    }
+
     override fun insertBookToDB(book: Book) {
         scope.launch {
             withContext(Dispatchers.Main) {

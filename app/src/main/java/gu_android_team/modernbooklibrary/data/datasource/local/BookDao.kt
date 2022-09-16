@@ -19,4 +19,7 @@ interface BookDao {
 
     @Query("DELETE from LocalBook WHERE isbn13 IN (:idBook)")
     fun  deleteById(idBook: Long)
+
+    @Query("SELECT EXISTS(SELECT * FROM LocalBook WHERE isbn13 IN (:idBook))")
+    fun isBookIsExist(idBook: String): Boolean
 }

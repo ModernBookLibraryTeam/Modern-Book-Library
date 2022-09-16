@@ -25,4 +25,10 @@ class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper
     override suspend fun delete(book: Book) {
         return localProvider.deleteBook(mapper.mapBookToLocalBook(book))
     }
+
+    override suspend fun isExistData(id: String): Boolean {
+        return localProvider.isBookIsExist(id)
+    }
+
+
 }
