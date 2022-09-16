@@ -17,7 +17,6 @@ import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptio
 import gu_android_team.modernbooklibrary.utils.AppState
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
@@ -38,7 +37,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
     }
 
     private val titles = mutableListOf<String>()
-    private var isLoadingMoreItems = true
     private val newListAdapter = MainRecyclerViewAdapter { bookIsbn13 ->
 
         controller.openBookDescriptionScreen(
@@ -135,19 +133,17 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
                     totalItemCount = layoutManager.itemCount
                     pastVisibleItems = layoutManager.findLastVisibleItemPosition()
 
-                    if (isLoadingMoreItems) {
 
-                        if (visibleItemCount + pastVisibleItems > totalItemCount - LOAD_MORE_DIFFERENCE && totalItemCount > previousTotalCount) {
 
-                            previousTotalCount = totalItemCount
-                            isLoadingMoreItems = false
-                            Timber.tag("@@@").d("loading")
-                            mainViewModel.loadMoreToSelectedList(
-                                titles[titleIndex],
-                                titleIndex
-                            )
-                        }
+                    if (visibleItemCount + pastVisibleItems > totalItemCount - LOAD_MORE_DIFFERENCE && totalItemCount > previousTotalCount) {
+
+                        previousTotalCount = totalItemCount
+                        mainViewModel.loadMoreToSelectedList(
+                            titles[titleIndex],
+                            titleIndex
+                        )
                     }
+
                 }
             }
         })
@@ -231,8 +227,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
         val activity = requireActivity() as MainActivity
         activity.setKeepOnScreenCondition(false)
-
-        isLoadingMoreItems = true
     }
 
 
