@@ -17,4 +17,10 @@
         <item name="addToFavoriteImageColor">@color/black</item>
         <item name="fontFamily">@font/roboto</item>
     </style>
+
+    <style name="Theme.ModernBookLibrary.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/cobalt_blue_800</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.ModernBookLibrary</item>
+    </style>
 </resources>

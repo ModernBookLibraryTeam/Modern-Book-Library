@@ -35,6 +35,7 @@
     <style name="main_item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
@@ -48,6 +49,7 @@
     <style name="main_item_subtitle_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
@@ -88,7 +90,6 @@
         <item name="android:layout_width">@dimen/search_background_image_width</item>
         <item name="android:layout_height">@dimen/search_background_image_height</item>
         <item name="android:alpha">@dimen/search_background_image_opacity</item>
-        <item name="tint">?emptyBackgroundColor</item>
         <item name="android:src">@drawable/search_background_image</item>
     </style>
 
@@ -214,7 +215,7 @@
     </style>
 
     <style name="book_secondary_label_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
@@ -247,7 +248,7 @@
     </style>
 
     <style name="book_publisher_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
