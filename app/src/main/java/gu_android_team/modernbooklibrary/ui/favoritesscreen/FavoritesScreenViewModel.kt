@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gu_android_team.modernbooklibrary.domain.usecases.screens.FavoritesScreenUseCase
 import gu_android_team.modernbooklibrary.utils.AppState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -20,11 +22,18 @@ class FavoritesScreenViewModel(
         _liveData.value = AppState.AppStateLoading
         viewModelScope.launch {
             try {
-                val data = usecase.getBooksInCache()
-                _liveData.value = AppState.AppStateSuccess(data)
+                usecase.getBooksInCache().flowOn(Dispatchers.Main)
+                    .collect {
+                        _liveData.value = AppState.AppStateSuccess(it)
+                    }
             } catch (e: Exception) {
                 _liveData.value = AppState.AppStateError(e.message ?: "error")
             }
         }
     }
+
+    fun deleteBookById(idBook: String) {
+        usecase.deleteBookById(idBook)
+    }
+
 }

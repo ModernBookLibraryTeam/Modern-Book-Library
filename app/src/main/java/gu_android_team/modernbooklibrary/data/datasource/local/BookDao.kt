@@ -1,11 +1,12 @@
 package gu_android_team.modernbooklibrary.data.datasource.local
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
     @Query("SELECT * FROM LocalBook")
-    suspend fun getAllBooks(): List<LocalBook>
+    fun getAllBooks(): Flow<List<LocalBook>>
 
     @Query("SELECT * FROM LocalBook WHERE title IN (:title)")
     suspend fun getBooksByTitle(title: String): LocalBook
@@ -15,4 +16,7 @@ interface BookDao {
 
     @Delete
     suspend fun deleteBook(book: LocalBook)
+
+    @Query("DELETE from LocalBook WHERE isbn13 IN (:idBook)")
+    fun  deleteById(idBook: Long)
 }

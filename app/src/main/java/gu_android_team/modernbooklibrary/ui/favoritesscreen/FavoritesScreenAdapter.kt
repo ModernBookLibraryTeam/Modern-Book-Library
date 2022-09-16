@@ -10,9 +10,12 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.ItemFavoritesListBinding
 import gu_android_team.modernbooklibrary.domain.Book
 
-class FavoritesScreenAdapter(private val onItemClicked: (Book) -> Unit) : ListAdapter<Book, FavoritesScreenAdapter.FavoritesViewHolder>(diffCallback) {
+class FavoritesScreenAdapter(
+    private val onItemClicked: (Book) -> Unit,
+    private val onItemClickedDelete: (Book) -> Unit
+) : ListAdapter<Book, FavoritesScreenAdapter.FavoritesViewHolder>(diffCallback) {
 
-    class FavoritesViewHolder(private var binding: ItemFavoritesListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class FavoritesViewHolder(private var binding: ItemFavoritesListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: Book) {
             with(binding) {
                 favoritesItemImageView.load(book.image) {
@@ -20,6 +23,9 @@ class FavoritesScreenAdapter(private val onItemClicked: (Book) -> Unit) : ListAd
                 }
                 favoritesItemTitleTextView.text = book.title
                 favoritesItemAuthorTextView.text = book.authors
+                favoritesItemRemoveImageView.setOnClickListener {
+                    onItemClickedDelete(book)
+                }
                 //todo дописать клик favoritesItemRemoveImageView
             }
         }

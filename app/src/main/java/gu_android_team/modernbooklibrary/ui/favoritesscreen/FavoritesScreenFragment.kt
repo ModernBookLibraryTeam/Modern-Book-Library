@@ -2,6 +2,7 @@ package gu_android_team.modernbooklibrary.ui.favoritesscreen
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,9 +37,15 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         subscribeToLivaData()
         recyclerView = binding.favoritesListRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = FavoritesScreenAdapter {
-            //todo дописать переход на BookDescription
-        }
+        adapter = FavoritesScreenAdapter(
+            onItemClicked = {
+                //todo переход на BookDescription
+            },
+            onItemClickedDelete = {
+                viewModel.deleteBookById(it.isbn13)
+                Toast.makeText(requireContext(), it.isbn13, Toast.LENGTH_SHORT).show()
+            }
+        )
         recyclerView.adapter = adapter
 
     }
