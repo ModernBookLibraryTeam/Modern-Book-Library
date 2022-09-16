@@ -7,7 +7,8 @@ interface Repository {
     suspend fun getNewBooksFromRemoteDataSource(): Flow<DataState<*>>
     suspend fun getSearchedBooksFromRemoteDataSource(searchWord: String, page: String): Flow<DataState<List<Book>>>
     suspend fun getBookInfoFromRemoteDataSource(bookIsbn13: String): Flow<DataState<Book>>
-    fun getDataFromLocalDataSource(callback: (List<Book>) -> Unit)
+    suspend fun getDataFromLocalDataSource():Flow<List<Book>>
+    suspend fun isExistsDataFromLocalDataSource(id: String): Boolean
     fun insertBookToDB(book: Book)
     fun deleteBookFromDB(book: Book)
 }
