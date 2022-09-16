@@ -257,6 +257,17 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
         mainViewModel.getLists()
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        with(binding) {
+            mainListNewRecyclerView.clearOnScrollListeners()
+            mainSecondListRecyclerView.clearOnScrollListeners()
+            mainThirdListRecyclerView.clearOnScrollListeners()
+            mainFourthListRecyclerView.clearOnScrollListeners()
+        }
+    }
+
     interface MainScreenController {
         fun openBookDescriptionScreen(bundle: Bundle)
     }
