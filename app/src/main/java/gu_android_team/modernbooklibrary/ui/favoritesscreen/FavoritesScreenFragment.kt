@@ -42,7 +42,7 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
                 //todo переход на BookDescription
             },
             onItemClickedDelete = {
-                viewModel.deleteBookById(it.isbn13)
+                viewModel.deleteBookById(it)
                 Toast.makeText(requireContext(), it.isbn13, Toast.LENGTH_SHORT).show()
             }
         )

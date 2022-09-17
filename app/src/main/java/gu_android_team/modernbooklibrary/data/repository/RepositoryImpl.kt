@@ -19,8 +19,8 @@ class RepositoryImpl(
     private val scope = CoroutineScope(Dispatchers.IO)
 
     override suspend fun getNewBooksFromRemoteDataSource(): Flow<DataState<List<Book>>> = flow {
-            emit(remoteDataSource.getMappedNewBooksFromServer())
-        }
+        emit(remoteDataSource.getMappedNewBooksFromServer())
+    }
 
     override suspend fun getSearchedBooksFromRemoteDataSource(
         searchWord: String,
@@ -29,17 +29,20 @@ class RepositoryImpl(
         emit(remoteDataSource.getMappedBooksBySearchingFromServer(searchWord, page))
     }
 
-    override suspend fun getBookInfoFromRemoteDataSource(bookIsbn13: String): Flow<DataState<Book>> = flow {
-        emit(remoteDataSource.getMappedBookInfoFromServer(bookIsbn13))
-    }
+    override suspend fun getBookInfoFromRemoteDataSource(bookIsbn13: String): Flow<DataState<Book>> =
+        flow {
+            emit(remoteDataSource.getMappedBookInfoFromServer(bookIsbn13))
+        }
 
     override suspend fun getDataFromLocalDataSource(): Flow<List<Book>> {
         return localDataSource.getData()
 
     }
 
-    override suspend fun isExistsDataFromLocalDataSource(id: String): Boolean {
-        return localDataSource.isExistData(id)
+    override fun isExistsDataFromLocalDataSource(id: String): Flow<Boolean> {
+        return flow {
+            emit(localDataSource.isExistData(id))
+        }
     }
 
     override fun insertBookToDB(book: Book) {

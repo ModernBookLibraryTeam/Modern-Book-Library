@@ -16,12 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Screen {
 
     companion object {
-        @JvmStatic
-        fun newInstance(bundle: Bundle): BookDescriptionFragment {
-            val fragment = BookDescriptionFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
 
         const val BOOK_ISBN13_KEY = "BOOK_ISBN13_KEY"
     }
@@ -30,18 +24,36 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
         FragmentBookDescriptionBinding::bind
     )
 
+    private var isInFavorite = false
+    private lateinit var currentBook: Book
+    private lateinit var bookIsbn13: String
+
     private val descriptionViewModel: BookDescriptionScreenViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bookIsbn13 = arguments?.getString(BOOK_ISBN13_KEY) ?: throw NullPointerException(
+            getString(
+                R.string.error_fragment_arguments_is_null_message
+            )
+        )
 
         subscribeToLiveData()
         updateData()
     }
 
+    private fun updateData() {
+        descriptionViewModel.checkIfBookIsInLocalDb(bookIsbn13)
+        descriptionViewModel.getBookInfo(bookIsbn13)
+    }
+
     private fun subscribeToLiveData() {
         descriptionViewModel.livedataToObserve.observe(viewLifecycleOwner) { appState ->
             renderData(appState)
+        }
+
+        descriptionViewModel.livedataForCheckFavorites.observe(viewLifecycleOwner) { bookStatus ->
+            isInFavorite = bookStatus
         }
     }
 
@@ -49,8 +61,10 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
         when (appState) {
             is AppState.AppStateSuccess<*> -> {
                 showStandardScreen()
-                val currentBook = appState.value as Book
+
+                currentBook = appState.value as Book
                 fillBookDescription(currentBook)
+                initAddToFavoritesButtonListener()
             }
 
             is AppState.AppStateError -> {
@@ -63,21 +77,44 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
         }
     }
 
+    private fun initAddToFavoritesButtonListener() {
+        binding.bookAddToFavoritesImageView.setOnClickListener {
+
+            isInFavorite = if (!isInFavorite) {
+                binding.bookAddToFavoritesImageView.load(R.drawable.ic_baseline_favorite_24)
+                descriptionViewModel.addBookToFavorites(currentBook)
+                true
+            } else {
+                binding.bookAddToFavoritesImageView.load(R.drawable.ic_baseline_favorite_border_24)
+                descriptionViewModel.deleteBookFromFavorites(currentBook)
+                false
+            }
+        }
+    }
+
     private fun fillBookDescription(book: Book) {
         with(binding) {
             bookTitleTextview.text = book.title
             bookSubtitleTextview.text = book.subtitle
             bookAuthorTextview.text = book.authors
-            bookAddToFavoritesImageView
+
             bookCoverImageView.load(book.image) {
                 placeholder(R.drawable.ic_baseline_image_24)
             }
+
+            if (isInFavorite) {
+                binding.bookAddToFavoritesImageView.load(R.drawable.ic_baseline_favorite_24)
+            }
+
             bookPublicationDateTextView.text = book.year
             bookNumberOfPagesTextView.text = book.pages
             bookRatingTextView.text = book.rating
+
             if (book.rating.isEmpty()) {
                 bookRatingStarImageView.visibility = View.GONE
+
             }
+
             bookIsbn10TextView.text = book.isbn10
             bookIsbn13TextView.text = book.isbn13
             bookPublisherTextView.text = book.publisher
@@ -105,14 +142,5 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
                 updateData()
             }
             .show()
-    }
-
-    private fun updateData() {
-        val bookIsbn13 = arguments?.getString(BOOK_ISBN13_KEY) ?: throw NullPointerException(
-            getString(
-                R.string.error_fragment_arguments_is_null_message
-            )
-        )
-        descriptionViewModel.getBookInfo(bookIsbn13)
     }
 }

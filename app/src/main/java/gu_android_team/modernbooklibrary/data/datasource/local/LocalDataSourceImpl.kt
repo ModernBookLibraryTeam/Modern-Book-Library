@@ -4,8 +4,8 @@ import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.mapper.Mapper
 import gu_android_team.modernbooklibrary.domain.LocalDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 
 class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper: Mapper) : LocalDataSource<Book> {
     override suspend fun getData(): Flow<List<Book>> {
@@ -27,8 +27,6 @@ class LocalDataSourceImpl(private val localProvider: BookDao, private val mapper
     }
 
     override suspend fun isExistData(id: String): Boolean {
-        return localProvider.isBookIsExist(id)
+        return localProvider.isBookExist(id)
     }
-
-
 }

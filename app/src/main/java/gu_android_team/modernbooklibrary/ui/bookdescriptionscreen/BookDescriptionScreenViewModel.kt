@@ -8,7 +8,9 @@ import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.usecases.screens.BookDescriptionScreenUseCase
 import gu_android_team.modernbooklibrary.utils.AppState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class BookDescriptionScreenViewModel(
     private val usecase: BookDescriptionScreenUseCase
@@ -16,6 +18,9 @@ class BookDescriptionScreenViewModel(
 
     private val _livedataToObserve = MutableLiveData<AppState>()
     val livedataToObserve: LiveData<AppState> = _livedataToObserve
+
+    private val _livedataForCheckFavorites = MutableLiveData<Boolean>()
+    val livedataForCheckFavorites: LiveData<Boolean> = _livedataForCheckFavorites
 
     fun getBookInfo(bookIsbn13: String) {
         _livedataToObserve.postValue(AppState.AppStateLoading)
@@ -39,5 +44,23 @@ class BookDescriptionScreenViewModel(
                 }
             }
         }
+    }
+
+    fun checkIfBookIsInLocalDb(isbn13: String) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            usecase.checkIfBookIsInDb(isbn13).collect {
+                Timber.tag("@@@").d(it.toString())
+                _livedataForCheckFavorites.postValue(it)
+            }
+        }
+    }
+
+    fun addBookToFavorites(book: Book) {
+        usecase.addBookToLocalDb(book)
+    }
+
+    fun deleteBookFromFavorites(book: Book) {
+        usecase.deleteBookById(book)
     }
 }
