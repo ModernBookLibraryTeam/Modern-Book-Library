@@ -10,10 +10,12 @@ import gu_android_team.modernbooklibrary.databinding.ItemMainListsBinding
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.utils.MainDiffUtilCallback
 
-class MainRecyclerViewAdapter :
+class MainRecyclerViewAdapter(
+    private val onItemClickCallback: (String) -> Unit,
+) :
     RecyclerView.Adapter<MainRecyclerViewAdapter.MainRecyclerViewViewHolder>() {
 
-    private var booksList = emptyList<Book>()
+    private var booksList = mutableListOf<Book>()
 
     inner class MainRecyclerViewViewHolder(binding: ItemMainListsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,6 +41,9 @@ class MainRecyclerViewAdapter :
             bookCover.load(booksList[position].image) {
                 placeholder(R.drawable.ic_baseline_image_24)
             }
+            itemView.setOnClickListener {
+                onItemClickCallback(booksList[position].isbn13)
+            }
         }
     }
 
@@ -47,7 +52,10 @@ class MainRecyclerViewAdapter :
     fun updateData(newBooksList: List<Book>) {
         val diffUtil = MainDiffUtilCallback(booksList, newBooksList)
         val result = DiffUtil.calculateDiff(diffUtil)
-        booksList = newBooksList
+
+        booksList.clear()
+        booksList.addAll(newBooksList)
+
         result.dispatchUpdatesTo(this@MainRecyclerViewAdapter)
     }
 }

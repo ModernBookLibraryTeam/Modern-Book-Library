@@ -10,6 +10,7 @@ data class SpecificBookDTO(
     @SerializedName("isbn10") val isbn10: String?,
     @SerializedName("isbn13") val isbn13: String?,
     @SerializedName("pages") val pages: String?,
+    @SerializedName("rating") val rating: String?,
     @SerializedName("year") val year: String?,
     @SerializedName("desc") val desc: String?,
     @SerializedName("image") val image: String?
