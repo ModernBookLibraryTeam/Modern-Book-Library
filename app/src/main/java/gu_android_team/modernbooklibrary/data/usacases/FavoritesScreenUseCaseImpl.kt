@@ -11,7 +11,7 @@ class FavoritesScreenUseCaseImpl(private val repo: Repository) : FavoritesScreen
         return repo.getDataFromLocalDataSource()
     }
 
-    override fun deleteBookById(idBook: String) {
-
+    override fun deleteBookById(book: Book) {
+        repo.deleteBookFromDB(book)
     }
 }
