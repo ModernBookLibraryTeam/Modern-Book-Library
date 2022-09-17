@@ -2,14 +2,11 @@ package gu_android_team.modernbooklibrary.ui.searchscreen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,7 +16,6 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
-import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -49,34 +45,29 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearchRecyclerView()
-        binding.searchTextInputEditText.setOnEditorActionListener(object :
-            TextView.OnEditorActionListener {
-            override fun onEditorAction(p0: TextView?, actionId: Int, p2: KeyEvent?): Boolean {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    closeKeyboard()
-                    showProgress()
-                    searchViewModel.getSearchedBooks(
-                        binding.searchTextInputEditText.text.toString(),
-                        "$page"
-                    )
-                    searchViewModel.searchedResult.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is DataState.Success -> {
-                                showStandardScreen()
-                                searchAdapter.setSearchedBooksList(it.data!!)
-                            }
-                            is DataState.Error -> {
-                                showStandardScreen()
-                                showError(it.message.toString())
-                            }
-                        }
-                    }
-                    return true
-                }
-                return false
-            }
 
-        })
+        searchViewModel.searchWordWhileTyping()
+        binding.searchTextInputEditText.doAfterTextChanged {
+            binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
+            it?.let {
+                page = 1
+                showProgress()
+                searchViewModel.textChangeStateFlow.value = "$it:$page"
+            }
+        }
+
+        searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> {
+                    showStandardScreen()
+                    searchAdapter.setSearchedBooksList(it.data!!)
+                }
+                is DataState.Error -> {
+                    showStandardScreen()
+                    showError(it.message.toString())
+                }
+            }
+        }
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(
@@ -91,18 +82,21 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
                         binding.searchTextInputEditText.text.toString(),
                         "$page"
                     )
+                    searchViewModel.searchedResult.observe(viewLifecycleOwner) {
+                        when (it) {
+                            is DataState.Success -> {
+                                showStandardScreen()
+                                searchAdapter.setSearchedBooksNewPage(it.data!!)
+                            }
+                            is DataState.Error -> {
+                                showStandardScreen()
+                                showError(it.message.toString())
+                            }
+                        }
+                    }
                 }
             }
         })
-    }
-
-    private fun closeKeyboard() {
-        val view = view?.findFocus()
-        if (view != null) {
-            val manager =
-                context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            manager.hideSoftInputFromWindow(view.windowToken, 0)
-        }
     }
 
     private fun initSearchRecyclerView() {
@@ -131,7 +125,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     override fun showStandardScreen() {
         with(binding) {
             searchProgressBar.visibility = View.GONE
-            searchEmptyImageView.visibility = View.VISIBLE
+            searchEmptyImageView.visibility = View.GONE
             searchListRecyclerView.visibility = View.VISIBLE
             searchInputTextLayout.visibility = View.VISIBLE
         }

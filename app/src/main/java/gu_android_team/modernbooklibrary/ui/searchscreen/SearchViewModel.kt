@@ -1,20 +1,27 @@
 package gu_android_team.modernbooklibrary.ui.searchscreen
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
-import gu_android_team.modernbooklibrary.data.datasource.remote.NewAndSearchBooksDTO
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.usecases.screens.SearchScreenUsecase
-import gu_android_team.modernbooklibrary.utils.AppState
-import kotlinx.coroutines.launch
-import retrofit2.http.Query
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+
+const val TEXT_SEARCH_DELAY = 500L
+const val DELIMITER = ":"
 
 class SearchViewModel(private val usecase: SearchScreenUsecase) :
     ViewModel() {
+
+    private val _searchedResultWhileTyping = MutableLiveData<DataState<List<Book>>>()
+    val searchedResultWhileTyping: LiveData<DataState<List<Book>>>
+        get() = _searchedResultWhileTyping
+
+    val textChangeStateFlow = MutableStateFlow("")
+
     private val _searchedResult = MutableLiveData<DataState<List<Book>>>()
     val searchedResult: LiveData<DataState<List<Book>>>
         get() = _searchedResult
@@ -23,6 +30,29 @@ class SearchViewModel(private val usecase: SearchScreenUsecase) :
         viewModelScope.launch {
             usecase.getSearchingBooksList(query, page).collect {
                 _searchedResult.postValue(it as DataState<List<Book>>)
+            }
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    fun searchWordWhileTyping() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                textChangeStateFlow.debounce(TEXT_SEARCH_DELAY)
+                    .filter {
+                        return@filter it.isNotEmpty()
+                    }
+                    .distinctUntilChanged()
+                    .flatMapLatest {
+                        flow {
+                            val list = it.split(DELIMITER)
+                            usecase.getSearchingBooksList(list.first(), list.last()).collect {
+                                emit(it)
+                            }
+                        }
+                    }
+            }.collect {
+                _searchedResultWhileTyping.postValue(it as DataState<List<Book>>)
             }
         }
     }
