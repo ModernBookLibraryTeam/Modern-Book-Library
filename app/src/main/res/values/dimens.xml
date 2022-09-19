@@ -26,6 +26,7 @@
     <dimen name="search_background_image_width">200dp</dimen>
     <dimen name="search_background_image_height">200dp</dimen>
     <dimen name="search_text_input_layout_margin_start">16dp</dimen>
+    <dimen name="search_text_input_layout_margin_top">3dp</dimen>
     <dimen name="search_text_input_layout_margin_end">16dp</dimen>
     <dimen name="search_text_input_layout_margin_bottom">16dp</dimen>
     <dimen name="search_text_input_layout_counter_max_length">50</dimen>

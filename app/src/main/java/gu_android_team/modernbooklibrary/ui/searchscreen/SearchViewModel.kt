@@ -10,7 +10,7 @@ import gu_android_team.modernbooklibrary.domain.usecases.screens.SearchScreenUse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-const val TEXT_SEARCH_DELAY = 500L
+const val TEXT_SEARCH_DELAY = 1000L
 const val DELIMITER = ":"
 
 class SearchViewModel(private val usecase: SearchScreenUsecase) :

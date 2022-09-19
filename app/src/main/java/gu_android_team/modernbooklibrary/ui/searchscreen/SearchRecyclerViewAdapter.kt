@@ -25,10 +25,7 @@ class SearchRecyclerViewAdapter(private val onAdapterBookListener: OnBookListene
     }
 
     fun setSearchedBooksNewPage(searchedListParam: List<Book>) {
-//        val diffCallBack = MainDiffUtilCallback(this.searchedBooks, searchedListParam)
-//        val diffResult = DiffUtil.calculateDiff(diffCallBack)
         this.searchedBooks.addAll(searchedBooks.size,searchedListParam)
-//        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(

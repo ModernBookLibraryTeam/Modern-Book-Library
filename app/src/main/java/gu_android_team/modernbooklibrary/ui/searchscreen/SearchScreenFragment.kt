@@ -49,13 +49,13 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         searchViewModel.searchWordWhileTyping()
         binding.searchTextInputEditText.doAfterTextChanged {
             binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
+            binding.searchTextInputEditText.isFocusable = true
             it?.let {
                 page = 1
                 showProgress()
                 searchViewModel.textChangeStateFlow.value = "$it:$page"
             }
         }
-
         searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Success -> {
@@ -128,7 +128,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
             searchProgressBar.visibility = View.VISIBLE
             searchEmptyImageView.visibility = View.GONE
             searchListRecyclerView.visibility = View.GONE
-            searchInputTextLayout.visibility = View.GONE
+            searchInputTextLayout.visibility = View.VISIBLE
         }
     }
 
