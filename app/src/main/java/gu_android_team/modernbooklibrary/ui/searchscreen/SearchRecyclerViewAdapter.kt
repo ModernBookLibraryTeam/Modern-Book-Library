@@ -25,10 +25,10 @@ class SearchRecyclerViewAdapter(private val onAdapterBookListener: OnBookListene
     }
 
     fun setSearchedBooksNewPage(searchedListParam: List<Book>) {
-        val diffCallBack = MainDiffUtilCallback(this.searchedBooks, searchedListParam)
-        val diffResult = DiffUtil.calculateDiff(diffCallBack)
+//        val diffCallBack = MainDiffUtilCallback(this.searchedBooks, searchedListParam)
+//        val diffResult = DiffUtil.calculateDiff(diffCallBack)
         this.searchedBooks.addAll(searchedBooks.size,searchedListParam)
-        diffResult.dispatchUpdatesTo(this)
+//        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(
@@ -55,14 +55,14 @@ class SearchRecyclerViewAdapter(private val onAdapterBookListener: OnBookListene
 
         private val image = view.findViewById<ShapeableImageView>(R.id.searchItemImageView)
         private val title = view.findViewById<MaterialTextView>(R.id.searchItemTitleTextView)
-        private val author = view.findViewById<MaterialTextView>(R.id.searchItemAuthorTextView)
+        private val subtitle = view.findViewById<MaterialTextView>(R.id.searchItemSubtitleTextView)
 
         fun binding(item: Book) {
             image.load(item.image) {
                 placeholder(R.drawable.ic_baseline_image_24)
             }
             title.text = item.title
-            author.text = item.authors
+            subtitle.text = item.subtitle
         }
 
         override fun onClick(p0: View?) {

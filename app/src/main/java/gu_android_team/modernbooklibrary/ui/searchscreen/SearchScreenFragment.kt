@@ -1,11 +1,10 @@
 package gu_android_team.modernbooklibrary.ui.searchscreen
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
@@ -70,30 +70,40 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         }
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
+            var pastVisibleItems: Int = ZERO_VAL
+            var childVisibleItems: Int = ZERO_VAL
+            var totalItemCount: Int = ZERO_VAL
+            var previousTotalCount: Int = ZERO_VAL
+            val layoutManager = binding.searchListRecyclerView.layoutManager as FlexboxLayoutManager
             override fun onScrolled(
                 recyclerView: RecyclerView,
                 dx: Int,
                 dy: Int
             ) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    page += 1
-                    searchViewModel.getSearchedBooks(
-                        binding.searchTextInputEditText.text.toString(),
-                        "$page"
-                    )
-                    searchViewModel.searchedResult.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is DataState.Success -> {
-                                showStandardScreen()
-                                searchAdapter.setSearchedBooksNewPage(it.data!!)
-                            }
-                            is DataState.Error -> {
-                                showStandardScreen()
-                                showError(it.message.toString())
+                if (dy > 0) {
+                    childVisibleItems = layoutManager.childCount
+                    totalItemCount = layoutManager.itemCount
+                    pastVisibleItems = layoutManager.findLastVisibleItemPosition()
+                    if (childVisibleItems + pastVisibleItems > totalItemCount - 4 && totalItemCount > previousTotalCount) {
+
+                        previousTotalCount = totalItemCount
+                        page += 1
+                        searchViewModel.getSearchedBooks(
+                            binding.searchTextInputEditText.text.toString(),
+                            "$page"
+                        )
+                        searchViewModel.searchedResult.observe(viewLifecycleOwner) {
+                            when (it) {
+                                is DataState.Success -> {
+                                    searchAdapter.setSearchedBooksNewPage(it.data!!)
+                                }
+                                is DataState.Error -> {
+                                    showError(it.message.toString())
+                                }
                             }
                         }
                     }
+
                 }
             }
         })
