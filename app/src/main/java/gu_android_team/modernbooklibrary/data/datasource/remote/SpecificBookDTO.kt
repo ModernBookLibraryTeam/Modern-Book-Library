@@ -1,5 +1,6 @@
 package gu_android_team.modernbooklibrary.data.datasource.remote
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 data class SpecificBookDTO(
@@ -13,5 +14,6 @@ data class SpecificBookDTO(
     @SerializedName("rating") val rating: String?,
     @SerializedName("year") val year: String?,
     @SerializedName("desc") val desc: String?,
-    @SerializedName("image") val image: String?
+    @SerializedName("image") val image: String?,
+    @SerializedName("pdf") val pdfLinksList: JsonObject?
 )

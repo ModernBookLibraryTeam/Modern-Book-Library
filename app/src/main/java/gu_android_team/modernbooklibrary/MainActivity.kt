@@ -18,10 +18,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment
 import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 
-class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenController {
+class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenController, BookDescriptionFragment.BookDescScreenController {
 
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
 
@@ -105,5 +106,14 @@ class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenControlle
 
     fun setKeepOnScreenCondition(state: Boolean) {
         keepSplashOnScreen = state
+    }
+
+    override fun openBookReaderScreen(bundle: Bundle) {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.bookDescriptionScreen, false)
+            .setLaunchSingleTop(true)
+            .build()
+
+        navController.navigate(R.id.bookReaderScreen, bundle, navOptions)
     }
 }

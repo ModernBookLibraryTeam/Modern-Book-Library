@@ -53,7 +53,8 @@
     <dimen name="book_cover_image_stroke_width">2dp</dimen>
     <dimen name="book_cover_image_margin_top">8dp</dimen>
     <dimen name="book_publication_date_label_margin_start">8dp</dimen>
-    <dimen name="book_author_label_margin_start">8dp</dimen>
+    <dimen name="book_author_label_margin_Top">8dp</dimen>
+    <dimen name="book_publication_date_margin_Start">8dp</dimen>
     <dimen name="book_secondary_label_margin_top">12dp</dimen>
     <dimen name="book_description_margin_top">16dp</dimen>
     <dimen name="book_description_margin_end">8dp</dimen>

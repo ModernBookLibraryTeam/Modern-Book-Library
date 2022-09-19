@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bookMainContainerConstraintLayout"
@@ -33,7 +33,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bookSubtitleTextview"
                 style="@style/book_subtitle_style"
-                app:layout_constraintBottom_toTopOf="@id/bookCoverImageView"
+                app:layout_constraintBottom_toTopOf="@id/bookAuthorLabelTextview"
                 app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
                 app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
                 tools:text="Security in the Cloud" />
@@ -47,17 +47,18 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/bookCoverImageView"
                 style="@style/book_cover_image_style"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@id/bookPublisherTextView"
                 app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
-                app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview"
+                app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview"
                 tools:src="@drawable/cover_example_2" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bookAuthorLabelTextview"
                 style="@style/book_author_label_style"
                 android:text="@string/book_author_label_text"
-                app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
-                app:layout_constraintTop_toTopOf="@id/bookCoverImageView" />
+                app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
+                app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bookAuthorTextview"
@@ -69,9 +70,9 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bookPublicationDateLabelTextView"
-                style="@style/book_secondary_label_style"
+                style="@style/book_publication_date_label_style"
                 android:text="@string/book_publication_date_label_text"
-                app:layout_constraintStart_toStartOf="@id/bookAuthorLabelTextview"
+                app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
                 app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -169,6 +170,14 @@
                 app:layout_constraintStart_toStartOf="@id/bookCoverImageView"
                 app:layout_constraintTop_toBottomOf="@id/bookCoverImageView"
                 tools:text="An application running in the cloud can benefit from incredible efficiencies, but they come with unique security threats too. A DevOps team's highest priority is understanding those risks and hardening the system against them.Securing DevOps teaches you the essential techniques to secure your cloud ..." />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookDownloadsLabelTextView"
+                style="@style/book_downloads_style"
+                android:text="@string/free_downloads_label_text"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/bookDescriptionTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookDescriptionTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

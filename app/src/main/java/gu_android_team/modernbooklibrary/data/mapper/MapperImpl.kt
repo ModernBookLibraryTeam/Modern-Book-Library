@@ -1,5 +1,8 @@
 package gu_android_team.modernbooklibrary.data.mapper
 
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import gu_android_team.modernbooklibrary.data.datasource.local.LocalBook
 import gu_android_team.modernbooklibrary.data.datasource.remote.BooksInfo
 import gu_android_team.modernbooklibrary.data.datasource.remote.SpecificBookDTO
@@ -26,7 +29,8 @@ class MapperImpl : Mapper {
                 rating = it.rating,
                 year = it.year,
                 desc = it.description,
-                image = it.image
+                image = it.image,
+                pdfLinksList = null
             )
         }
     }
@@ -43,7 +47,8 @@ class MapperImpl : Mapper {
             rating = localBook.rating,
             year = localBook.year,
             desc = localBook.description,
-            image = localBook.image
+            image = localBook.image,
+            pdfLinksList = null
         )
     }
 
@@ -69,7 +74,8 @@ class MapperImpl : Mapper {
                 title = it.title.toString(),
                 subtitle = it.subtitle.toString(),
                 isbn13 = it.isbn13.toString(),
-                image = it.image.toString()
+                image = it.image.toString(),
+                pdfLinksList = null
             )
         }
     }
@@ -86,7 +92,10 @@ class MapperImpl : Mapper {
             rating = bookDTO?.rating ?: "",
             year = bookDTO?.year ?: "",
             desc = bookDTO?.desc ?: "",
-            image = bookDTO?.image ?: NO_IMAGE_URL
+            image = bookDTO?.image ?: NO_IMAGE_URL,
+            pdfLinksList = Gson().fromJson<HashMap<String, String>>(bookDTO?.pdfLinksList)
         )
     }
+
+    private inline fun <reified T> Gson.fromJson(json: JsonObject?): T = fromJson<T>(json, object: TypeToken<T>() {}.type)
 }

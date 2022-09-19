@@ -11,5 +11,6 @@ data class Book(
     val pages: String = "",
     val year: String = "",
     val desc: String = "",
-    val image: String = ""
+    val image: String = "",
+    val pdfLinksList: HashMap<String, String>?
 )

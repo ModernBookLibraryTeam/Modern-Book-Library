@@ -34,4 +34,10 @@
         android:name="gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment"
         android:label="@string/book_description_label"
         tools:layout="@layout/fragment_book_description" />
+
+    <fragment
+        android:id="@+id/bookReaderScreen"
+        android:name="gu_android_team.modernbooklibrary.ui.bookreaderscreen.BookReaderFragment"
+        android:label="BookReader"
+        tools:layout="@layout/fragment_book_reader" />
 </navigation>
