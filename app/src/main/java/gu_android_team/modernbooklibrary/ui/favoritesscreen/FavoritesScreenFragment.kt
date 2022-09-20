@@ -39,11 +39,10 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = FavoritesScreenAdapter(
             onItemClicked = {
-                //todo переход на BookDescription
+                Toast.makeText(requireContext(), it.isbn13, Toast.LENGTH_SHORT).show()
             },
             onItemClickedDelete = {
                 viewModel.deleteBookById(it)
-                Toast.makeText(requireContext(), it.isbn13, Toast.LENGTH_SHORT).show()
             }
         )
         recyclerView.adapter = adapter
@@ -60,6 +59,7 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         when(appState) {
             is AppState.AppStateSuccess<*> -> {
                 adapter.submitList(appState.value as List<Book>)
+                showStandardScreen()
             }
             is AppState.AppStateError -> {
                 showError(appState.error)
