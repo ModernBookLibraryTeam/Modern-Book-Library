@@ -1,10 +1,17 @@
 package gu_android_team.modernbooklibrary.ui.searchscreen
 
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +27,7 @@ import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
-
+const val TIMEOUT = 3000L
 class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
 
     companion object {
@@ -31,6 +38,12 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
     private var page = 1
+    private var isTyping = false
+    private val timeOutHandler = Handler(Looper.getMainLooper())
+    private val typingTimeOut = Runnable {
+        isTyping = false
+        view?.let { activity?.hideKeyboard(it) }
+    }
     private val binding: FragmentSearchScreenBinding by viewBinding(
         FragmentSearchScreenBinding::bind
     )
@@ -50,10 +63,16 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         binding.searchTextInputEditText.doAfterTextChanged {
             binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
             binding.searchTextInputEditText.isFocusable = true
-            it?.let {
-                page = 1
-                showProgress()
-                searchViewModel.textChangeStateFlow.value = "$it:$page"
+            timeOutHandler.removeCallbacks(typingTimeOut)
+            if (it != null) {
+                if (it.trim().isNotEmpty()) {
+                    it.also {
+                        timeOutHandler.postDelayed(typingTimeOut, TIMEOUT)
+                        page = 1
+                        showProgress()
+                        searchViewModel.textChangeStateFlow.value = "$it:$page"
+                    }
+                }
             }
         }
         searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
@@ -121,6 +140,12 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
                 }
             }
         }
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun showProgress() {
