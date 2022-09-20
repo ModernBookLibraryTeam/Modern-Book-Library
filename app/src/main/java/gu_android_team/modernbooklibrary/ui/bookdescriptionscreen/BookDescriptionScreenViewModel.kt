@@ -10,7 +10,6 @@ import gu_android_team.modernbooklibrary.domain.usecases.screens.BookDescription
 import gu_android_team.modernbooklibrary.utils.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class BookDescriptionScreenViewModel(
     private val usecase: BookDescriptionScreenUseCase
@@ -50,7 +49,6 @@ class BookDescriptionScreenViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             usecase.checkIfBookIsInDb(isbn13).collect {
-                Timber.tag("@@@").d(it.toString())
                 _livedataForCheckFavorites.postValue(it)
             }
         }

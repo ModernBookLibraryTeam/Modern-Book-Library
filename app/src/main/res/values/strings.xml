@@ -23,4 +23,5 @@
     <string name="wrong_activity_error_message">This activity isn\'t MainScreenController</string>
     <string name="book_description_label">book description</string>
     <string name="network_connection_error_message">Please check your network connection</string>
+    <string name="free_downloads_label_text">Free downloads:</string>
 </resources>
