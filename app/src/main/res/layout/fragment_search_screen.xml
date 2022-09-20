@@ -17,9 +17,9 @@
 
     <ProgressBar
         android:id="@+id/searchProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_width="@dimen/search_progressbar_width"
+        android:layout_height="@dimen/search_progressbar_height"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/searchInputTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
