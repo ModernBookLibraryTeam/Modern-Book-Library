@@ -22,12 +22,16 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
+import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
+
 const val TIMEOUT = 3000L
+
 class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
 
     companion object {
@@ -37,6 +41,9 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
 
     private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
+    private val controller by lazy {
+        activity as OpenDescriptionScreenController
+    }
     private var page = 1
     private var isTyping = false
     private val timeOutHandler = Handler(Looper.getMainLooper())
@@ -182,7 +189,10 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     }
 
     override fun onBookClick(position: Int) {
-        searchAdapter.searchedBooks[position]
+        val bundle = Bundle().apply {
+            putString(BOOK_ISBN13_KEY, searchAdapter.searchedBooks[position].isbn13)
+        }
+        controller.openBookDescriptionScreen(bundle)
         Timber.tag("TAG").d("Clicked ${searchAdapter.searchedBooks[position]}")
     }
 }

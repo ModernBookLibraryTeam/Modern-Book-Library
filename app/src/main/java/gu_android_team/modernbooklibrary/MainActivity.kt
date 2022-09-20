@@ -18,10 +18,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
+import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 
-class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenController {
+class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
 
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
 
