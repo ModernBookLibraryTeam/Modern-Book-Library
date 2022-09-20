@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.usecases.screens.FavoritesScreenUseCase
 import gu_android_team.modernbooklibrary.utils.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class FavoritesScreenViewModel(
     private val usecase: FavoritesScreenUseCase
@@ -32,8 +32,8 @@ class FavoritesScreenViewModel(
         }
     }
 
-    fun deleteBookById(idBook: String) {
-        usecase.deleteBookById(idBook)
+    fun deleteBookById(book: Book) {
+        usecase.deleteBookById(book)
     }
 
 }
