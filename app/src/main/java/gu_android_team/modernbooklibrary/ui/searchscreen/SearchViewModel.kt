@@ -10,17 +10,12 @@ import gu_android_team.modernbooklibrary.domain.usecases.screens.SearchScreenUse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-const val TEXT_SEARCH_DELAY = 1000L
-const val DELIMITER = ":"
-
 class SearchViewModel(private val usecase: SearchScreenUsecase) :
     ViewModel() {
 
     private val _searchedResultWhileTyping = MutableLiveData<DataState<List<Book>>>()
     val searchedResultWhileTyping: LiveData<DataState<List<Book>>>
         get() = _searchedResultWhileTyping
-
-    val textChangeStateFlow = MutableStateFlow("")
 
     private val _searchedResult = MutableLiveData<DataState<List<Book>>>()
     val searchedResult: LiveData<DataState<List<Book>>>
@@ -34,24 +29,9 @@ class SearchViewModel(private val usecase: SearchScreenUsecase) :
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-    fun searchWordWhileTyping() {
+    fun getFirstSearchedBooks(query: String, page: String) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                textChangeStateFlow.debounce(TEXT_SEARCH_DELAY)
-                    .filter {
-                        return@filter it.isNotEmpty()
-                    }
-                    .distinctUntilChanged()
-                    .flatMapLatest {
-                        flow {
-                            val list = it.split(DELIMITER)
-                            usecase.getSearchingBooksList(list.first(), list.last()).collect {
-                                emit(it)
-                            }
-                        }
-                    }
-            }.collect {
+            usecase.getSearchingBooksList(query, page).collect {
                 _searchedResultWhileTyping.postValue(it as DataState<List<Book>>)
             }
         }

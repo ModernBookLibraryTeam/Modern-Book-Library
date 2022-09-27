@@ -30,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
-const val TIMEOUT = 3000L
+const val TIMEOUT = 2000L
 
 class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
 
@@ -45,11 +45,29 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         activity as OpenDescriptionScreenController
     }
     private var page = 1
-    private var isTyping = false
     private val timeOutHandler = Handler(Looper.getMainLooper())
     private val typingTimeOut = Runnable {
-        isTyping = false
-        view?.let { activity?.hideKeyboard(it) }
+        view?.let {
+            activity?.hideKeyboard(it)
+            showProgress()
+        }
+        page = 1
+        searchViewModel.getFirstSearchedBooks(
+            binding.searchTextInputEditText.text.toString(),
+            "$page"
+        )
+        searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> {
+                    showStandardScreen()
+                    searchAdapter.setSearchedBooksList(it.data!!)
+                }
+                is DataState.Error -> {
+                    showStandardScreen()
+                    showError(it.message.toString())
+                }
+            }
+        }
     }
     private val binding: FragmentSearchScreenBinding by viewBinding(
         FragmentSearchScreenBinding::bind
@@ -65,35 +83,23 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearchRecyclerView()
+        binding.searchTextInputEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //nothing todo
+            }
 
-        searchViewModel.searchWordWhileTyping()
-        binding.searchTextInputEditText.doAfterTextChanged {
-            binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
-            binding.searchTextInputEditText.isFocusable = true
-            timeOutHandler.removeCallbacks(typingTimeOut)
-            if (it != null) {
-                if (it.trim().isNotEmpty()) {
-                    it.also {
-                        timeOutHandler.postDelayed(typingTimeOut, TIMEOUT)
-                        page = 1
-                        showProgress()
-                        searchViewModel.textChangeStateFlow.value = "$it:$page"
-                    }
-                }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
+                timeOutHandler.removeCallbacks(typingTimeOut)
+                timeOutHandler.postDelayed(typingTimeOut, TIMEOUT)
+
             }
-        }
-        searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
-            when (it) {
-                is DataState.Success -> {
-                    showStandardScreen()
-                    searchAdapter.setSearchedBooksList(it.data!!)
-                }
-                is DataState.Error -> {
-                    showStandardScreen()
-                    showError(it.message.toString())
-                }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //nothing todo
             }
-        }
+
+        })
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             var pastVisibleItems: Int = ZERO_VAL
@@ -192,7 +198,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         val bundle = Bundle().apply {
             putString(BOOK_ISBN13_KEY, searchAdapter.searchedBooks[position].isbn13)
         }
-        controller.openBookDescriptionScreen(bundle)
+        controller.openBookDescriptionScreenFromSearchScreen(bundle)
         Timber.tag("TAG").d("Clicked ${searchAdapter.searchedBooks[position]}")
     }
 }

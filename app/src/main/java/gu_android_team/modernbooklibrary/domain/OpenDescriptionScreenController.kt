@@ -4,4 +4,5 @@ import android.os.Bundle
 
 interface OpenDescriptionScreenController {
     fun openBookDescriptionScreen(bundle: Bundle)
+    fun openBookDescriptionScreenFromSearchScreen(bundle: Bundle)
 }

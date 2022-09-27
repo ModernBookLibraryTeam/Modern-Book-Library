@@ -104,6 +104,15 @@ class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
         navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
     }
 
+    override fun openBookDescriptionScreenFromSearchScreen(bundle: Bundle){
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.bottomMenuSearchScreenButton, false)
+            .setLaunchSingleTop(true)
+            .build()
+
+        navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
+    }
+
     fun setKeepOnScreenCondition(state: Boolean) {
         keepSplashOnScreen = state
     }
