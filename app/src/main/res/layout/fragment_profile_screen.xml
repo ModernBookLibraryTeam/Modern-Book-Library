@@ -17,17 +17,88 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/profileUserNameLabel"
         style="@style/profile_user_name_label_style"
+        android:text="@string/anonymous_label"
         app:layout_constraintEnd_toEndOf="@id/profileUserImageView"
         app:layout_constraintStart_toStartOf="@id/profileUserImageView"
-        app:layout_constraintTop_toBottomOf="@id/profileUserImageView"
-        tools:text="John Smith" />
+        app:layout_constraintTop_toBottomOf="@id/profileUserImageView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/profileAuthorisationButton"
-        style="@style/profile_authorisation_button_style"
-        android:text="@string/profile_authorisation_button_text"
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/profileTip"
+        style="@style/profile_tip_style"
+        android:text="@string/sing_in_tip_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileUserNameLabel" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profileSignInButton"
+        style="@style/profile_sign_in_button_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:background="?signInImageColor"
+            android:padding="@dimen/profile_sign_in_inner_container_padding">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="@dimen/profile_sign_in_google_icon_margin_end"
+                android:src="@drawable/google_button_logo_24" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.7"
+                android:text="@string/sign_in_with_google_button_title"
+                android:textAlignment="center"
+                android:textColor="?colorOnPrimary"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profileSignOutButton"
+        style="@style/profile_sign_in_button_style"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:background="?signInImageColor"
+            android:padding="@dimen/profile_sign_in_inner_container_padding">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="@dimen/profile_sign_in_google_icon_margin_end"
+                android:src="@drawable/google_button_logo_24" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.7"
+                android:text="@string/profile_sign_out_button_label"
+                android:textAlignment="center"
+                android:textColor="?colorOnPrimary"
+                android:textSize="@dimen/profile_sign_in_button_text_size" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

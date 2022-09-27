@@ -23,4 +23,8 @@ class BookDescriptionScreenUseCaseImpl(private val repo: Repository) :
     override fun deleteBookById(book: Book) {
         repo.deleteBookFromDB(book)
     }
+
+    override suspend fun getBooksInCache(): Flow<List<Book>> {
+        return repo.getDataFromLocalDataSource()
+    }
 }

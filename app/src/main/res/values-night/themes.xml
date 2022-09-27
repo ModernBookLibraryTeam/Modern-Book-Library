@@ -16,5 +16,6 @@
         <item name="emptyProfileImageColor">@color/cobalt_blue_500</item>
         <item name="addToFavoriteImageColor">@color/white</item>
         <item name="fontFamily">@font/roboto</item>
+        <item name="signInImageColor">@color/white</item>
     </style>
 </resources>

@@ -171,6 +171,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
             }
 
             is AppState.AppStateError -> {
+                val activity = requireActivity() as MainActivity
+                activity.setKeepOnScreenCondition(false)
                 showStandardScreen()
                 showError(data.error)
             }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "827821314098",
+    "project_id": "modern-book-library",
+    "storage_bucket": "modern-book-library.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827821314098:android:a93b1dd521fcaaf7cbec2b",
+        "android_client_info": {
+          "package_name": "gu_android_team.modernbooklibrary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827821314098-p2vufuctt45n07m0uvfjfr4613tojun5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gu_android_team.modernbooklibrary",
+            "certificate_hash": "d756c8f4b641372bd876a3f480b5ae09f2c82cfd"
+          }
+        },
+        {
+          "client_id": "827821314098-8ig78ugoel5l5hmk646i5g9646taoqcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYmI1cScGfZEkbigpcukQRouLh6ASvNJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827821314098-8ig78ugoel5l5hmk646i5g9646taoqcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 package gu_android_team.modernbooklibrary.domain
 
 data class Book(
-    val isbn13: String,
+    val isbn13: String = "",
     val title: String = "",
     val subtitle: String = "",
     val authors: String = "",
@@ -12,5 +12,5 @@ data class Book(
     val year: String = "",
     val desc: String = "",
     val image: String = "",
-    val pdfLinksList: HashMap<String, String>?
+    val pdfLinksList: HashMap<String, String>? = null
 )
