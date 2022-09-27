@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "827821314098",
+    "firebase_url": "https://modern-book-library-default-rtdb.firebaseio.com",
     "project_id": "modern-book-library",
     "storage_bucket": "modern-book-library.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "827821314098-fmru42kb362rvqhfb5emirjls2nc9eg6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gu_android_team.modernbooklibrary",
+            "certificate_hash": "a4dd32e23911606cfd1e3b49559ea69a9b678457"
+          }
+        },
         {
           "client_id": "827821314098-p2vufuctt45n07m0uvfjfr4613tojun5.apps.googleusercontent.com",
           "client_type": 1,
