@@ -38,6 +38,8 @@ val viewModelsModule = module {
     }
 
     viewModel(qualifier = named(PROFILE_SCREEN_VIEW_MODEL)) {
-        ProfileScreenViewModel()
+        ProfileScreenViewModel(
+            usecase = get(named(PROFILE_SCREEN_USECASE_NAME))
+        )
     }
 }

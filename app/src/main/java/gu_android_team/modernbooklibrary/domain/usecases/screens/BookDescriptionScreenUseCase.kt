@@ -1,11 +1,8 @@
 package gu_android_team.modernbooklibrary.domain.usecases.screens
 
-import gu_android_team.modernbooklibrary.domain.usecases.methods.AddBookToLocalDbUseCase
-import gu_android_team.modernbooklibrary.domain.usecases.methods.CheckIfBookIsInDbUseCase
-import gu_android_team.modernbooklibrary.domain.usecases.methods.DeleteBookByIdUseCase
-import gu_android_team.modernbooklibrary.domain.usecases.methods.GetBookFromRemoteSourceUseCase
+import gu_android_team.modernbooklibrary.domain.usecases.methods.*
 
 
 interface BookDescriptionScreenUseCase : GetBookFromRemoteSourceUseCase, AddBookToLocalDbUseCase,
-    CheckIfBookIsInDbUseCase, DeleteBookByIdUseCase {
+    CheckIfBookIsInDbUseCase, DeleteBookByIdUseCase, GetBooksInCache {
 }
