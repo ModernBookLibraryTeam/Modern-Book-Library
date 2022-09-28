@@ -1,8 +1,10 @@
 package gu_android_team.modernbooklibrary.ui.favoritesscreen
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -66,6 +68,10 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
             is AppState.AppStateSuccess<*> -> {
                 adapter.submitList(appState.value as List<Book>)
                 showStandardScreen()
+                if (appState.value.isNotEmpty()) {
+                    binding.favoritesEmptyImageView.visibility = View.GONE
+                }
+
             }
             is AppState.AppStateError -> {
                 showError(appState.error)
