@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,6 +14,7 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentFavoritesScreenBinding
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,11 +42,13 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = FavoritesScreenAdapter(
             onItemClicked = {
-                //todo переход на BookDescription
+                findNavController().navigate(
+                    R.id.action_bottomMenuFavoritesScreenButton_to_bookDescriptionScreen,
+                    putBookIsbn13toBundle(it.isbn13)
+                )
             },
             onItemClickedDelete = {
                 viewModel.deleteBookById(it)
-                Toast.makeText(requireContext(), it.isbn13, Toast.LENGTH_SHORT).show()
             }
         )
         recyclerView.adapter = adapter
@@ -57,9 +62,10 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
     }
 
     private fun renderData(appState: AppState) {
-        when(appState) {
+        when (appState) {
             is AppState.AppStateSuccess<*> -> {
                 adapter.submitList(appState.value as List<Book>)
+                showStandardScreen()
             }
             is AppState.AppStateError -> {
                 showError(appState.error)
@@ -95,6 +101,12 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
     }
 
     private fun getFavoritesList() {
-        TODO("Not yet implemented")
+        viewModel.getData()
+    }
+
+    private fun putBookIsbn13toBundle(bookIsbn13: String): Bundle {
+        val bundle = Bundle()
+        bundle.putString(BOOK_ISBN13_KEY, bookIsbn13)
+        return bundle
     }
 }

@@ -21,7 +21,11 @@
         android:id="@+id/bottomMenuFavoritesScreenButton"
         android:name="gu_android_team.modernbooklibrary.ui.favoritesscreen.FavoritesScreenFragment"
         android:label="@string/bottom_menu_favorites_button_label"
-        tools:layout="@layout/fragment_favorites_screen" />
+        tools:layout="@layout/fragment_favorites_screen" >
+        <action
+            android:id="@+id/action_bottomMenuFavoritesScreenButton_to_bookDescriptionScreen"
+            app:destination="@id/bookDescriptionScreen" />
+    </fragment>
 
     <fragment
         android:id="@+id/bottomMenuProfileScreenButton"
