@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.usecases.screens.SearchScreenUsecase
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import gu_android_team.modernbooklibrary.utils.AppState
+import kotlinx.coroutines.launch
 
 class SearchViewModel(private val usecase: SearchScreenUsecase) :
     ViewModel() {
-
-    private val _searchedResultWhileTyping = MutableLiveData<DataState<List<Book>>>()
-    val searchedResultWhileTyping: LiveData<DataState<List<Book>>>
+     val listOfSearchedBooks = mutableListOf<Book>()
+    private val _searchedResultWhileTyping = MutableLiveData<AppState>()
+    val searchedResultWhileTyping: LiveData<AppState>
         get() = _searchedResultWhileTyping
 
     private val _searchedResult = MutableLiveData<DataState<List<Book>>>()
@@ -30,9 +30,22 @@ class SearchViewModel(private val usecase: SearchScreenUsecase) :
     }
 
     fun getFirstSearchedBooks(query: String, page: String) {
+        _searchedResultWhileTyping.postValue(AppState.AppStateLoading)
         viewModelScope.launch {
             usecase.getSearchingBooksList(query, page).collect {
-                _searchedResultWhileTyping.postValue(it as DataState<List<Book>>)
+                when (it) {
+                    is DataState.Success -> {
+                        listOfSearchedBooks.clear()
+                        listOfSearchedBooks.addAll(it.data as List<Book>)
+                        _searchedResultWhileTyping.postValue(
+                            AppState.AppStateSuccess(
+                                listOfSearchedBooks
+                            )
+                        )
+                    }
+                    is DataState.Error -> it.message?.let { it1 -> AppState.AppStateError(it1) }
+                }
+
             }
         }
     }

@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,9 +21,11 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
+import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
+import gu_android_team.modernbooklibrary.utils.AppState
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -33,11 +34,6 @@ import timber.log.Timber
 const val TIMEOUT = 2000L
 
 class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SearchScreenFragment()
-    }
 
     private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
@@ -49,7 +45,6 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     private val typingTimeOut = Runnable {
         view?.let {
             activity?.hideKeyboard(it)
-            showProgress()
         }
         page = 1
         searchViewModel.getFirstSearchedBooks(
@@ -58,13 +53,16 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         )
         searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
             when (it) {
-                is DataState.Success -> {
+                is AppState.AppStateSuccess<*> -> {
                     showStandardScreen()
-                    searchAdapter.setSearchedBooksList(it.data!!)
+                    searchAdapter.setSearchedBooksList(it.value as List<Book>)
                 }
-                is DataState.Error -> {
+                is AppState.AppStateError -> {
                     showStandardScreen()
-                    showError(it.message.toString())
+                    showError(it.error)
+                }
+                is AppState.AppStateLoading -> {
+                    showProgress()
                 }
             }
         }
@@ -100,6 +98,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
             }
 
         })
+
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             var pastVisibleItems: Int = ZERO_VAL
