@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
 import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
+import gu_android_team.modernbooklibrary.utils.KeyBoard
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 
 class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
@@ -86,8 +87,7 @@ class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
                 view.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
                     view.clearFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), ZERO_VAL)
+                    KeyBoard.hideKeyboard(view,this)
                 }
             }
         }

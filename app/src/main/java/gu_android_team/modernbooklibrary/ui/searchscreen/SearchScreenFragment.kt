@@ -26,6 +26,7 @@ import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
+import gu_android_team.modernbooklibrary.utils.KeyBoard
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -44,7 +45,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     private val timeOutHandler = Handler(Looper.getMainLooper())
     private val typingTimeOut = Runnable {
         view?.let {
-            activity?.hideKeyboard(it)
+            KeyBoard.hideKeyboard(it, requireContext())
         }
         page = 1
         searchViewModel.getFirstSearchedBooks(
@@ -152,12 +153,6 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
                 }
             }
         }
-    }
-
-    private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun showProgress() {
