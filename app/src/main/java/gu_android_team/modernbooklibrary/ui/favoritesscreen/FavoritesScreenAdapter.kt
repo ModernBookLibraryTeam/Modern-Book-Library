@@ -23,10 +23,11 @@ class FavoritesScreenAdapter(
                 }
                 favoritesItemTitleTextView.text = book.title
                 favoritesItemAuthorTextView.text = book.authors
+                favoritesItemSubtitleTextView.text = book.subtitle
+
                 favoritesItemRemoveImageView.setOnClickListener {
                     onItemClickedDelete(book)
                 }
-                //todo дописать клик favoritesItemRemoveImageView
             }
         }
     }
