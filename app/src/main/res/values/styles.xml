@@ -121,14 +121,20 @@
     </style>
 
     <style name="favorites_item_title_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/favorites_item_title_padding</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="favorites_item_author_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/favorites_item_author_padding</item>
+    </style>
+
+    <style name="favorites_item_subtitle_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/favorites_item_author_padding</item>
     </style>
@@ -138,6 +144,7 @@
         <item name="android:layout_height">@dimen/favorites_item_remove_height</item>
         <item name="android:src">@drawable/ic_baseline_delete_forever_24</item>
         <item name="tint">?colorPrimary</item>
+        <item name="android:layout_marginEnd">@dimen/favorites_item_remove_margin_end</item>
     </style>
 
     <style name="favorites_item_grade_style">

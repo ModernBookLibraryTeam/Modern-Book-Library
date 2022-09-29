@@ -1,12 +1,8 @@
 package gu_android_team.modernbooklibrary.ui.favoritesscreen
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,11 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Screen {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = FavoritesScreenFragment()
-    }
 
     private val binding: FragmentFavoritesScreenBinding by viewBinding(
         FragmentFavoritesScreenBinding::bind
@@ -84,7 +75,6 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         with(binding) {
             favoritesProgressBar.visibility = View.VISIBLE
             favoritesEmptyImageView.visibility = View.GONE
-            favoritesFilterFab.visibility = View.GONE
             favoritesListRecyclerView.visibility = View.GONE
         }
     }
@@ -93,7 +83,6 @@ class FavoritesScreenFragment : Fragment(R.layout.fragment_favorites_screen), Sc
         with(binding) {
             favoritesProgressBar.visibility = View.GONE
             favoritesEmptyImageView.visibility = View.VISIBLE
-            favoritesFilterFab.visibility = View.VISIBLE
             favoritesListRecyclerView.visibility = View.VISIBLE
         }
     }

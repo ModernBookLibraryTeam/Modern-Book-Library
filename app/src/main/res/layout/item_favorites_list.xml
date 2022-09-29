@@ -15,6 +15,7 @@
             style="@style/favorites_item_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:src="@drawable/cover_example" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -22,6 +23,7 @@
             style="@style/favorites_item_title_style"
             app:layout_constraintStart_toEndOf="@id/favoritesItemImageView"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/favoritesItemRemoveImageView"
             tools:text="Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -29,7 +31,16 @@
             style="@style/favorites_item_author_style"
             app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
             app:layout_constraintTop_toBottomOf="@id/favoritesItemTitleTextView"
+            app:layout_constraintEnd_toStartOf="@id/favoritesItemRemoveImageView"
             tools:text="Julien Vehent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/favoritesItemSubtitleTextView"
+            style="@style/favorites_item_subtitle_style"
+            app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/favoritesItemAuthorTextView"
+            app:layout_constraintEnd_toStartOf="@id/favoritesItemRemoveImageView"
+            tools:text="Some text" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/favoritesItemRemoveImageView"
@@ -37,21 +48,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/favoritesItemGradeTextView"
-            style="@style/favorites_item_grade_style"
-            app:layout_constraintBottom_toBottomOf="@id/favoritesItemGradeStarImageView"
-            app:layout_constraintEnd_toStartOf="@id/favoritesItemGradeStarImageView"
-            app:layout_constraintStart_toStartOf="@id/favoritesItemTitleTextView"
-            app:layout_constraintTop_toTopOf="@id/favoritesItemGradeStarImageView"
-            tools:text="5.0" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/favoritesItemGradeStarImageView"
-            style="@style/favorites_item_grade_star_style"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/favoritesItemGradeTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
