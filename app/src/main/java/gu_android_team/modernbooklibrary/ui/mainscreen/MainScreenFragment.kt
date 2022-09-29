@@ -133,8 +133,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
                     totalItemCount = layoutManager.itemCount
                     pastVisibleItems = layoutManager.findLastVisibleItemPosition()
 
-
-
                     if (visibleItemCount + pastVisibleItems > totalItemCount - LOAD_MORE_DIFFERENCE && totalItemCount > previousTotalCount) {
 
                         previousTotalCount = totalItemCount
