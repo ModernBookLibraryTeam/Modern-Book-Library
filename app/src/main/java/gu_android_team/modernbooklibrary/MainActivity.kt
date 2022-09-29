@@ -18,11 +18,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
-import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment
+import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
+import gu_android_team.modernbooklibrary.utils.KeyBoard
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 
-class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenController, BookDescriptionFragment.BookDescScreenController {
+class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
 
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
 
@@ -86,8 +87,7 @@ class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenControlle
                 view.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
                     view.clearFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), ZERO_VAL)
+                    KeyBoard.hideKeyboard(view,this)
                 }
             }
         }
@@ -104,18 +104,16 @@ class MainActivity : AppCompatActivity(), MainScreenFragment.MainScreenControlle
         navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
     }
 
-    fun setKeepOnScreenCondition(state: Boolean) {
-        keepSplashOnScreen = state
-    }
-
-    override fun openBookReaderScreen(bundle: Bundle) {
+    override fun openBookDescriptionScreenFromSearchScreen(bundle: Bundle){
         val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.bookDescriptionScreen, false)
+            .setPopUpTo(R.id.bottomMenuSearchScreenButton, false)
             .setLaunchSingleTop(true)
             .build()
 
-        navController.navigate(R.id.bookReaderScreen, bundle, navOptions)
+        navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
     }
 
-
+    fun setKeepOnScreenCondition(state: Boolean) {
+        keepSplashOnScreen = state
+    }
 }

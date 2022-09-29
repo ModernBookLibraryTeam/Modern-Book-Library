@@ -1,12 +1,14 @@
 package gu_android_team.modernbooklibrary.ui.searchscreen
 
-import android.content.Context
+
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,21 +18,51 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
+import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.domain.Screen
+import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
+import gu_android_team.modernbooklibrary.utils.KeyBoard
+import gu_android_team.modernbooklibrary.utils.ONE_VALUE
+import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
-class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
+const val TIMEOUT = 2000L
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = SearchScreenFragment()
-    }
+class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBookListener {
 
     private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
+    private val controller by lazy {
+        activity as OpenDescriptionScreenController
+    }
+
     private var page = 1
+    private val timeOutHandler = Handler(Looper.getMainLooper())
+    private val typingTimeOut = Runnable {
+        view?.let {
+            KeyBoard.hideKeyboard(it, requireContext())
+            showProgress()
+        }
+        page = 1
+        searchViewModel.getFirstSearchedBooks(
+            binding.searchTextInputEditText.text.toString(),
+            "$page"
+        )
+        searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> {
+                    showStandardScreen()
+                    searchAdapter.setSearchedBooksList(it.data!!)
+                }
+                is DataState.Error -> {
+                    showStandardScreen()
+                    showError(it.message.toString())
+                }
+            }
+        }
+    }
     private val binding: FragmentSearchScreenBinding by viewBinding(
         FragmentSearchScreenBinding::bind
     )
@@ -45,55 +77,64 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearchRecyclerView()
-
-        searchViewModel.searchWordWhileTyping()
-        binding.searchTextInputEditText.doAfterTextChanged {
-            binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
-            it?.let {
-                page = 1
-                showProgress()
-                searchViewModel.textChangeStateFlow.value = "$it:$page"
+        binding.searchTextInputEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //nothing todo
             }
-        }
 
-        searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
-            when (it) {
-                is DataState.Success -> {
-                    showStandardScreen()
-                    searchAdapter.setSearchedBooksList(it.data!!)
-                }
-                is DataState.Error -> {
-                    showStandardScreen()
-                    showError(it.message.toString())
-                }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
+                timeOutHandler.removeCallbacks(typingTimeOut)
+                timeOutHandler.postDelayed(typingTimeOut, TIMEOUT)
             }
-        }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //nothing todo
+            }
+
+        })
+
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
+
             override fun onScrolled(
                 recyclerView: RecyclerView,
                 dx: Int,
                 dy: Int
             ) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    page += 1
-                    searchViewModel.getSearchedBooks(
-                        binding.searchTextInputEditText.text.toString(),
-                        "$page"
-                    )
-                    searchViewModel.searchedResult.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is DataState.Success -> {
-                                showStandardScreen()
-                                searchAdapter.setSearchedBooksNewPage(it.data!!)
-                            }
-                            is DataState.Error -> {
-                                showStandardScreen()
-                                showError(it.message.toString())
+                var pastVisibleItems: Int = ZERO_VAL
+                var childVisibleItems: Int = ZERO_VAL
+                var totalItemCount: Int = ZERO_VAL
+                var previousTotalCount: Int = ZERO_VAL
+                val layoutManager =
+                    binding.searchListRecyclerView.layoutManager as FlexboxLayoutManager
+                if (dy > ZERO_VAL) {
+                    binding.searchInputTextLayout.visibility = View.GONE
+                    childVisibleItems = layoutManager.childCount
+                    totalItemCount = layoutManager.itemCount
+                    pastVisibleItems = layoutManager.findLastVisibleItemPosition()
+                    if (childVisibleItems + pastVisibleItems > totalItemCount - 2 && totalItemCount > previousTotalCount) {
+
+                        previousTotalCount = totalItemCount
+                        page += ONE_VALUE
+                        searchViewModel.getSearchedBooks(
+                            binding.searchTextInputEditText.text.toString(),
+                            "$page"
+                        )
+                        searchViewModel.searchedResult.observe(viewLifecycleOwner) {
+                            when (it) {
+                                is DataState.Success -> {
+                                    searchAdapter.setSearchedBooksNewPage(it.data!!)
+                                }
+                                is DataState.Error -> {
+                                    showError(it.message.toString())
+                                }
                             }
                         }
                     }
+
+                } else {
+                    binding.searchInputTextLayout.visibility = View.VISIBLE
                 }
             }
         })
@@ -118,7 +159,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
             searchProgressBar.visibility = View.VISIBLE
             searchEmptyImageView.visibility = View.GONE
             searchListRecyclerView.visibility = View.GONE
-            searchInputTextLayout.visibility = View.GONE
+            searchInputTextLayout.visibility = View.VISIBLE
         }
     }
 
@@ -147,7 +188,10 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     }
 
     override fun onBookClick(position: Int) {
-        searchAdapter.searchedBooks[position]
+        val bundle = Bundle().apply {
+            putString(BOOK_ISBN13_KEY, searchAdapter.searchedBooks[position].isbn13)
+        }
+        controller.openBookDescriptionScreenFromSearchScreen(bundle)
         Timber.tag("TAG").d("Clicked ${searchAdapter.searchedBooks[position]}")
     }
 }
