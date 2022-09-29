@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentBookDescriptionBinding
 import gu_android_team.modernbooklibrary.domain.Book
+import gu_android_team.modernbooklibrary.domain.NavigationController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookreaderscreen.BookReaderFragment.Companion.BOOK_LINK_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
@@ -34,7 +35,7 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
     private lateinit var bookIsbn13: String
 
     private val controller by lazy {
-        activity as BookDescScreenController
+        activity as NavigationController
     }
 
     private val descriptionViewModel: BookDescriptionScreenViewModel by viewModel()
@@ -210,10 +211,6 @@ class BookDescriptionFragment : Fragment(R.layout.fragment_book_description), Sc
                 updateData()
             }
             .show()
-    }
-
-    interface BookDescScreenController {
-        fun openBookReaderScreen(bundle: Bundle)
     }
 
     private fun putPdfLinkToBundle(link: String): Bundle {

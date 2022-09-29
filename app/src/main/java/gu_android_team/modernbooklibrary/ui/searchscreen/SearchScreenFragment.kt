@@ -18,7 +18,7 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
-import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
+import gu_android_team.modernbooklibrary.domain.NavigationController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.KeyBoard
@@ -35,7 +35,7 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     private val searchAdapter = SearchRecyclerViewAdapter(this)
     private val searchViewModel: SearchViewModel by viewModel(named(SEARCH_SCREEN_VIEW_MODEL))
     private val controller by lazy {
-        activity as OpenDescriptionScreenController
+        activity as NavigationController
     }
 
     private var page = 1

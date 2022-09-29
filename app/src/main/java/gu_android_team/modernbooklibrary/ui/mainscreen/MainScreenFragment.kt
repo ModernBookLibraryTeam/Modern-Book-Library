@@ -12,7 +12,7 @@ import gu_android_team.modernbooklibrary.MainActivity
 import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.databinding.FragmentMainScreenBinding
 import gu_android_team.modernbooklibrary.domain.Book
-import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
+import gu_android_team.modernbooklibrary.domain.NavigationController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
 import gu_android_team.modernbooklibrary.utils.AppState
@@ -34,7 +34,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
 
 
     private val controller by lazy {
-        activity as OpenDescriptionScreenController
+        activity as NavigationController
     }
 
     private val titles = mutableListOf<String>()
@@ -74,7 +74,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen), Screen {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (activity !is OpenDescriptionScreenController) {
+        if (activity !is NavigationController) {
             throw IllegalStateException(getString(R.string.wrong_activity_error_message))
         }
     }

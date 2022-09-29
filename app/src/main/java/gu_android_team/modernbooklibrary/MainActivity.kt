@@ -5,7 +5,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen
@@ -18,12 +17,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import gu_android_team.modernbooklibrary.databinding.ActivityMainBinding
-import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
-import gu_android_team.modernbooklibrary.ui.mainscreen.MainScreenFragment
+import gu_android_team.modernbooklibrary.domain.NavigationController
 import gu_android_team.modernbooklibrary.utils.KeyBoard
-import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 
-class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
+class MainActivity : AppCompatActivity(), NavigationController {
 
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
 
@@ -111,6 +108,15 @@ class MainActivity : AppCompatActivity(), OpenDescriptionScreenController {
             .build()
 
         navController.navigate(R.id.bookDescriptionScreen, bundle, navOptions)
+    }
+
+    override fun openBookReaderScreen(bundle: Bundle) {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.bookDescriptionScreen, false)
+            .setLaunchSingleTop(true)
+            .build()
+
+        navController.navigate(R.id.bookReaderScreen, bundle, navOptions)
     }
 
     fun setKeepOnScreenCondition(state: Boolean) {
