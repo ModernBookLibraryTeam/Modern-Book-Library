@@ -32,6 +32,7 @@
             style="@style/search_item_author_style"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
             android:maxLines="3"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/searchItemTitleTextView"

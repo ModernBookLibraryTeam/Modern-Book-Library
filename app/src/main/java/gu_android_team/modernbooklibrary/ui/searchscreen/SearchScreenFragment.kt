@@ -1,8 +1,6 @@
 package gu_android_team.modernbooklibrary.ui.searchscreen
 
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,7 +9,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,12 +18,11 @@ import gu_android_team.modernbooklibrary.R
 import gu_android_team.modernbooklibrary.data.datasource.remote.DataState
 import gu_android_team.modernbooklibrary.databinding.FragmentSearchScreenBinding
 import gu_android_team.modernbooklibrary.di.SEARCH_SCREEN_VIEW_MODEL
-import gu_android_team.modernbooklibrary.domain.Book
 import gu_android_team.modernbooklibrary.domain.OpenDescriptionScreenController
 import gu_android_team.modernbooklibrary.domain.Screen
 import gu_android_team.modernbooklibrary.ui.bookdescriptionscreen.BookDescriptionFragment.Companion.BOOK_ISBN13_KEY
-import gu_android_team.modernbooklibrary.utils.AppState
 import gu_android_team.modernbooklibrary.utils.KeyBoard
+import gu_android_team.modernbooklibrary.utils.ONE_VALUE
 import gu_android_team.modernbooklibrary.utils.ZERO_VAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -41,11 +37,13 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
     private val controller by lazy {
         activity as OpenDescriptionScreenController
     }
+
     private var page = 1
     private val timeOutHandler = Handler(Looper.getMainLooper())
     private val typingTimeOut = Runnable {
         view?.let {
             KeyBoard.hideKeyboard(it, requireContext())
+            showProgress()
         }
         page = 1
         searchViewModel.getFirstSearchedBooks(
@@ -54,16 +52,13 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
         )
         searchViewModel.searchedResultWhileTyping.observe(viewLifecycleOwner) {
             when (it) {
-                is AppState.AppStateSuccess<*> -> {
+                is DataState.Success -> {
                     showStandardScreen()
-                    searchAdapter.setSearchedBooksList(it.value as List<Book>)
+                    searchAdapter.setSearchedBooksList(it.data!!)
                 }
-                is AppState.AppStateError -> {
+                is DataState.Error -> {
                     showStandardScreen()
-                    showError(it.error)
-                }
-                is AppState.AppStateLoading -> {
-                    showProgress()
+                    showError(it.message.toString())
                 }
             }
         }
@@ -91,7 +86,6 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
                 binding.searchListRecyclerView.layoutManager?.scrollToPosition(0)
                 timeOutHandler.removeCallbacks(typingTimeOut)
                 timeOutHandler.postDelayed(typingTimeOut, TIMEOUT)
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -102,24 +96,27 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
 
         binding.searchListRecyclerView.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
-            var pastVisibleItems: Int = ZERO_VAL
-            var childVisibleItems: Int = ZERO_VAL
-            var totalItemCount: Int = ZERO_VAL
-            var previousTotalCount: Int = ZERO_VAL
-            val layoutManager = binding.searchListRecyclerView.layoutManager as FlexboxLayoutManager
+
             override fun onScrolled(
                 recyclerView: RecyclerView,
                 dx: Int,
                 dy: Int
             ) {
-                if (dy > 0) {
+                var pastVisibleItems: Int = ZERO_VAL
+                var childVisibleItems: Int = ZERO_VAL
+                var totalItemCount: Int = ZERO_VAL
+                var previousTotalCount: Int = ZERO_VAL
+                val layoutManager =
+                    binding.searchListRecyclerView.layoutManager as FlexboxLayoutManager
+                if (dy > ZERO_VAL) {
+                    binding.searchInputTextLayout.visibility = View.GONE
                     childVisibleItems = layoutManager.childCount
                     totalItemCount = layoutManager.itemCount
                     pastVisibleItems = layoutManager.findLastVisibleItemPosition()
-                    if (childVisibleItems + pastVisibleItems > totalItemCount - 4 && totalItemCount > previousTotalCount) {
+                    if (childVisibleItems + pastVisibleItems > totalItemCount - 2 && totalItemCount > previousTotalCount) {
 
                         previousTotalCount = totalItemCount
-                        page += 1
+                        page += ONE_VALUE
                         searchViewModel.getSearchedBooks(
                             binding.searchTextInputEditText.text.toString(),
                             "$page"
@@ -136,6 +133,8 @@ class SearchScreenFragment : Fragment(), Screen, SearchRecyclerViewAdapter.OnBoo
                         }
                     }
 
+                } else {
+                    binding.searchInputTextLayout.visibility = View.VISIBLE
                 }
             }
         })
