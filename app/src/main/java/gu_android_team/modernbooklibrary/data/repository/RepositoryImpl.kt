@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
@@ -47,17 +46,13 @@ class RepositoryImpl(
 
     override fun insertBookToDB(book: Book) {
         scope.launch {
-            withContext(Dispatchers.Main) {
-                localDataSource.insert(book)
-            }
+            localDataSource.insert(book)
         }
     }
 
     override fun deleteBookFromDB(book: Book) {
         scope.launch {
-            withContext(Dispatchers.Main) {
-                localDataSource.delete(book)
-            }
+            localDataSource.delete(book)
         }
     }
 }
