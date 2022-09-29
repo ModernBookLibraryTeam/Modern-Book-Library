@@ -18,7 +18,7 @@ interface BookDao {
     suspend fun deleteBook(book: LocalBook)
 
     @Query("DELETE from LocalBook WHERE isbn13 IN (:idBook)")
-    fun  deleteById(idBook: Long)
+    fun  deleteById(idBook: String)
 
     @Query("SELECT EXISTS(SELECT * FROM LocalBook WHERE isbn13 IN (:idBook))")
     fun isBookExist(idBook: String): Boolean

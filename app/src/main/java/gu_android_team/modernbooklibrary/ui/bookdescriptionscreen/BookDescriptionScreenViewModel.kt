@@ -70,7 +70,10 @@ class BookDescriptionScreenViewModel(
         updateFavoritesInFirebaseDatabase(book, true)
     }
 
-    private fun updateFavoritesInFirebaseDatabase(book: Book, isDeleted: Boolean) {
+    private fun updateFavoritesInFirebaseDatabase(
+        book: Book,
+        isDeleted: Boolean
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
 
             usecase.getBooksInCache().collect {
