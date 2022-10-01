@@ -6,152 +6,180 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bookMainContainerConstraintLayout"
-        style="@style/book_main_container_style">
+    <FrameLayout
+        android:id="@+id/bookLayersContainerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookTitleTextview"
-            style="@style/book_title_style"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Securing DevOps" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookSubtitleTextview"
-            style="@style/book_subtitle_style"
-            app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
-            app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
-            tools:text="Security in the Cloud" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/bookAddToFavoritesImageView"
-            style="@style/book_add_to_favorites_image_style"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bookTitleTextview" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/bookCoverImageView"
-            style="@style/book_cover_image_style"
-            android:layout_width="240dp"
-            app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
-            app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview"
-            tools:src="@drawable/cover_example_2" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookAuthorLabelTextview"
-            style="@style/book_author_label_style"
-            app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
-            app:layout_constraintTop_toTopOf="@id/bookCoverImageView"
-            android:text="@string/book_author_label_text" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookAuthorTextview"
-            style="@style/book_author_style"
-            app:layout_constraintStart_toStartOf="@id/bookAuthorLabelTextview"
-            app:layout_constraintTop_toBottomOf="@id/bookAuthorLabelTextview"
-            tools:text="Julien Vehent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookPublicationDateLabelTextView"
-            style="@style/book_secondary_label_style"
-            android:text="@string/book_publication_date_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookAuthorLabelTextview"
-            app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookPublicationDateTextView"
-            style="@style/book_publication_date_style"
-            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookPublicationDateLabelTextView"
-            tools:text="2018" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookNumberOfPagesLabelTextView"
-            style="@style/book_secondary_label_style"
-            android:text="@string/book_number_of_pages_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookPublicationDateTextView" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookNumberOfPagesTextView"
-            style="@style/book_number_of_pages_style"
-            app:layout_constraintStart_toStartOf="@id/bookNumberOfPagesLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookNumberOfPagesLabelTextView"
-            tools:text="384" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookRatingLabelTextView"
-            style="@style/book_secondary_label_style"
+        <ProgressBar
+            android:id="@+id/bookProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/book_secondary_label_margin_top"
-            android:text="@string/book_rating_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookNumberOfPagesTextView" />
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookRatingTextView"
-            style="@style/book_rating_style"
-            app:layout_constraintStart_toStartOf="@id/bookRatingLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookRatingLabelTextView"
-            tools:text="5" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bookMainContainerConstraintLayout"
+            style="@style/book_main_container_style">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/bookRatingStarImageView"
-            style="@style/book_item_rating_star_image_style"
-            app:layout_constraintBottom_toBottomOf="@id/bookRatingTextView"
-            app:layout_constraintStart_toEndOf="@+id/bookRatingTextView"
-            app:layout_constraintTop_toTopOf="@id/bookRatingTextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookTitleTextview"
+                style="@style/book_title_style"
+                app:layout_constraintEnd_toStartOf="@id/bookAddToFavoritesImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Securing DevOps Securing DevOps" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookIsbn10LabelTextView"
-            style="@style/book_secondary_label_style"
-            android:text="@string/book_isbn_10_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookRatingTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookRatingTextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookSubtitleTextview"
+                style="@style/book_subtitle_style"
+                app:layout_constraintBottom_toTopOf="@id/bookAuthorLabelTextview"
+                app:layout_constraintStart_toStartOf="@+id/bookTitleTextview"
+                app:layout_constraintTop_toBottomOf="@+id/bookTitleTextview"
+                tools:text="Security in the Cloud" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookIsbn10TextView"
-            style="@style/book_isbn_10_style"
-            app:layout_constraintStart_toStartOf="@id/bookIsbn10LabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookIsbn10LabelTextView"
-            tools:text="1617294136" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/bookAddToFavoritesImageView"
+                style="@style/book_add_to_favorites_image_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookIsbn13LabelTextView"
-            style="@style/book_secondary_label_style"
-            android:text="@string/book_isbn_13_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookIsbn10LabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookIsbn10TextView" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/bookCoverImageView"
+                style="@style/book_cover_image_style"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@id/bookPublisherTextView"
+                app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
+                app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview"
+                tools:src="@drawable/cover_example_2" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookIsbn13TextView"
-            style="@style/book_isbn_13_style"
-            app:layout_constraintStart_toStartOf="@id/bookIsbn13LabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookIsbn13LabelTextView"
-            tools:text="9781617294136" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookAuthorLabelTextview"
+                style="@style/book_author_label_style"
+                android:text="@string/book_author_label_text"
+                app:layout_constraintStart_toStartOf="@id/bookSubtitleTextview"
+                app:layout_constraintTop_toBottomOf="@id/bookSubtitleTextview" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookPublisherLabelTextView"
-            style="@style/book_secondary_label_style"
-            android:text="@string/book_publisher_label_text"
-            app:layout_constraintStart_toStartOf="@id/bookIsbn13LabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookIsbn13TextView" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookAuthorTextview"
+                style="@style/book_author_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/bookAuthorLabelTextview"
+                app:layout_constraintTop_toBottomOf="@id/bookAuthorLabelTextview"
+                tools:text="Julien Vehent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookPublisherTextView"
-            style="@style/book_publisher_style"
-            app:layout_constraintStart_toStartOf="@id/bookPublisherLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/bookPublisherLabelTextView"
-            tools:text="9781617294136" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookPublicationDateLabelTextView"
+                style="@style/book_publication_date_label_style"
+                android:text="@string/book_publication_date_label_text"
+                app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
+                app:layout_constraintTop_toBottomOf="@id/bookAuthorTextview" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookDescriptionTextView"
-            style="@style/book_description_style"
-            app:layout_constraintStart_toStartOf="@id/bookCoverImageView"
-            app:layout_constraintTop_toBottomOf="@id/bookCoverImageView"
-            tools:text="An application running in the cloud can benefit from incredible efficiencies, but they come with unique security threats too. A DevOps team's highest priority is understanding those risks and hardening the system against them.Securing DevOps teaches you the essential techniques to secure your cloud ..." />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookPublicationDateTextView"
+                style="@style/book_publication_date_style"
+                app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookPublicationDateLabelTextView"
+                tools:text="2018" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookNumberOfPagesLabelTextView"
+                style="@style/book_secondary_label_style"
+                android:text="@string/book_number_of_pages_label_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookPublicationDateTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookNumberOfPagesTextView"
+                style="@style/book_number_of_pages_style"
+                app:layout_constraintStart_toStartOf="@id/bookNumberOfPagesLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookNumberOfPagesLabelTextView"
+                tools:text="384" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookRatingLabelTextView"
+                style="@style/book_secondary_label_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/book_secondary_label_margin_top"
+                android:text="@string/book_rating_label_text"
+                app:layout_constraintStart_toStartOf="@id/bookPublicationDateLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookNumberOfPagesTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookRatingTextView"
+                style="@style/book_rating_style"
+                app:layout_constraintStart_toStartOf="@id/bookRatingLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookRatingLabelTextView"
+                tools:text="5" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/bookRatingStarImageView"
+                style="@style/book_item_rating_star_image_style"
+                app:layout_constraintBottom_toBottomOf="@id/bookRatingTextView"
+                app:layout_constraintStart_toEndOf="@+id/bookRatingTextView"
+                app:layout_constraintTop_toTopOf="@id/bookRatingTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookIsbn10LabelTextView"
+                style="@style/book_secondary_label_style"
+                android:text="@string/book_isbn_10_label_text"
+                app:layout_constraintStart_toStartOf="@id/bookRatingTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookRatingTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookIsbn10TextView"
+                style="@style/book_isbn_10_style"
+                app:layout_constraintStart_toStartOf="@id/bookIsbn10LabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookIsbn10LabelTextView"
+                tools:text="1617294136" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookIsbn13LabelTextView"
+                style="@style/book_secondary_label_style"
+                android:text="@string/book_isbn_13_label_text"
+                app:layout_constraintStart_toStartOf="@id/bookIsbn10LabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookIsbn10TextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookIsbn13TextView"
+                style="@style/book_isbn_13_style"
+                app:layout_constraintStart_toStartOf="@id/bookIsbn13LabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookIsbn13LabelTextView"
+                tools:text="9781617294136" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookPublisherLabelTextView"
+                style="@style/book_secondary_label_style"
+                android:text="@string/book_publisher_label_text"
+                app:layout_constraintStart_toStartOf="@id/bookIsbn13LabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookIsbn13TextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookPublisherTextView"
+                style="@style/book_publisher_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/bookPublisherLabelTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookPublisherLabelTextView"
+                tools:text="9781617294136" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookDescriptionTextView"
+                style="@style/book_description_style"
+                app:layout_constraintStart_toStartOf="@id/bookCoverImageView"
+                app:layout_constraintTop_toBottomOf="@id/bookCoverImageView"
+                tools:text="An application running in the cloud can benefit from incredible efficiencies, but they come with unique security threats too. A DevOps team's highest priority is understanding those risks and hardening the system against them.Securing DevOps teaches you the essential techniques to secure your cloud ..." />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookDownloadsLabelTextView"
+                style="@style/book_downloads_style"
+                android:text="@string/free_downloads_label_text"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/bookDescriptionTextView"
+                app:layout_constraintTop_toBottomOf="@id/bookDescriptionTextView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 </androidx.core.widget.NestedScrollView>

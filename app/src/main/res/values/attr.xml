@@ -3,4 +3,5 @@
     <attr name="emptyBackgroundColor" format="reference" />
     <attr name="emptyProfileImageColor" format="reference" />
     <attr name="addToFavoriteImageColor" format="reference" />
+    <attr name="signInImageColor" format="reference" />
 </resources>

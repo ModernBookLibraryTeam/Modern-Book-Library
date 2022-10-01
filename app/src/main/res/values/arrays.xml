@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_of_categories">
+        <item>ethereum</item>
+        <item>cpp</item>
+        <item>csharp</item>
+        <item>dart</item>
+        <item>java</item>
+        <item>kotlin</item>
+        <item>database</item>
+        <item>oracle</item>
+        <item>git</item>
+        <item>json</item>
+        <item>jquery</item>
+        <item>javascript</item>
+        <item>jira</item>
+        <item>linux</item>
+        <item>mysql</item>
+        <item>nosql</item>
+        <item>windows</item>
+        <item>html5</item>
+        <item>games development</item>
+        <item>android</item>
+        <item>compose</item>
+        <item>design</item>
+        <item>hacking</item>
+        <item>optimisation</item>
+        <item>algorithms</item>
+    </string-array>
+</resources>

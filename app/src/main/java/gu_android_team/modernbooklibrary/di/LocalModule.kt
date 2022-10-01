@@ -2,10 +2,10 @@ package gu_android_team.modernbooklibrary.di
 
 import android.app.Application
 import androidx.room.Room
-import gu_android_team.modernbooklibrary.data.datasource.LocalDataSourceImpl
+import gu_android_team.modernbooklibrary.data.datasource.local.LocalDataSourceImpl
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDao
 import gu_android_team.modernbooklibrary.data.datasource.local.BookDatabase
-import gu_android_team.modernbooklibrary.data.datasource.local.LocalMapperImpl
+import gu_android_team.modernbooklibrary.data.mapper.MapperImpl
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -22,7 +22,6 @@ val localModule = module {
 
     single { provideDatabase(androidApplication()) }
     single { provideBookDao(get()) }
-    single { LocalMapperImpl() }
+    single { MapperImpl() }
     single { LocalDataSourceImpl(get(), get()) }
-
 }

@@ -5,22 +5,26 @@
         android:id="@+id/bottomMenuMainScreenButton"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/bottom_menu_home_button_label"/>
+        android:menuCategory="secondary"
+        android:title="@string/bottom_menu_home_button_label" />
 
     <item
         android:id="@+id/bottomMenuSearchScreenButton"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/bottom_menu_search_button_label"/>
+        android:menuCategory="secondary"
+        android:title="@string/bottom_menu_search_button_label" />
     <item
         android:id="@+id/bottomMenuFavoritesScreenButton"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="@string/bottom_menu_favorites_button_label"/>
+        android:menuCategory="secondary"
+        android:title="@string/bottom_menu_favorites_button_label" />
 
     <item
         android:id="@+id/bottomMenuProfileScreenButton"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/bottom_menu_profile_button_label"/>
+        android:menuCategory="secondary"
+        android:title="@string/bottom_menu_profile_button_label" />
 </menu>

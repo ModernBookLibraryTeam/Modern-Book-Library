@@ -23,14 +23,18 @@
             android:id="@+id/searchItemTitleTextView"
             style="@style/search_item_title_style"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchItemImageView"
             tools:text="Securing DevOps" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/searchItemAuthorTextView"
+            android:id="@+id/searchItemSubtitleTextView"
             style="@style/search_item_author_style"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/searchItemTitleTextView"
             tools:text="Julien Vehent" />
 

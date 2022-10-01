@@ -27,14 +27,15 @@
     </style>
 
     <style name="main_item_image_style">
-        <item name="android:layout_width">@dimen/_0dp</item>
-        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/item_main_image_height</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="main_item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
@@ -45,9 +46,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="main_item_author_style">
+    <style name="main_item_subtitle_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:paddingStart">@dimen/main_item_title_padding_start
         </item>
         <item name="android:paddingEnd">@dimen/main_item_title_padding_end
@@ -71,8 +73,8 @@
     </style>
 
     <style name="search_item_image_style">
-        <item name="android:layout_width">@dimen/_0dp</item>
-        <item name="android:layout_height">@dimen/_0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">240dp</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
@@ -88,7 +90,6 @@
         <item name="android:layout_width">@dimen/search_background_image_width</item>
         <item name="android:layout_height">@dimen/search_background_image_height</item>
         <item name="android:alpha">@dimen/search_background_image_opacity</item>
-        <item name="tint">?emptyBackgroundColor</item>
         <item name="android:src">@drawable/search_background_image</item>
     </style>
 
@@ -120,14 +121,20 @@
     </style>
 
     <style name="favorites_item_title_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/favorites_item_title_padding</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="favorites_item_author_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/favorites_item_author_padding</item>
+    </style>
+
+    <style name="favorites_item_subtitle_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/favorites_item_author_padding</item>
     </style>
@@ -137,6 +144,7 @@
         <item name="android:layout_height">@dimen/favorites_item_remove_height</item>
         <item name="android:src">@drawable/ic_baseline_delete_forever_24</item>
         <item name="tint">?colorPrimary</item>
+        <item name="android:layout_marginEnd">@dimen/favorites_item_remove_margin_end</item>
     </style>
 
     <style name="favorites_item_grade_style">
@@ -165,8 +173,10 @@
     </style>
 
     <style name="book_title_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/book_title_margin_top</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/book_title_text_size</item>
     </style>
 
@@ -185,22 +195,22 @@
     </style>
 
     <style name="book_author_label_style">
+        <item name="android:layout_marginTop">@dimen/book_author_label_margin_Top</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/book_author_label_margin_start
-        </item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="book_author_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="book_cover_image_style">
         <item name="android:layout_width">@dimen/book_cover_image_width</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/_0dp</item>
         <item name="android:layout_marginTop">@dimen/book_cover_image_margin_top</item>
-        <item name="android:scaleType">centerCrop</item>
+
         <item name="strokeWidth">@dimen/book_cover_image_stroke_width</item>
         <item name="strokeColor">@color/gray_700</item>
     </style>
@@ -211,9 +221,17 @@
     </style>
 
     <style name="book_secondary_label_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/book_secondary_label_margin_top</item>
+    </style>
+
+    <style name="book_publication_date_label_style">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/book_publication_date_margin_Start</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="book_number_of_pages_style">
@@ -243,7 +261,7 @@
     </style>
 
     <style name="book_publisher_style">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
@@ -254,20 +272,38 @@
         <item name="android:layout_marginEnd">@dimen/book_description_margin_end</item>
     </style>
 
+    <style name="book_downloads_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/book_description_margin_top</item>
+        <item name="android:layout_marginEnd">@dimen/book_description_margin_end</item>
+    </style>
+
     <style name="profile_user_image_style">
         <item name="android:layout_width">@dimen/profile_user_image_width</item>
         <item name="android:layout_height">@dimen/profile_user_image_height</item>
         <item name="android:layout_marginTop">@dimen/profile_user_image_margin_top</item>
         <item name="android:alpha">@dimen/profile_user_image_alpha</item>
-        <item name="android:src">@drawable/ic_baseline_person_128</item>
-        <item name="tint">?emptyProfileImageColor</item>
+        <item name="android:src">@drawable/ic_baseline_person_pin_24</item>
+        <item name="tint">?signInImageColor</item>
     </style>
 
     <style name="profile_user_name_label_style">
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/profile_user_name_label_margin_top</item>
         <item name="android:textSize">@dimen/profile_user_name_label_text_size</item>
+    </style>
+
+    <style name="profile_tip_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/profile_tip_margin_top</item>
+        <item name="android:textSize">@dimen/profile_tip_text_size</item>
+        <item name="android:padding">@dimen/profile_tip_padding</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="profile_authorisation_button_style">
@@ -275,5 +311,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/profile_authorisation_button_margin_top</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="profile_sign_in_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">@dimen/profile_sign_in_button_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardCornerRadius">@dimen/profile_sign_in_button_corner_radius</item>
+        <item name="cardElevation">@dimen/profile_sign_in_button_elevation</item>
     </style>
 </resources>
